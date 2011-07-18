@@ -1,0 +1,71 @@
+
+<style type="text/css">
+
+	.alt {
+		color:#666666;
+		font-family:"Warnock Pro","Goudy Old Style","Palatino","Book Antiqua",Georgia,serif;
+		font-style:italic;
+		font-weight:normal;
+	}
+
+</style>
+
+
+
+<div class="container alt">
+	<div class="span-24 clearfix prepend-top append-bottom">
+	
+		<hr />
+
+	</div>
+
+	<div class="container span-24 append-bottom">
+		<div class="span-12 clearfix">
+				
+		</div>
+	
+	
+		<div class="span-12 clearfix last">
+			
+		</div>
+	</div>
+	<div class="container span-24 append-bottom">	
+		<div class="span-8 clearfix">
+			<div id="coveragePregnantObject"></div>
+		</div>
+
+	</div>
+	
+</div>
+
+
+	
+<script language="javascript" type="text/javascript">
+
+coveragePregnantWomen = 
+{
+  name: "coveragePreganantWomen",
+  type: "xaction",
+  solution: "dashboard-coverage",
+  path: "",
+  action: "coveragePregnantWomen.xaction",
+  htmlObject: "coveragePregnantObject",
+  executeAtStart: true,
+  tooltip: "Coverage - Pregnant Women"
+}
+
+
+
+var components = [coveragePregnantWomen];
+
+</script>
+
+<script language="javascript" type="text/javascript">
+
+	function load(){
+		Dashboards.init(components);
+	}
+
+load();
+
+</script>

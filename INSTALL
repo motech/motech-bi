@@ -1,0 +1,8 @@
+
+
+Pre-requisites
+a. Working installation of pentaho biserver-ce-3.7.0-stable
+
+To install the MoTeCH Business Intelligence system
+1. Run motech_dw.sql to create the database for the data warehouse
+2. Copy/symlink motech-bi-solution to the pentaho solutions directory
