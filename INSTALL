@@ -10,7 +10,7 @@ JNDI Configuration - Pentaho Data Integration
 JNDI configuration - Pentaho BI 
 * Edit the $PENTAHO_BI_HOME/tomcat/webapps/WEB-INF/web.xml and add the content of configuration fragment 'web.xml-fragment' in the appropriate location. Modify the property values as necessary. 
 
-* Edit the $PENTAHO_BI_HOME/tomcat/webapps/META-INF/context.xml and add the content of the configuration fragment 'context.xml-fragment' at the end of the file.Modify the propery values as necessary. 
+* Edit the $PENTAHO_BI_HOME/tomcat/conf/context.xml and add the content of the configuration fragment 'context.xml-fragment' at the end of the file.Modify the propery values as necessary. 
 
 To install the MoTeCH Business Intelligence system
 1. Run motech_dw.sql to create the database for the data warehouse

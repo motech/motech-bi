@@ -37,7 +37,7 @@ location_key  = (SELECT location_key FROM
 	WHERE facility LIKE 'Navio CHPS')
 ]]></query>  
         <live><![CDATA[true]]></live>  
-        <jndi><![CDATA[jdbc/MotechDw]]></jndi> 
+        <jndi><![CDATA[MotechDw]]></jndi> 
       </component-definition> 
     </action-definition>
   
