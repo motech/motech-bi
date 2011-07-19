@@ -1,6 +1,6 @@
 <transformation>
   <info>
-    <name>LoadClientDimension</name>
+    <name>load_client_dim</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -63,16 +63,16 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;14 16:29:56.548</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;06&#47;22 03:12:38.751</modified_date>
+  <modified_date>2011&#47;07&#47;19 14:03:47.552</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>DestinationDB</name>
+    <name>motech data warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>Native</access>
-    <database>mifos_dw</database>
+    <access>JNDI</access>
+    <database>MotechDw</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -93,105 +93,14 @@
     </attributes>
   </connection>
   <connection>
-    <name>motech dw</name>
+    <name>Motech Oltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>motech_dw db</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>mysql connection</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>openmrs</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>SourceDB</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>mifos</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>wcm</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>wcm</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce7dc781bed6</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -211,45 +120,6 @@
   <order>
   <hop> <from>Table input</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>mysql connection</connection>
-    <sql>SELECT CONCAT( nom.given_name, &apos;  &apos;, nom.family_name ) AS name, pi.identifier AS &apos;motech_id&apos;, patt.value AS phone_number, pa.address1 AS address, c.name AS community, l.name AS facility, p.birthdate AS birthdate, p.death_date AS death_date
-FROM patient_identifier pi
-JOIN person_address pa ON pa.person_id = pi.patient_id
-LEFT JOIN (
-
-SELECT person_id, value
-FROM person_attribute
-WHERE person_attribute_type_id =8
-)patt ON patt.person_id = pi.patient_id
-JOIN person_name nom ON nom.person_id = pi.patient_id
-JOIN motechmodule_community_patient cp ON cp.patient_id = pi.patient_id
-JOIN motechmodule_community c ON cp.community_id = c.id
-JOIN motechmodule_facility f ON c.facility_id = f.id
-JOIN location l ON f.location_id = l.location_id
-   JOIN person p ON p.person_id = pi.patient_id</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>103</xloc>
-      <yloc>133</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Dimension lookup&#47;update</name>
     <type>DimensionLookup</type>
     <description/>
@@ -261,7 +131,7 @@ JOIN location l ON f.location_id = l.location_id
            </partitioning>
       <schema/>
       <table>dim_client</table>
-      <connection>motech_dw db</connection>
+      <connection>motech data warehouse</connection>
       <commit>100</commit>
       <update>Y</update>
       <fields>
@@ -329,6 +199,45 @@ JOIN location l ON f.location_id = l.location_id
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>404</xloc>
       <yloc>139</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Motech Oltp </connection>
+    <sql>SELECT CONCAT( nom.given_name, &apos;  &apos;, nom.family_name ) AS name, pi.identifier AS &apos;motech_id&apos;, patt.value AS phone_number, pa.address1 AS address, c.name AS community, l.name AS facility, p.birthdate AS birthdate, p.death_date AS death_date
+FROM patient_identifier pi
+JOIN person_address pa ON pa.person_id = pi.patient_id
+LEFT JOIN (
+
+SELECT person_id, value
+FROM person_attribute
+WHERE person_attribute_type_id =8
+)patt ON patt.person_id = pi.patient_id
+JOIN person_name nom ON nom.person_id = pi.patient_id
+JOIN motechmodule_community_patient cp ON cp.patient_id = pi.patient_id
+JOIN motechmodule_community c ON cp.community_id = c.id
+JOIN motechmodule_facility f ON c.facility_id = f.id
+JOIN location l ON f.location_id = l.location_id
+   JOIN person p ON p.person_id = pi.patient_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>103</xloc>
+      <yloc>133</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

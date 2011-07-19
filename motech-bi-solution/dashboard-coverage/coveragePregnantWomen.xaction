@@ -37,10 +37,7 @@ location_key  = (SELECT location_key FROM
 	WHERE facility LIKE 'Navio CHPS')
 ]]></query>  
         <live><![CDATA[true]]></live>  
-        <driver><![CDATA[com.mysql.jdbc.Driver]]></driver>  
-        <user-id><![CDATA[root]]></user-id>  
-        <password><![CDATA[onthebrink]]></password>  
-        <connection><![CDATA[jdbc:mysql://localhost:3306/motech_dw]]></connection> 
+        <jndi><![CDATA[jdbc/MotechDw]]></jndi> 
       </component-definition> 
     </action-definition>
   
@@ -64,7 +61,7 @@ location_key  = (SELECT location_key FROM
         <width><![CDATA[300]]></width>  
         <height><![CDATA[250]]></height>  
         <by-row><![CDATA[true]]></by-row>  
-        <title><![CDATA[Coverage - Preganant Women]]></title>  
+        <title><![CDATA[Coverage - Preganant Women]]></title> 
       </component-definition> 
     </action-definition>
  

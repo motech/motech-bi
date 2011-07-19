@@ -63,16 +63,16 @@
   <created_user>-</created_user>
   <created_date>2011&#47;07&#47;06 15:59:50.680</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;07&#47;15 15:43:02.082</modified_date>
+  <modified_date>2011&#47;07&#47;19 14:09:36.375</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>DestinationDB</name>
+    <name>motech data warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>Native</access>
-    <database>mifos_dw</database>
+    <access>JNDI</access>
+    <database>MotechDw</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -93,89 +93,14 @@
     </attributes>
   </connection>
   <connection>
-    <name>motech dw</name>
+    <name>Motech Oltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>mysql connection</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>openmrs</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>SourceDB</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>mifos</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>wcm</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>wcm</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce7dc781bed6</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -204,7 +129,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
+    <connection>motech data warehouse</connection>
     <commit>100</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>
@@ -245,7 +170,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>932</xloc>
+      <xloc>935</xloc>
       <yloc>55</yloc>
       <draw>Y</draw>
       </GUI>
@@ -261,7 +186,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>mysql connection</connection>
+    <connection>Motech Oltp </connection>
     <sql>SELECT 
 `motechmodule_enrollment_id`, 
 `person_id` as patient_id,
@@ -292,7 +217,7 @@ FROM `motechmodule_enrollment`</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
+    <connection>motech data warehouse</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -333,7 +258,7 @@ FROM `motechmodule_enrollment`</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
+    <connection>motech data warehouse</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -374,7 +299,7 @@ FROM `motechmodule_enrollment`</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>mysql connection</connection>
+    <connection>Motech Oltp </connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -399,8 +324,8 @@ FROM `motechmodule_enrollment`</sql>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>598</xloc>
-      <yloc>54</yloc>
+      <xloc>597</xloc>
+      <yloc>55</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -415,7 +340,7 @@ FROM `motechmodule_enrollment`</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
+    <connection>motech data warehouse</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -456,7 +381,7 @@ FROM `motechmodule_enrollment`</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>mysql connection</connection>
+    <connection>Motech Oltp </connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>

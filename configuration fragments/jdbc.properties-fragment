@@ -1,0 +1,10 @@
+MotechDw/type=javax.sql.DataSource
+MotechDw/driver=com.mysql.jdbc.Driver
+MotechDw/url=jdbc:mysql://localhost:3306/motech_dw
+MotechDw/user=root
+MotechDw/password=onthebrink
+MotechOltpDb/type=javax.sql.DataSource
+MotechOltpDb/driver=com.mysql.jdbc.Driver
+MotechOltpDb/url=jdbc:mysql://localhost:3306/openmrs
+MotechOltpDb/user=root
+MotechOltpDb/password=onthebrink
