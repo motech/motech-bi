@@ -73,9 +73,20 @@ coverageChildUnderOneYear =
   tooltip: "Coverage - Child Under One Year"
 }
 
+coverageExpectedCare = 
+{
+  name: "coverageExpectedCare",
+  type: "xaction",
+  solution: "dashboard-coverage",
+  path: "",
+  action: "coverageExpectedCare.xaction",
+  htmlObject: "expectedCareObject",
+  executeAtStart: true,
+  tooltip: "Coverage - Expected Care"
+}
 
 
-var components = [coveragePregnantWomen,coverageChildUnderOneYear];
+var components = [coveragePregnantWomen,coverageChildUnderOneYear,coverageExpectedCare];
 
 </script>
 
