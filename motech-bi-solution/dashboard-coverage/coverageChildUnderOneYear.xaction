@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <action-sequence> 
-  <title>Pregnant Women Coverage</title>
+  <title>Child Under One Year Coverage</title>
   <version>1</version>
   <logging-level>TRACE</logging-level>
   <documentation> 
@@ -13,8 +13,8 @@
 
   <inputs/>
 
-  <outputs> 
-    <image-tag type="string"/> 
+  <outputs>
+    <image-tag type="string"/>
   </outputs>
 
   <resources/>
@@ -22,22 +22,21 @@
   <actions> 
     <action-definition> 
       <component-name>SQLLookupRule</component-name>
-      <action-type>Get pregnant women count</action-type>
+      <action-type>Get child under one year count</action-type>
       <action-outputs> 
         <query-result type="result-set" mapping="query_result"/> 
       </action-outputs>
       <component-definition> 
-        <query><![CDATA[SELECT 500 as 'estimated population' , count(*) as 'number registered'
+        <jndi><![CDATA[MotechDw]]></jndi>  
+        <query><![CDATA[SELECT 400 as 'estimated population' , count(*) as 'number registered'
 FROM fact_registration
 WHERE 
-program_name like "Weekly Pregnancy Message Program"
+program_name like "Weekly Info Child Message Program"
 AND
 location_key  = (SELECT location_key FROM 
 	dim_location
-	WHERE facility LIKE 'Navio CHPS')
-]]></query>  
-        <live><![CDATA[true]]></live>  
-        <jndi><![CDATA[MotechDw]]></jndi> 
+	WHERE facility LIKE 'Navio CHPS')]]></query>  
+        <live><![CDATA[true]]></live> 
       </component-definition> 
     </action-definition>
   
@@ -48,20 +47,17 @@ location_key  = (SELECT location_key FROM
         <chart-data type="result-set" mapping="query_result"/> 
       </action-inputs>
       <action-outputs> 
-        <chart-filename type="string"/>  
-        <base-url type="string"/>  
-        <image-tag type="string"/>  
-        <chart-mapping type="string"/> 
+        <image-tag type="string"/> 
       </action-outputs>
       <component-definition> 
         <chart-attributes> 
           <chart-type>PieChart</chart-type>  
-          <border-visible>false</border-visible> 
+          <border-visible>false</border-visible>
         </chart-attributes>  
-        <width><![CDATA[300]]></width>  
-        <height><![CDATA[250]]></height>  
-        <by-row><![CDATA[true]]></by-row>  
-        <title><![CDATA[Coverage - Preganant Women]]></title> 
+        <by-row><![CDATA[true]]></by-row>
+        <width><![CDATA[300]]></width>
+        <height><![CDATA[250]]></height>
+        <title><![CDATA[Coverage - Child Under One Year]]></title>
       </component-definition> 
     </action-definition>
  
