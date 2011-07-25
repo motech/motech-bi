@@ -5,4 +5,5 @@
 	<description>Coverage Dashboard</description>
 	<icon></icon>
 	<template>template.html</template>
+	<style>clean</style>
 </cdf>
