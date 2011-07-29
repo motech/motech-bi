@@ -1,115 +1,144 @@
 
 <style type="text/css">
-
-	.alt {
-		color:#666666;
-		font-family:"Warnock Pro","Goudy Old Style","Palatino","Book Antiqua",Georgia,serif;
-		font-style:italic;
-		font-weight:normal;
-	}
-
+.alt {
+	color: #666666;
+	font-family: "Warnock Pro", "Goudy Old Style", "Palatino",
+		"Book Antiqua", Georgia, serif;
+	font-style: italic;
+	font-weight: normal;
+}
 </style>
 
 
 
 <div class="container alt">
 	<div class="span-24 clearfix prepend-top append-bottom">
-	
-		<h1>
-			Coverage Dashboard
-		</h1>
-		<hr/>
+
+		<h1>Coverage Dashboard</h1>
+		<hr />
 
 	</div>
 
 	<div class="container span-24 append-bottom">
 		<div class="span-12 clearfix">
-				
+			<form name="myForm">
+				<table
+					style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;"
+					border="0" cellpadding="2" cellspacing="2">
+					<tbody>
+						<tr>
+							<td
+								style="width: 50%; text-align: center; vertical-align: middle;"><span
+								style="font-family: Arial;">Select a Region</span>
+							</td>
+						</tr>
+						<tr>
+							<td
+								style="width: 50%; text-align: center; vertical-align: middle;">
+
+								<div id="object_select"></div> <br />
+						</tr>
+					</tbody>
+				</table>
+			</form>
+
 		</div>
-	
-	
-		<div class="span-12 clearfix last">
-			
-		</div>
+
+
+		<div class="span-12 clearfix last"></div>
 	</div>
-	<div class="container span-24 append-bottom">	
+	<div class="container span-24 append-bottom">
 		<div class="span-8 clearfix">
 			<div id="coveragePregnantObject"></div>
 		</div>
-		
+
 		<div class="span-8">
 			<div id="childUnderOneObject"></div>
 		</div>
 		<div class="span-8 last">
 			<div id="expectedCareObject"></div>
 		</div>
-		
-		<br/>
-		<hr/>
+
+		<br />
+		<hr />
 
 	</div>
 
 	<div class="container span-24 append-bottom">
 		<div class="span-12">
-			<p>
-				NB. The populations shown are 80% of the figure obtained using the estimated birth rate of the actual population.
-			</p>
+			<p>NB. The populations shown are 80% of the figure obtained using
+				the estimated birth rate of the actual population.</p>
 		</div>
 	</div>
-	
+
 </div>
 
 
-	
+
 <script language="javascript" type="text/javascript">
+var district;
+var subDistrict;
+var region;
 
-coveragePregnantWomen = 
-{
-  name: "coveragePreganantWomen",
-  type: "xaction",
-  solution: "dashboard-coverage",
-  path: "",
-  action: "coveragePregnantWomen.xaction",
-  htmlObject: "coveragePregnantObject",
-  executeAtStart: true,
-  tooltip: "Coverage - Pregnant Women"
-}
+	regionSelector = {
+		name : "regionSelector",
+		type : "select",
+		solution : "dashboard-coverage",
+		path : "",
+		action : "regions.xaction",
+		htmlObject : "object_select",
+		executeAtStart : true,
+		parameter: "region",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+	}
 
-coverageChildUnderOneYear = 
-{
-  name: "coverageChildUnderOneYear",
-  type: "xaction",
-  solution: "dashboard-coverage",
-  path: "",
-  action: "coverageChildUnderOneYear.xaction",
-  htmlObject: "childUnderOneObject",
-  executeAtStart: true,
-  tooltip: "Coverage - Child Under One Year"
-}
+	coveragePregnantWomen = {
+		name : "coveragePreganantWomen",
+		type : "xaction",
+		listeners: ["region","district","subDistrict"],
+		parameters: [["REGION","region"],["DISTRICT","district"],["SUB_DISTRICT","subDistrict"]],
+		solution : "dashboard-coverage",
+		path : "",
+		action : "coveragePregnantWomen.xaction",
+		htmlObject : "coveragePregnantObject",
+		executeAtStart : true,
+		tooltip : "Coverage - Pregnant Women"
+	}
 
-coverageExpectedCare = 
-{
-  name: "coverageExpectedCare",
-  type: "xaction",
-  solution: "dashboard-coverage",
-  path: "",
-  action: "coverageExpectedCare.xaction",
-  htmlObject: "expectedCareObject",
-  executeAtStart: true,
-  tooltip: "Coverage - Expected Care"
-}
+	coverageChildUnderOneYear = {
+		name : "coverageChildUnderOneYear",
+		type : "xaction",
+		solution : "dashboard-coverage",
+		path : "",
+		action : "coverageChildUnderOneYear.xaction",
+		htmlObject : "childUnderOneObject",
+		executeAtStart : true,
+		tooltip : "Coverage - Child Under One Year"
+	}
 
+	coverageExpectedCare = {
+		name : "coverageExpectedCare",
+		type : "xaction",
+		solution : "dashboard-coverage",
+		path : "",
+		action : "coverageExpectedCare.xaction",
+		htmlObject : "expectedCareObject",
+		executeAtStart : true,
+		tooltip : "Coverage - Expected Care"
+	}
 
-var components = [coveragePregnantWomen,coverageChildUnderOneYear,coverageExpectedCare];
-
+	var components = [coveragePregnantWomen,coverageChildUnderOneYear,
+			coverageExpectedCare,regionSelector];
 </script>
 
 <script language="javascript" type="text/javascript">
-
-	function load(){
+	function load() {
 		Dashboards.init(components);
 	}
 
-load();
-
+	load();
 </script>
