@@ -124,6 +124,9 @@
 	coverageChildUnderOneYear = {
 		name : "coverageChildUnderOneYear",
 		type : "xaction",
+		listeners : [ "region", "district", "subDistrict" ],
+		parameters : [ [ "REGION", "region" ], [ "DISTRICT", "district" ],
+				[ "SUB_DISTRICT", "subDistrict" ] ],
 		solution : "dashboard-coverage",
 		path : "",
 		action : "coverageChildUnderOneYear.xaction",
@@ -135,6 +138,9 @@
 	coverageExpectedCare = {
 		name : "coverageExpectedCare",
 		type : "xaction",
+		listeners : [ "region", "district", "subDistrict" ],
+		parameters : [ [ "REGION", "region" ], [ "DISTRICT", "district" ],
+				[ "SUB_DISTRICT", "subDistrict" ] ],
 		solution : "dashboard-coverage",
 		path : "",
 		action : "coverageExpectedCare.xaction",
