@@ -11,7 +11,14 @@
     <icon/> 
   </documentation>
 
-  <inputs/>
+  <inputs>
+    <REGION type="string">
+      <sources>
+        <request>REGION</request>
+      </sources>
+      <default-value><![CDATA[%]]></default-value>
+    </REGION>
+  </inputs>
 
   <outputs>
     <query_result type="result-set">
@@ -25,6 +32,9 @@
     <action-definition>
       <component-name>SQLLookupRule</component-name>
       <action-type>Relational</action-type>
+      <action-inputs>
+        <REGION type="string"/>
+      </action-inputs>
       <action-outputs>
         <query-result type="result-set" mapping="query_result"/>
       </action-outputs>
@@ -32,6 +42,7 @@
         <jndi><![CDATA[MotechDw]]></jndi>
         <query><![CDATA[select location_key as district_id, district as district_name from dim_location
 where district is not null
+AND region LIKE '{REGION}'
 group by district]]></query>
         <live><![CDATA[true]]></live>
       </component-definition>

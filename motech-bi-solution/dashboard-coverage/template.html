@@ -93,6 +93,8 @@
 	districtSelector = {
 		name : "districtSelector",
 		type : "select",
+		listeners : ["region"],
+		parameters : [ [ "REGION", "region" ] ],
 		solution : "dashboard-coverage",
 		path : "",
 		action : "districts.xaction",
@@ -113,6 +115,7 @@
 		listeners : [ "region", "district", "subDistrict" ],
 		parameters : [ [ "REGION", "region" ], [ "DISTRICT", "district" ],
 				[ "SUB_DISTRICT", "subDistrict" ] ],
+		parameter : "district",
 		solution : "dashboard-coverage",
 		path : "",
 		action : "coveragePregnantWomen.xaction",
