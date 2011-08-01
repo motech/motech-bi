@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>districts</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author/>  
+    <description>Districts Selector for Coverage Dashboard</description>  
+    <help/>  
+    <result-type>none</result-type>  
+    <icon/> 
+  </documentation>
+
+  <inputs/>
+
+  <outputs>
+    <query_result type="result-set">
+      <destinations/>
+    </query_result>
+  </outputs>
+
+  <resources/>
+  
+  <actions> 
+    <action-definition>
+      <component-name>SQLLookupRule</component-name>
+      <action-type>Relational</action-type>
+      <action-outputs>
+        <query-result type="result-set" mapping="query_result"/>
+      </action-outputs>
+      <component-definition>
+        <jndi><![CDATA[MotechDw]]></jndi>
+        <query><![CDATA[select location_key as district_id, district as district_name from dim_location
+where district is not null
+group by district]]></query>
+        <live><![CDATA[true]]></live>
+      </component-definition>
+    </action-definition>
+
+  </actions> 
+</action-sequence>
