@@ -2,13 +2,17 @@
 
 Pre-requisites
 a. Working installation of pentaho biserver-ce-3.8.0-stable
-
 JNDI Configuration - Pentaho Data Integration (necessary on developer machine only)
+
 * Edit the $PDI_HOME/biserver-ce/pentaho-solutions/system/simple-jndi/jdbc.properties file and append the contents of the fragment in configuration fragments folder.  
 
 
 JNDI configuration - Pentaho BI 
+
 * Edit the $PENTAHO_BI_HOME/biserver-ce/tomcat/webapps/pentaho/WEB-INF/web.xml and add the content of configuration fragment 'web.xml-fragment' in the appropriate location. Modify the property values as necessary. 
+
+* change the param-value for the param-name 'fully-qualified-server-url' in the web.xml. 
+      eg.    <param-value>http://motechghana.org:8080/pentaho/</param-value>
 
 * Edit the $PENTAHO_BI_HOME/tomcat/conf/context.xml and add the content of the configuration fragment 'context.xml-fragment' after the 'manager' element. Modify the propery values as necessary. 
 
@@ -16,3 +20,5 @@ To install the MoTeCH Business Intelligence system
 1. Run motech_dw.sql to create the database for the data warehouse
 2. Copy/symlink motech-bi-solution to the pentaho solutions directory
     ln -s ~/motech-bi/motech-bi-solution/dashboard-coverage ./dashboard-coverage
+
+

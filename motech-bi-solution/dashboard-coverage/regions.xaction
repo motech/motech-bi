@@ -11,46 +11,29 @@
     <icon/> 
   </documentation>
 
-  <inputs> 
-    <regions type="result-set"> 
-      <default-value type="result-set"> 
-        <row> 
-          <region_id>1</region_id>  
-          <region_name>Upper East</region_name> 
-        </row>  
-        <row> 
-          <region_id>2</region_id>  
-          <region_name>Central Region</region_name> 
-        </row> 
-      </default-value>  
-      <columns> 
-        <region_id type="string"/>  
-        <region_name type="string"/> 
-      </columns> 
-    </regions> 
-  </inputs>
+  <inputs/>
 
   <outputs> 
-    <query_result type="result-set"/>
+    <query_result type="result-set"/> 
   </outputs>
 
   <resources/>
   
-  <actions>
-    <action-definition>
+  <actions> 
+    <action-definition> 
       <component-name>SQLLookupRule</component-name>
       <action-type>Relational</action-type>
-      <action-outputs>
-        <query-result type="result-set" mapping="query_result"/>
+      <action-outputs> 
+        <query-result type="result-set" mapping="query_result"/> 
       </action-outputs>
-      <component-definition>
-        <jndi><![CDATA[MotechDw]]></jndi>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
         <query><![CDATA[select location_key as region_id, region as region_name from dim_location
 where region is not null
-group by region]]></query>
-        <live><![CDATA[true]]></live>
-      </component-definition>
+group by region]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
     </action-definition>
-
+ 
   </actions> 
 </action-sequence>
