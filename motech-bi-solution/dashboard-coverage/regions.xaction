@@ -11,10 +11,27 @@
     <icon/> 
   </documentation>
 
-  <inputs/>
+  <inputs>
+    <no_selection type="result-set">
+      <sources>
+        <request>no_selection</request>
+      </sources>
+      <default-value type="result-set">
+        <row>
+          <region_id>%</region_id>
+          <region_name/>
+        </row>
+      </default-value>
+      <columns>
+        <region_id type="string"/>
+        <region_name type="string"/>
+      </columns>
+    </no_selection>
+  </inputs>
 
   <outputs> 
-    <query_result type="result-set"/> 
+    <no_selection type="result-set"/>
+    <query_result type="result-set"/>
   </outputs>
 
   <resources/>
@@ -28,7 +45,7 @@
       </action-outputs>
       <component-definition> 
         <jndi><![CDATA[MotechDw]]></jndi>  
-        <query><![CDATA[select location_key as region_id, region as region_name from dim_location
+        <query><![CDATA[select region as region_id, region as region_name from dim_location
 where region is not null
 group by region]]></query>  
         <live><![CDATA[true]]></live> 

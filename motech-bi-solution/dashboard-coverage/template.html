@@ -35,6 +35,12 @@
 					<div id="object_select_district"></div>
 				</form>
 			</div>
+			<div class="span-8 clearfix">
+				Select Sub-District:
+				<form name="myForm3">
+					<div id="object_select_subdistrict"></div>
+				</form>
+			</div>
 
 		</div>
 
@@ -77,6 +83,7 @@
 	regionSelector = {
 		name : "regionSelector",
 		type : "select",
+		valueAsId : false,
 		solution : "dashboard-coverage",
 		path : "",
 		action : "regions.xaction",
@@ -93,7 +100,8 @@
 	districtSelector = {
 		name : "districtSelector",
 		type : "select",
-		listeners : ["region"],
+		valueAsId : false,
+		listeners : [ "region" ],
 		parameters : [ [ "REGION", "region" ] ],
 		solution : "dashboard-coverage",
 		path : "",
@@ -107,6 +115,25 @@
 			Dashboards.processChange(this.name);
 		}
 
+	}
+
+	subDistrictSelector = {
+		name : "subDistrictSelector",
+		type : "select",
+		valueAsId : false,
+		listeners : [ "district" ],
+		parameters : [ [ "DISTRICT", "district" ] ],
+		solution : "dashboard-coverage",
+		path : "",
+		action : "subdistricts.xaction",
+		htmlObject : "object_select_subdistrict",
+		executeAtStart : false,
+		parameter : "subDistrict",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
 	}
 
 	coveragePregnantWomen = {
@@ -153,7 +180,8 @@
 	}
 
 	var components = [ coveragePregnantWomen, coverageChildUnderOneYear,
-			coverageExpectedCare, regionSelector, districtSelector ];
+			coverageExpectedCare, regionSelector, districtSelector,
+			subDistrictSelector ];
 </script>
 
 <script language="javascript" type="text/javascript">
