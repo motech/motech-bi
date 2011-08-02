@@ -18,22 +18,22 @@
       </sources>  
       <default-value><![CDATA[%]]></default-value> 
     </DISTRICT>  
-    <NoSelection type="result-set"> 
-      <default-value type="result-set"> 
-        <row> 
-          <subdistrict_id>%</subdistrict_id>  
-          <subdistrict_name/> 
-        </row> 
+    <no_selection type="result-set"> 
+      <default-value type="result-set">
+        <row>
+          <subdistrict_id>%</subdistrict_id>
+          <subdistrict_name>All</subdistrict_name>
+        </row>
       </default-value>  
-      <columns> 
-        <subdistrict_id type="string"/>  
-        <subdistrict_name type="string"/> 
-      </columns> 
-    </NoSelection> 
+      <columns>
+        <subdistrict_id type="string"/>
+        <subdistrict_name type="string"/>
+      </columns>
+    </no_selection> 
   </inputs>
 
   <outputs> 
-    <NoSelection type="result-set"/>  
+    <no_selection type="result-set"/>  
     <query_result type="result-set"/> 
   </outputs>
 

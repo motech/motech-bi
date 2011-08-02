@@ -19,16 +19,16 @@
       <default-value><![CDATA[%]]></default-value> 
     </REGION>  
     <no_selection type="result-set"> 
-      <default-value type="result-set"> 
-        <row> 
-          <district_id>%</district_id>  
-          <district_name/> 
-        </row> 
+      <default-value type="result-set">
+        <row>
+          <district_id>%</district_id>
+          <district_name>All</district_name>
+        </row>
       </default-value>  
-      <columns> 
-        <district_id type="string"/>  
-        <district_name type="string"/> 
-      </columns> 
+      <columns>
+        <district_id type="string"/>
+        <district_name type="string"/>
+      </columns>
     </no_selection> 
   </inputs>
 
