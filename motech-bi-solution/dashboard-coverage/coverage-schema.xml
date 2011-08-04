@@ -1,0 +1,32 @@
+<Schema name="motech">
+  <Cube name="motech_coverage" cache="true" enabled="true">
+    <Table name="fact_registration">
+    </Table>
+    <Dimension type="TimeDimension" foreignKey="date_key" highCardinality="false" name="date dimension">
+      <Hierarchy name="year" hasAll="true" primaryKey="date_key">
+        <Table name="dim_date">
+        </Table>
+        <Level name="year" table="dim_date" column="year4" nameColumn="year4" type="String" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="location_key" highCardinality="false" name="location dimension">
+      <Hierarchy name="facility" hasAll="true" primaryKey="location_key">
+        <Table name="dim_location">
+        </Table>
+        <Level name="facility" table="dim_location" column="facility" nameColumn="facility" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="client">
+      <Hierarchy name="client name" hasAll="true" allMemberName="All Clients" primaryKey="client_key">
+        <Table name="dim_client">
+        </Table>
+        <Level name="client" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Registration" column="client_key" aggregator="count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

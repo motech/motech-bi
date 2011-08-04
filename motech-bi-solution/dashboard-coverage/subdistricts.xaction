@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <action-sequence> 
-  <title>sub-districts</title>
+  <title>subdistricts</title>
   <version>1</version>
   <logging-level>ERROR</logging-level>
   <documentation> 
