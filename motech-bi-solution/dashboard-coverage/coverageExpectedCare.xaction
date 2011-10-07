@@ -11,25 +11,25 @@
     <icon/> 
   </documentation>
 
-  <inputs>
-    <REGION type="string">
-      <sources>
-        <request>REGION</request>
-      </sources>
-      <default-value><![CDATA[%]]></default-value>
-    </REGION>
-    <DISTRICT type="string">
-      <sources>
-        <request>DISTRICT</request>
-      </sources>
-      <default-value><![CDATA[%]]></default-value>
-    </DISTRICT>
-    <SUB_DISTRICT type="string">
-      <sources>
-        <request>SUB_DISTRICT</request>
-      </sources>
-      <default-value><![CDATA[%]]></default-value>
-    </SUB_DISTRICT>
+  <inputs> 
+    <REGION type="string"> 
+      <sources> 
+        <request>REGION</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </REGION>  
+    <DISTRICT type="string"> 
+      <sources> 
+        <request>DISTRICT</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </DISTRICT>  
+    <SUB_DISTRICT type="string"> 
+      <sources> 
+        <request>SUB_DISTRICT</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </SUB_DISTRICT> 
   </inputs>
 
   <outputs> 
@@ -39,20 +39,42 @@
   <resources/>
   
   <actions> 
+    <action-definition>
+      <component-name>SQLLookupRule</component-name>
+      <action-type>Get Population Estimate</action-type>
+      <action-inputs>
+        <REGION type="string"/>
+      </action-inputs>
+      <action-outputs>
+        <query-result type="result-set" mapping="RS_POPULATION"/>
+      </action-outputs>
+      <component-definition>
+        <jndi><![CDATA[MotechDw]]></jndi>
+        <query><![CDATA[SELECT SUM(general_population_estimate) 
+FROM dim_location
+	WHERE 
+	region LIKE '{REGION}'
+        AND 
+	population_estimate_year IS NOT NULL]]></query>
+        <live><![CDATA[true]]></live>
+      </component-definition>
+    </action-definition>
+
     <action-definition> 
       <component-name>SQLLookupRule</component-name>
       <action-type>Get expected care count</action-type>
-      <action-inputs>
-        <DISTRICT type="string"/>
-        <SUB_DISTRICT type="string"/>
-        <REGION type="string"/>
+      <action-inputs> 
+        <DISTRICT type="string"/>  
+        <SUB_DISTRICT type="string"/>  
+        <REGION type="string"/>  
+        <RS_POPULATION type="string"/>
       </action-inputs>
       <action-outputs> 
         <query-result type="result-set" mapping="query_result"/> 
       </action-outputs>
       <component-definition> 
         <jndi><![CDATA[MotechDw]]></jndi>  
-        <query><![CDATA[SELECT 400 as 'estimated population' , count(*) as 'number registered'
+        <query><![CDATA[SELECT {RS_POPULATION} 'estimated population' , count(*) as 'number registered'
 FROM fact_registration
 WHERE 
 program_name like "Expected Care Message Program"

@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;14 16:29:56.548</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;07&#47;19 14:03:47.552</modified_date>
+  <modified_date>2011&#47;10&#47;04 12:28:09.446</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -73,6 +73,31 @@
     <type>MYSQL</type>
     <access>JNDI</access>
     <database>MotechDw</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>motech dw</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>motech_dw</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -147,32 +172,32 @@
         <field>
           <name>name</name>
           <lookup>name</lookup>
-          <update>Update</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>phone_number</name>
           <lookup>phone_number</lookup>
-          <update>Update</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>address</name>
           <lookup>address</lookup>
-          <update>Update</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>community</name>
           <lookup>community</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>facility</name>
           <lookup>facility</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>birthdate</name>
           <lookup>birthdate</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>death_date</name>
@@ -197,8 +222,8 @@
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>404</xloc>
-      <yloc>139</yloc>
+      <xloc>419</xloc>
+      <yloc>133</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
