@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Oct 07, 2011 at 11:06 AM
+-- Generation Time: Oct 18, 2011 at 10:16 AM
 -- Server version: 5.1.54
 -- PHP Version: 5.3.5-1ubuntu7.2
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `dim_client` (
   `version` int(11) DEFAULT NULL,
   `date_from` datetime DEFAULT NULL,
   `date_to` datetime DEFAULT NULL,
+  `client_type` text,
   KEY `idx_dim_client_lookup` (`name`,`motech_id`,`phone_number`,`address`,`community`,`facility`,`birthdate`,`death_date`),
   KEY `idx_dim_client_tk` (`client_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -98,18 +99,6 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `population_estimate_year` int(11) DEFAULT NULL,
   KEY `idx_dim_location_lookup` (`location_id`),
   KEY `idx_dim_location_tk` (`location_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fact_population`
---
-
-CREATE TABLE IF NOT EXISTS `fact_population` (
-  `year` int(10) unsigned NOT NULL,
-  `location_key` int(11) NOT NULL,
-  `population_estimate` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
