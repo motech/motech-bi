@@ -2,7 +2,8 @@
   <info>
     <name>transform_client</name>
     <description/>
-    <extended_description/>
+    <extended_description>Updates the client_type field of the client dimension. 
+The client_type is used in the retention dashboard to segregate different types of users - particularly to find pregnant women. </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -63,14 +64,14 @@
   <created_user>-</created_user>
   <created_date>2011&#47;10&#47;17 09:14:08.845</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;10&#47;17 13:45:48.352</modified_date>
+  <modified_date>2011&#47;11&#47;03 11:45:53.446</modified_date>
   </info>
   <notepads>
     <notepad>
       <note>Update Client Type
 </note>
-      <xloc>9</xloc>
-      <yloc>88</yloc>
+      <xloc>50</xloc>
+      <yloc>42</yloc>
       <width>129</width>
       <heigth>44</heigth>
       <fontname>Ariel</fontname>
@@ -165,10 +166,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>lookup motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup motech id</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>retrieve pregnancy registration encounters</from><to>lookup motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup motech id</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Insert &#47; Update</name>
-    <type>InsertUpdate</type>
+    <name>Add constants</name>
+    <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -176,34 +177,29 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>dim_client</table>
-      <key>
-        <name>motech_id</name>
-        <field>motech_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>client_type</name>
-        <rename>PregnantWomanType</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
+    <fields>
+      <field>
+        <name>PregnantWomanType</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Pregnant Woman</nullif>
+        <length>20</length>
+        <precision>0</precision>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>684</xloc>
-      <yloc>158</yloc>
+      <xloc>658</xloc>
+      <yloc>163</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table input</name>
+    <name>retrieve pregnancy registration encounters</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -221,7 +217,7 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>89</xloc>
+      <xloc>145</xloc>
       <yloc>164</yloc>
       <draw>Y</draw>
       </GUI>
@@ -262,7 +258,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>277</xloc>
+      <xloc>475</xloc>
       <yloc>164</yloc>
       <draw>Y</draw>
       </GUI>
@@ -294,8 +290,8 @@
     </step>
 
   <step>
-    <name>Add constants</name>
-    <type>Constant</type>
+    <name>Update</name>
+    <type>Update</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -303,22 +299,28 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>
-      <field>
-        <name>PregnantWomanType</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>Pregnant Woman</nullif>
-        <length>20</length>
-        <precision>0</precision>
-      </field>
-    </fields>
+    <connection>motech dw</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>Y</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>dim_client</table>
+      <key>
+        <name>motech_id</name>
+        <field>motech_id</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>client_type</name>
+        <rename>PregnantWomanType</rename>
+        </value>
+      </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>460</xloc>
+      <xloc>860</xloc>
       <yloc>163</yloc>
       <draw>Y</draw>
       </GUI>
