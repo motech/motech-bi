@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>Demand Dashboard</title>
+	<author></author>
+	<description>Demand Dashboard</description>
+	<icon></icon>
+	<template>template.html</template>
+	<style>clean</style>
+</cdf>
