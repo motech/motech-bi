@@ -1,20 +1,26 @@
+The estimated burden of this setup is 15-25 minutes. You should pay attention to the xml schema in order not to break the structure. 
+
 Pre-requisites
 a. Working installation of pentaho biserver-ce-3.8.0-stable
 JNDI Configuration - Pentaho Data Integration (necessary on developer machine only)
 
-* Edit the $PDI_HOME/biserver-ce/pentaho-solutions/system/simple-jndi/jdbc.properties file and append the contents of the fragment in configuration fragments folder.  
+* Edit the $PENTAHO_HOME/biserver-ce/pentaho-solutions/system/simple-jndi/jdbc.properties file and append the contents of the fragment in configuration fragments folder.  
 
 
 JNDI configuration - Pentaho BI 
 
-* Edit the $PENTAHO_BI_HOME/biserver-ce/tomcat/webapps/pentaho/WEB-INF/web.xml and append the content of configuration fragment 'web.xml-fragment'. Modify the property values as necessary. 
+* set the PENTAHO_JAVA_HOME environment variable
+
+* set the JAVA_HOME environment
+
+* Edit the $PENTAHO_BI_HOME/tomcat/webapps/pentaho/WEB-INF/web.xml, find the last 'resource-ref' element and append the content of configuration fragment 'web.xml-fragment'. Modify the property values as necessary. 
 
 * change the param-value for the param-name 'fully-qualified-server-url' in the web.xml. 
       eg.    <param-value>http://motechghana.org:8080/pentaho/</param-value>
 
-* Edit the $PENTAHO_BI_HOME/tomcat/conf/context.xml and append the content of the configuration fragment 'context.xml-fragment' after the 'manager' element. Modify the propery values as necessary. 
+* Edit the $PENTAHO_HOME/tomcat/conf/context.xml and append the content of the configuration fragment 'context.xml-fragment' after the 'manager' element. Modify the propery values as necessary. 
 
-* Edit $PENTAHO_BI_HOME/pentaho-solutions/system/simple-jndi/jdbc.properties and append the content of configuration fragment  'jdbc.properties-fragment'. 
+* Edit $PENTAHO_HOME/pentaho-solutions/system/simple-jndi/jdbc.properties and append the content of configuration fragment  'jdbc.properties-fragment'. 
 
 To install the MoTeCH Business Intelligence system
 1. Run motech_dw.sql to create the database for the data warehouse

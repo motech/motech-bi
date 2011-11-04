@@ -39,35 +39,35 @@
   <resources/>
   
   <actions> 
-    <action-definition>
+    <action-definition> 
       <component-name>SQLLookupRule</component-name>
       <action-type>Get Population</action-type>
-      <action-inputs>
-        <REGION type="string"/>
+      <action-inputs> 
+        <REGION type="string"/> 
       </action-inputs>
-      <action-outputs>
-        <query-result type="result-set" mapping="RS_POPULATION"/>
+      <action-outputs> 
+        <query-result type="result-set" mapping="RS_POPULATION"/> 
       </action-outputs>
-      <component-definition>
-        <jndi><![CDATA[MotechDw]]></jndi>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
         <query><![CDATA[SELECT SUM(pregnant_population_estimate) 
 FROM dim_location
 	WHERE 
 	region LIKE '{REGION}'
         AND 
-	population_estimate_year IS NOT NULL]]></query>
-        <live><![CDATA[true]]></live>
-      </component-definition>
+	population_estimate_year IS NOT NULL]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
     </action-definition>
-
+  
     <action-definition> 
       <component-name>SQLLookupRule</component-name>
-      <action-type>Get pregnant women count</action-type>
+      <action-type>Get pregnant women registration count</action-type>
       <action-inputs> 
         <REGION type="string"/>  
         <DISTRICT type="string"/>  
         <SUB_DISTRICT type="string"/>  
-        <RS_POPULATION type="string"/>
+        <RS_POPULATION type="string"/> 
       </action-inputs>
       <action-outputs> 
         <query-result type="result-set" mapping="query_result"/> 
@@ -111,7 +111,7 @@ location_key  IN (SELECT location_key FROM
         <width><![CDATA[300]]></width>  
         <height><![CDATA[250]]></height>  
         <by-row><![CDATA[true]]></by-row>  
-        <title><![CDATA[Coverage - Preganant Women]]></title> 
+        <title><![CDATA[Preganant Women Registered into Motech]]></title> 
       </component-definition> 
     </action-definition>
  
