@@ -93,7 +93,7 @@ location_key  IN (SELECT location_key FROM
   
     <action-definition> 
       <component-name>ChartComponent</component-name>
-      <action-type>Pie Chart</action-type>
+      <action-type>Chart</action-type>
       <action-inputs> 
         <chart-data type="result-set" mapping="query_result"/> 
       </action-inputs>
@@ -105,12 +105,12 @@ location_key  IN (SELECT location_key FROM
       </action-outputs>
       <component-definition> 
         <chart-attributes> 
-          <chart-type>PieChart</chart-type>  
+          <chart-type>BarChart</chart-type>  
           <border-visible>false</border-visible> 
         </chart-attributes>  
         <width><![CDATA[300]]></width>  
         <height><![CDATA[250]]></height>  
-        <by-row><![CDATA[true]]></by-row>  
+        <by-row><![CDATA[false]]></by-row>  
         <title><![CDATA[Preganant Women in MOTECH enrolled in MM]]></title> 
       </component-definition> 
     </action-definition>

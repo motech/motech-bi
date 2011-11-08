@@ -14,7 +14,7 @@
   <inputs/>
 
   <outputs> 
-    <image-tag type="string"/> 
+    <image-tag type="string"/>
   </outputs>
 
   <resources/>
@@ -48,7 +48,7 @@ WHERE client_type LIKE (
       </action-outputs>
       <component-definition> 
         <jndi><![CDATA[MotechDw]]></jndi>  
-        <query><![CDATA[SELECT {RS_POPULATION} as 'Pregnant Women Motech Registrations', 
+        <query><![CDATA[SELECT 'all time', {RS_POPULATION} as 'Pregnant Women Motech Registrations', 
 count(fact_registration.client_key) AS 'Mobile Midwife Registrations' 
 FROM `fact_registration` 
 join dim_client on dim_client.client_key = fact_registration.client_key
@@ -62,7 +62,7 @@ dim_client.client_type like ('Pregnant Woman')]]></query>
   
     <action-definition> 
       <component-name>ChartComponent</component-name>
-      <action-type>Pie Chart</action-type>
+      <action-type>Bar Chart</action-type>
       <action-inputs> 
         <chart-data type="result-set" mapping="query_result"/> 
       </action-inputs>
@@ -71,12 +71,13 @@ dim_client.client_type like ('Pregnant Woman')]]></query>
       </action-outputs>
       <component-definition> 
         <chart-attributes> 
-          <chart-type>PieChart</chart-type> 
+          <chart-type>BarChart</chart-type>  
+          <orientation>vertical</orientation>  
+          <by-row>false</by-row> 
         </chart-attributes>  
-        <width><![CDATA[300]]></width>  
-        <height><![CDATA[300]]></height>  
-        <by-row><![CDATA[true]]></by-row>  
-        <title><![CDATA[Retention]]></title> 
+        <by-row><![CDATA[false]]></by-row>  
+        <width><![CDATA[500]]></width>  
+        <height><![CDATA[500]]></height> 
       </component-definition> 
     </action-definition>
  

@@ -39,27 +39,27 @@
   <resources/>
   
   <actions> 
-    <action-definition>
+    <action-definition> 
       <component-name>SQLLookupRule</component-name>
       <action-type>Get Population Estimate</action-type>
-      <action-inputs>
-        <REGION type="string"/>
+      <action-inputs> 
+        <REGION type="string"/> 
       </action-inputs>
-      <action-outputs>
-        <query-result type="result-set" mapping="RS_POPULATION"/>
+      <action-outputs> 
+        <query-result type="result-set" mapping="RS_POPULATION"/> 
       </action-outputs>
-      <component-definition>
-        <jndi><![CDATA[MotechDw]]></jndi>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
         <query><![CDATA[SELECT SUM(general_population_estimate) 
 FROM dim_location
 	WHERE 
 	region LIKE '{REGION}'
         AND 
-	population_estimate_year IS NOT NULL]]></query>
-        <live><![CDATA[true]]></live>
-      </component-definition>
+	population_estimate_year IS NOT NULL]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
     </action-definition>
-
+  
     <action-definition> 
       <component-name>SQLLookupRule</component-name>
       <action-type>Get expected care count</action-type>
@@ -67,7 +67,7 @@ FROM dim_location
         <DISTRICT type="string"/>  
         <SUB_DISTRICT type="string"/>  
         <REGION type="string"/>  
-        <RS_POPULATION type="string"/>
+        <RS_POPULATION type="string"/> 
       </action-inputs>
       <action-outputs> 
         <query-result type="result-set" mapping="query_result"/> 
@@ -93,7 +93,7 @@ location_key  IN (SELECT location_key FROM
   
     <action-definition> 
       <component-name>ChartComponent</component-name>
-      <action-type>Pie Chart</action-type>
+      <action-type>Chart</action-type>
       <action-inputs> 
         <chart-data type="result-set" mapping="query_result"/> 
       </action-inputs>
@@ -102,10 +102,10 @@ location_key  IN (SELECT location_key FROM
       </action-outputs>
       <component-definition> 
         <chart-attributes> 
-          <chart-type>PieChart</chart-type>  
+          <chart-type>BarChart</chart-type>  
           <border-visible>false</border-visible> 
         </chart-attributes>  
-        <by-row><![CDATA[true]]></by-row>  
+        <by-row><![CDATA[false]]></by-row>  
         <width><![CDATA[300]]></width>  
         <height><![CDATA[250]]></height>  
         <title><![CDATA[Coverage - Expected Care]]></title> 
