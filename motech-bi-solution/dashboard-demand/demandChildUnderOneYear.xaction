@@ -106,7 +106,7 @@ fact_registration.location_key  IN (SELECT location_key FROM
           <border-visible>false</border-visible>  
         </chart-attributes>  
         <by-row><![CDATA[false]]></by-row>  
-        <width><![CDATA[300]]></width>  
+        <width><![CDATA[240]]></width>  
         <height><![CDATA[250]]></height>  
         <title><![CDATA[Children under 1 year in MOTECH enrolled in MM]]></title> 
       </component-definition> 
