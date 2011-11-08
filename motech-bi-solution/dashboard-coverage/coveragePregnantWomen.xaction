@@ -62,21 +62,25 @@ FROM dim_location
   
     <action-definition> 
       <component-name>SQLLookupRule</component-name>
-      <action-type>Get pregnant women registration count</action-type>
+      <action-type>Get pregnant women motech registration count</action-type>
       <action-inputs> 
-        <REGION type="string"/>  
-        <DISTRICT type="string"/>  
-        <SUB_DISTRICT type="string"/>  
-        <RS_POPULATION type="string"/> 
+        <RS_POPULATION type="string"/>  
+        <DISTRICT type="string"/>
+        <SUB_DISTRICT type="string"/>
+        <REGION type="string"/>
       </action-inputs>
       <action-outputs> 
         <query-result type="result-set" mapping="query_result"/> 
       </action-outputs>
       <component-definition> 
         <query><![CDATA[SELECT {RS_POPULATION} as 'estimated population' , count(*) as 'number registered'
-FROM fact_registration
-WHERE 
-program_name like "Weekly Pregnancy Message Program"
+FROM  `dim_client`, `dim_location`
+WHERE
+dim_client.facility = dim_location.facility
+AND
+client_type LIKE (
+'Pregnant Woman'
+)
 AND
 location_key  IN (SELECT location_key FROM 
 	dim_location
