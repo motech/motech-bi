@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2011 at 10:32 AM
+-- Generation Time: Nov 10, 2011 at 11:11 AM
 -- Server version: 5.1.54
 -- PHP Version: 5.3.5-1ubuntu7.3
 
@@ -101,6 +101,25 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `population_estimate_year` int(11) DEFAULT NULL,
   KEY `idx_dim_location_lookup` (`location_id`),
   KEY `idx_dim_location_tk` (`location_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fact_call`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_call` (
+  `motech_id` varchar(255) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `message_a` decimal(32,0) DEFAULT NULL,
+  `message_b` decimal(32,0) DEFAULT NULL,
+  `message_c` decimal(32,0) DEFAULT NULL,
+  `duration` decimal(32,0) DEFAULT NULL,
+  `client_key` bigint(20) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  KEY `idx_fact_call_lookup` (`motech_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
