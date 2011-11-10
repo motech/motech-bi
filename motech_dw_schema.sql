@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Oct 18, 2011 at 10:16 AM
+-- Generation Time: Nov 10, 2011 at 10:32 AM
 -- Server version: 5.1.54
--- PHP Version: 5.3.5-1ubuntu7.2
+-- PHP Version: 5.3.5-1ubuntu7.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `dim_client` (
   `date_from` datetime DEFAULT NULL,
   `date_to` datetime DEFAULT NULL,
   `client_type` text,
+  `gender` varchar(50) DEFAULT NULL,
+  `reg_age` bigint(20) DEFAULT NULL,
   KEY `idx_dim_client_lookup` (`name`,`motech_id`,`phone_number`,`address`,`community`,`facility`,`birthdate`,`death_date`),
   KEY `idx_dim_client_tk` (`client_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -99,6 +101,49 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `population_estimate_year` int(11) DEFAULT NULL,
   KEY `idx_dim_location_lookup` (`location_id`),
   KEY `idx_dim_location_tk` (`location_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fact_pregnancy`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_pregnancy` (
+  `motech_id` varchar(50) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `due_date` datetime DEFAULT NULL,
+  `trimester` varchar(6) DEFAULT NULL,
+  `client_key` bigint(20) DEFAULT NULL,
+  `facility_id` bigint(20) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  KEY `idx_fact_pregnancy_lookup` (`motech_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fact_program`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_program` (
+  `motech_id` varchar(50) DEFAULT NULL,
+  `program` varchar(200) DEFAULT NULL,
+  `language` varchar(7) DEFAULT NULL,
+  `phone_number` text,
+  `phone_ownership` text,
+  `telco` varchar(8) DEFAULT NULL,
+  `delivery_day` text,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `medium` text,
+  `delivery_time` text,
+  `client_key` bigint(20) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `facility_id` bigint(20) DEFAULT NULL,
+  KEY `idx_fact_program_lookup` (`motech_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

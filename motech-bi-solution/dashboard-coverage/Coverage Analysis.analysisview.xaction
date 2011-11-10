@@ -152,8 +152,8 @@
           <spacer/>  
           <excel/> 
         </options>  
-        <query><![CDATA[select {[Measures].[Registration]} ON COLUMNS,
-  {([date dimension.Time].[All date dimension.Times], [location dimension.Location].[All Locations], [client.Client].[All Clients])} ON ROWS
+        <query><![CDATA[select NON EMPTY {[Measures].[Registration]} ON COLUMNS,
+  NON EMPTY Crossjoin(Hierarchize(Union({[date dimension.Time].[All date dimension.Times]}, [date dimension.Time].[All date dimension.Times].Children)), {([location dimension.Location].[All Locations], [client.Client].[All Clients])}) ON ROWS
 from [motech_coverage]
 ]]></query>  
         <jndi><![CDATA[MotechDw]]></jndi>  
@@ -166,7 +166,7 @@ from [motech_coverage]
         <chartshowslicer><![CDATA[true]]></chartshowslicer>  
         <charttype><![CDATA[1]]></charttype>  
         <chartbackgroundb><![CDATA[255]]></chartbackgroundb>  
-        <actionreference><![CDATA[dashboard-coverage//Coverage Analysis.analysisview.xaction]]></actionreference>  
+        <actionreference><![CDATA[motech-bi-solution/dashboard-coverage/Coverage Analysis.analysisview.xaction]]></actionreference>  
         <showgrid><![CDATA[true]]></showgrid>  
         <chartslicerlocation><![CDATA[1]]></chartslicerlocation>  
         <chartaxistickfontstyle><![CDATA[0]]></chartaxistickfontstyle>  

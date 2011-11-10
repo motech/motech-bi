@@ -1,6 +1,6 @@
 <Schema name="motech">
   <Cube name="motech_coverage" cache="true" enabled="true">
-    <Table name="fact_registration">
+    <Table name="fact_program">
     </Table>
     <Dimension type="TimeDimension" foreignKey="date_key" highCardinality="false" name="date dimension">
       <Hierarchy name="Time" hasAll="true" primaryKey="date_key">
@@ -36,7 +36,7 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Registration" column="client_key" datatype="Integer" aggregator="count" visible="true">
+    <Measure name="Registration" column="client_key" datatype="Integer" aggregator="distinct count" visible="true">
     </Measure>
   </Cube>
 </Schema>
