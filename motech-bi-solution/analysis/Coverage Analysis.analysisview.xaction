@@ -126,7 +126,7 @@
       <component-definition> 
         <title><![CDATA[Coverage Analysis]]></title>  
         <viewer>Pivot</viewer>  
-        <model><![CDATA[solution:/motech-bi-solution/dashboard-coverage/coverage-schema.xml]]></model>  
+        <model><![CDATA[solution:/motech-bi-solution/analysis/motech-schema.xml]]></model>  
         <options> 
           <personal/>  
           <cube-nav/>  
