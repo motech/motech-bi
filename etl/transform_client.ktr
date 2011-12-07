@@ -64,7 +64,7 @@ The client_type is used in the retention dashboard to segregate different types 
   <created_user>-</created_user>
   <created_date>2011&#47;10&#47;17 09:14:08.845</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;07 01:31:04.570</modified_date>
+  <modified_date>2011&#47;12&#47;07 01:55:06.110</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -208,7 +208,7 @@ The client_type is used in the retention dashboard to segregate different types 
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech dw</connection>
+    <connection>motech data warehouse</connection>
     <skip_lookup>N</skip_lookup>
     <commit>100</commit>
     <error_ignored>Y</error_ignored>
