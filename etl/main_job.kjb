@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>main_job</name>
     <description/>
     <extended_description/>
     <job_version/>
-    <job_status>0</job_status>
+    <job_status>1</job_status>
   <directory>&#47;</directory>
   <created_user>-</created_user>
   <created_date>2011&#47;11&#47;03 10:48:03.740</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;11&#47;03 14:51:34.437</modified_date>
+  <modified_date>2011&#47;12&#47;01 13:38:27.401</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -112,9 +113,9 @@
       <name>load client</name>
       <description/>
       <type>TRANS</type>
-      <specification_method>rep_ref</specification_method>
-      <trans_object_id>&#47;load_client_dim.ktr</trans_object_id>
-      <filename/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_client_dim.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -144,9 +145,9 @@
       <name>load date dimension</name>
       <description/>
       <type>TRANS</type>
-      <specification_method>rep_ref</specification_method>
-      <trans_object_id>&#47;load_date_dim.ktr</trans_object_id>
-      <filename/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_date_dim.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -176,9 +177,9 @@
       <name>load location dimension</name>
       <description/>
       <type>TRANS</type>
-      <specification_method>rep_ref</specification_method>
-      <trans_object_id>&#47;load_location_dim.ktr</trans_object_id>
-      <filename/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_location_dim.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -238,9 +239,9 @@
       <name>transform client dimension</name>
       <description/>
       <type>TRANS</type>
-      <specification_method>rep_ref</specification_method>
-      <trans_object_id>&#47;transform_client.ktr</trans_object_id>
-      <filename/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;transform_client.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -270,9 +271,9 @@
       <name>build registration fact</name>
       <description/>
       <type>TRANS</type>
-      <specification_method>rep_ref</specification_method>
-      <trans_object_id>&#47;load_registration_fact.ktr</trans_object_id>
-      <filename/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_registration_fact.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
