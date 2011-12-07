@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.10deb1
+-- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2011 at 11:11 AM
--- Server version: 5.1.54
--- PHP Version: 5.3.5-1ubuntu7.3
+-- Generation Time: Dec 07, 2011 at 02:40 AM
+-- Server version: 5.1.58
+-- PHP Version: 5.3.6-13ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 --
 -- Database: `motech_dw`
@@ -134,9 +135,9 @@ CREATE TABLE IF NOT EXISTS `fact_pregnancy` (
   `due_date` datetime DEFAULT NULL,
   `trimester` varchar(6) DEFAULT NULL,
   `client_key` bigint(20) DEFAULT NULL,
-  `facility_id` bigint(20) DEFAULT NULL,
   `location_key` int(11) DEFAULT NULL,
-  KEY `idx_fact_pregnancy_lookup` (`motech_id`)
+  `date_key` varchar(255) DEFAULT NULL,
+  KEY `idx_fact_pregnancy_lookup` (`motech_id`,`start_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -178,4 +179,3 @@ CREATE TABLE IF NOT EXISTS `fact_registration` (
   `program_name` varchar(200) DEFAULT NULL,
   KEY `idx_fact_registration_lookup` (`date_key`,`location_key`,`client_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
