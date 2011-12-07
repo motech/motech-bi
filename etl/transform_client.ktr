@@ -64,7 +64,7 @@ The client_type is used in the retention dashboard to segregate different types 
   <created_user>-</created_user>
   <created_date>2011&#47;10&#47;17 09:14:08.845</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;11&#47;03 11:45:53.446</modified_date>
+  <modified_date>2011&#47;12&#47;07 01:31:04.570</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -72,7 +72,7 @@ The client_type is used in the retention dashboard to segregate different types 
 </note>
       <xloc>50</xloc>
       <yloc>42</yloc>
-      <width>129</width>
+      <width>133</width>
       <heigth>44</heigth>
       <fontname>Ariel</fontname>
       <fontsize>10</fontsize>
