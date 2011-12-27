@@ -1,11 +1,11 @@
 <transformation>
   <info>
-    <name>load_client_dim</name>
+    <name>load_program</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>1</trans_status>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -49,7 +49,7 @@
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
     <shared_objects_file/>
-    <capture_step_performance>Y</capture_step_performance>
+    <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
     <dependencies>
@@ -60,10 +60,10 @@
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
-  <created_user>-</created_user>
-  <created_date>2011&#47;06&#47;14 16:29:56.548</created_date>
+  <created_user>admin</created_user>
+  <created_date>2011&#47;11&#47;28 14:59:03.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;27 14:40:59.273</modified_date>
+  <modified_date>2011&#47;12&#47;27 14:10:07.705</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -243,11 +243,11 @@
     </attributes>
   </connection>
   <connection>
-    <name>MotechOltp</name>
+    <name>MotechOltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>Native</access>
-    <database>openmrs</database>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -268,11 +268,11 @@
     </attributes>
   </connection>
   <connection>
-    <name>MotechOltp </name>
+    <name>MotechOltpD</name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechOltpDb</database>
+    <access>Native</access>
+    <database>openmrs</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -305,6 +305,8 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -341,10 +343,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>lookup client key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>lookup region</to><enabled>Y</enabled> </hop>  <hop> <from>lookup region</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Dimension lookup&#47;update</name>
-    <type>DimensionLookup</type>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -352,86 +354,108 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <connection>motech data warehouse</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
       <schema/>
-      <table>dim_client</table>
-      <connection>MotechDw</connection>
-      <commit>100</commit>
-      <update>Y</update>
-      <fields>
-        <key>
-          <name>motech_id</name>
-          <lookup>motech_id</lookup>
-        </key>
-        <date>
-          <name/>
-          <from>date_from</from>
-          <to>date_to</to>
-        </date>
-        <field>
-          <name>name</name>
-          <lookup>name</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>phone_number</name>
-          <lookup>phone_number</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>address</name>
-          <lookup>address</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>community</name>
-          <lookup>community</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>facility</name>
-          <lookup>facility</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>birthdate</name>
-          <lookup>birthdate</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
-          <name>death_date</name>
-          <lookup>death_date</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>gender</name>
-          <lookup>gender</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>reg_age</name>
-          <lookup>reg_age</lookup>
-          <update>Update</update>
-        </field>
-        <return>
-          <name>client_key</name>
-          <rename/>
-          <creation_method>tablemax</creation_method>
-          <use_autoinc>N</use_autoinc>
-          <version>version</version>
-        </return>
-      </fields>
-      <sequence/>
-      <min_year>1900</min_year>
-      <max_year>2199</max_year>
-      <cache_size>5000</cache_size>
-      <preload_cache>N</preload_cache>
-      <use_start_date_alternative>N</use_start_date_alternative>
-      <start_date_alternative>none</start_date_alternative>
-      <start_date_field_name/>
+      <table>fact_program</table>
+      <key>
+        <name>motech_id</name>
+        <field>motech_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>motech_id</name>
+        <rename>motech_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>patient_id</name>
+        <rename>patient_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>program</name>
+        <rename>program</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>language</name>
+        <rename>language</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>medium</name>
+        <rename>medium</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>phone_number</name>
+        <rename>phone_number</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>phone_ownership</name>
+        <rename>phone_ownership</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>telco</name>
+        <rename>telco</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>delivery_day</name>
+        <rename>delivery_day</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>delivery_time</name>
+        <rename>delivery_time</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>start_date</name>
+        <rename>start_date</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>end_date</name>
+        <rename>end_date</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>client_key</name>
+        <rename>client_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_key</name>
+        <rename>date_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>facility_id</name>
+        <rename>facility_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>location_key</name>
+        <rename>location_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>district</name>
+        <rename>district</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>682</xloc>
-      <yloc>136</yloc>
+      <xloc>927</xloc>
+      <yloc>335</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -446,31 +470,70 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MotechOltp</connection>
-    <sql>SELECT CONCAT( nom.given_name, &apos;  &apos;, nom.family_name ) AS name, 
-pi.identifier AS &apos;motech_id&apos;, 
-patt.value AS phone_number, 
-pa.address1 AS address, 
-c.name AS community, 
-l.name AS facility, 
-p.gender,
-coalesce(YEAR(p.date_created) - YEAR(p.birthdate) -
-IF(DATE_FORMAT(p.birthdate, &apos;%c%d&apos;) &gt; DATE_FORMAT(p.date_created, &apos;%c%d&apos;),
-1, 0),-1) as reg_age,
-p.birthdate AS birthdate, 
-p.death_date AS death_date
-FROM patient_identifier pi
-JOIN person_address pa ON pa.person_id = pi.patient_id
-LEFT JOIN ( SELECT person_id, value
-	FROM person_attribute
-	WHERE person_attribute_type_id =8
-	)patt ON patt.person_id = pi.patient_id
-	JOIN person_name nom ON nom.person_id = pi.patient_id
-	JOIN motechmodule_community_patient cp ON cp.patient_id = pi.patient_id
-JOIN motechmodule_community c ON cp.community_id = c.id
-JOIN motechmodule_facility f ON c.facility_id = f.id
-JOIN location l ON f.location_id = l.location_id
-   JOIN person p ON p.person_id = pi.patient_id
+    <connection>openmrs</connection>
+    <sql>SELECT pi.identifier AS motech_id,
+	   pi.patient_id,
+       mm.program,
+       IF(patt1.value REGEXP &apos;^kas&apos;,&apos;Kassim&apos;,
+       IF(patt1.value REGEXP &apos;^nan&apos;,&apos;Nankam&apos;,
+       IF(patt1.value REGEXP &apos;^en&apos;,&apos;English&apos;,&apos;Other&apos;))) as &apos;language&apos;,
+       patt3.value as &apos;medium&apos;,
+       patt.value as &apos;phone_number&apos;,
+       patt2.value as phone_ownership,
+       IF(patt.value REGEXP &apos;^0(2|5)4&apos;,&apos;MTN&apos;,
+       IF(patt.value REGEXP &apos;^0(2|3)0&apos;,&apos;Vodafone&apos;,
+       IF(patt.value REGEXP &apos;^027&apos;,&apos;Tigo&apos;,
+       IF(patt.value REGEXP &apos;^026&apos;,&apos;Airtel&apos;,&apos;Other&apos;)))) as telco,
+       patt4.value as delivery_day,
+       patt5.value as delivery_time,
+       DATE(mm.start) AS start_date,
+       DATE(mm.end) AS end_date
+  FROM patient_identifier pi
+  JOIN person p ON p.person_id = pi.patient_id
+  JOIN (SELECT distinct person_id,
+                    IF(program_name = &apos;Weekly Pregnancy Message
+Program&apos;,&apos;Pregnancy&apos;,
+                    IF(program_name = &apos;Weekly Info Child Message
+Program&apos;,&apos;Under 1&apos;,
+                    IF(program_name = &apos;Weekly Info Pregnancy Message
+Program&apos;,&apos;Info&apos;,program_name))) as &apos;program&apos;,
+                    max(start_date) as &apos;start&apos;,
+                    max(end_date) as &apos;end&apos;
+               FROM motechmodule_enrollment
+              WHERE program_name like&apos;%Weekly%&apos;
+              GROUP BY person_id) mm on mm.person_id = pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 8 group by person_id) patt on patt.person_id =
+pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 11 group by person_id) patt1 on patt1.person_id
+= pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 12 group by person_id) patt2 on patt2.person_id
+= pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 13 group by person_id) patt3 on patt3.person_id
+= pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 14 group by person_id) patt4 on patt4.person_id
+= pi.patient_id
+  LEFT JOIN (select distinct(person_id), SUBSTRING_INDEX(
+GROUP_CONCAT(CAST(value AS CHAR) ORDER BY date_created DESC),&apos;,&apos;,1) as
+value from openmrs.person_attribute where voided=0 and
+person_attribute_type_id = 15 group by person_id) patt5 on patt5.person_id
+= pi.patient_id
+ WHERE p.voided = 0
+   AND pi.identifier_type = 3;
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -479,8 +542,213 @@ JOIN location l ON f.location_id = l.location_id
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>67</xloc>
-      <yloc>137</yloc>
+      <xloc>68</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup client key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>motech data warehouse</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_client</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>motech_id</name>
+        <field>motech_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>client_key</name>
+        <rename>client_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>244</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup date key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>motech data warehouse</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_date</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>start_date</name>
+        <field>date_value</field>
+        <condition>LIKE</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>date_key</name>
+        <rename>date_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>422</xloc>
+      <yloc>127</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup facility id</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>openmrs</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>motechmodule_facility_patient</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>patient_id</name>
+        <field>patient_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>facility_id</name>
+        <rename>facility_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>596</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup location key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>motech data warehouse</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>facility_id</name>
+        <field>location_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>location_key</name>
+        <rename>location_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>778</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup region</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>motech data warehouse</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>location_key</name>
+        <field>location_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>district</name>
+        <rename>district</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>923</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

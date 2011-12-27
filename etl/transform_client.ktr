@@ -64,7 +64,7 @@ The client_type is used in the retention dashboard to segregate different types 
   <created_user>-</created_user>
   <created_date>2011&#47;10&#47;17 09:14:08.845</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;07 01:55:06.110</modified_date>
+  <modified_date>2011&#47;12&#47;27 14:18:18.622</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -91,32 +91,7 @@ The client_type is used in the retention dashboard to segregate different types 
     </notepad>
   </notepads>
   <connection>
-    <name>motech data warehouse</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechDw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>motech dw</name>
+    <name>data warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -141,11 +116,50 @@ The client_type is used in the retention dashboard to segregate different types 
     </attributes>
   </connection>
   <connection>
-    <name>Motech Oltp </name>
+    <name>MotechDw</name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechOltpDb</database>
+    <access>Native</access>
+    <database>motech_dw</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MotechOltpDb</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>openmrs</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>openmrs</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>openmrs</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -208,9 +222,10 @@ The client_type is used in the retention dashboard to segregate different types 
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>motech data warehouse</connection>
+    <connection>MotechDw</connection>
     <skip_lookup>N</skip_lookup>
     <commit>100</commit>
+    <use_batch>N</use_batch>
     <error_ignored>Y</error_ignored>
     <ignore_flag_field/>
     <lookup>
@@ -245,7 +260,7 @@ The client_type is used in the retention dashboard to segregate different types 
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Motech Oltp </connection>
+    <connection>openmrs</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -311,7 +326,7 @@ The client_type is used in the retention dashboard to segregate different types 
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Motech Oltp </connection>
+    <connection>openmrs</connection>
     <sql>select distinct(encounter_id), patient_id from encounter where encounter_type=6</sql>
     <limit>0</limit>
     <lookup/>

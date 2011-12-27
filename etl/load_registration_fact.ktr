@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;07&#47;06 15:59:50.680</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;10&#47;18 14:06:35.657</modified_date>
+  <modified_date>2011&#47;12&#47;27 14:18:38.125</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -71,8 +71,8 @@
     <name>motech data warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechDw</database>
+    <access>Native</access>
+    <database>motech_dw</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -118,6 +118,31 @@
     </attributes>
   </connection>
   <connection>
+    <name>Motech Oltp</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>openmrs</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>Motech Oltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -143,7 +168,48 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>motech id</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input</from><to>motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>motech id</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>Database lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>motech data warehouse</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>location_key</name>
+        <field>location_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>district</name>
+        <rename>district</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>839</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Insert &#47; Update</name>
     <type>InsertUpdate</type>
@@ -192,11 +258,16 @@
         <rename>program_name</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>district</name>
+        <rename>district</rename>
+        <update>Y</update>
+      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>935</xloc>
-      <yloc>55</yloc>
+      <xloc>658</xloc>
+      <yloc>405</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -227,8 +298,8 @@ where `program_name` like &apos;Weekly Pregnancy Message Program&apos;</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>23</xloc>
-      <yloc>54</yloc>
+      <xloc>29</xloc>
+      <yloc>52</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -268,8 +339,8 @@ where `program_name` like &apos;Weekly Pregnancy Message Program&apos;</sql>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>283</xloc>
-      <yloc>54</yloc>
+      <xloc>295</xloc>
+      <yloc>51</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -432,7 +503,7 @@ where `program_name` like &apos;Weekly Pregnancy Message Program&apos;</sql>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>154</xloc>
+      <xloc>161</xloc>
       <yloc>54</yloc>
       <draw>Y</draw>
       </GUI>

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2011 at 02:40 AM
+-- Generation Time: Dec 27, 2011 at 01:06 PM
 -- Server version: 5.1.58
--- PHP Version: 5.3.6-13ubuntu3.2
+-- PHP Version: 5.3.6-13ubuntu3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -96,10 +96,6 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `district` varchar(50) DEFAULT NULL,
   `region` varchar(50) DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
-  `pregnant_population_estimate` int(11) unsigned DEFAULT NULL,
-  `child_under_one_population_estimate` int(10) unsigned DEFAULT NULL,
-  `general_population_estimate` int(10) unsigned DEFAULT NULL,
-  `population_estimate_year` int(11) DEFAULT NULL,
   KEY `idx_dim_location_lookup` (`location_id`),
   KEY `idx_dim_location_tk` (`location_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -163,19 +159,40 @@ CREATE TABLE IF NOT EXISTS `fact_program` (
   `location_key` int(11) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `facility_id` bigint(20) DEFAULT NULL,
+  `district` varchar(50) DEFAULT NULL,
   KEY `idx_fact_program_lookup` (`motech_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fact_registration`
+-- Table structure for table `fact_target`
 --
 
-CREATE TABLE IF NOT EXISTS `fact_registration` (
-  `date_key` varchar(255) DEFAULT NULL,
-  `location_key` int(10) DEFAULT NULL,
-  `client_key` bigint(20) DEFAULT NULL,
-  `program_name` varchar(200) DEFAULT NULL,
-  KEY `idx_fact_registration_lookup` (`date_key`,`location_key`,`client_key`)
+CREATE TABLE IF NOT EXISTS `fact_target` (
+  `region` varchar(50) NOT NULL,
+  `district` text NOT NULL,
+  `denominator_type` varchar(35) NOT NULL,
+  `population_estimate` int(11) NOT NULL,
+  `year` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `location_district`
+--
+CREATE TABLE IF NOT EXISTS `location_district` (
+`district` varchar(50)
+,`region` varchar(50)
+,`country` varchar(50)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `location_district`
+--
+DROP TABLE IF EXISTS `location_district`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `location_district` AS select distinct `dim_location`.`district` AS `district`,`dim_location`.`region` AS `region`,`dim_location`.`country` AS `country` from `dim_location`;
+
