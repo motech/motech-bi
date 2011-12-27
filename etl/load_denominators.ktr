@@ -63,10 +63,35 @@
   <created_user>-</created_user>
   <created_date>2011&#47;12&#47;27 17:00:17.511</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;27 20:19:47.529</modified_date>
+  <modified_date>2011&#47;12&#47;27 21:20:26.045</modified_date>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>Motech Oltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>MotechDw</name>
     <server>localhost</server>
@@ -170,12 +195,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>&#47;home&#47;kojo&#47;Downloads&#47;denominators.xls</name>
+      <name>${Internal.Job.Filename.Directory}&#47;denominators.xls</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
