@@ -63,10 +63,35 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:05.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;27 20:13:32.500</modified_date>
+  <modified_date>2012&#47;01&#47;09 16:14:06.509</modified_date>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>Motech Oltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>MotechDw</name>
     <server>localhost</server>
@@ -140,8 +165,33 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>MotechOltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
-  <hop> <from>Table input</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup patient_id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup patient_id</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup patient_id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup patient_id</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Insert &#47; Update</name>
     <type>InsertUpdate</type>
@@ -161,6 +211,54 @@
       <key>
         <name>motech_id</name>
         <field>motech_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>start_date</name>
+        <field>start_date</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>message_a</name>
+        <field>message_a</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>message_b</name>
+        <field>message_b</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>message_c</name>
+        <field>message_c</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>duration</name>
+        <field>duration</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>client_key</name>
+        <field>client_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>date_key</name>
+        <field>date_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>location_key</name>
+        <field>location_key</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -212,8 +310,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>918</xloc>
-      <yloc>85</yloc>
+      <xloc>856</xloc>
+      <yloc>269</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -420,8 +518,8 @@ cs.call_session_id
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>784</xloc>
-      <yloc>85</yloc>
+      <xloc>783</xloc>
+      <yloc>87</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
