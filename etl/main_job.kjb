@@ -8,7 +8,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;11&#47;03 10:48:03.000</created_date>
   <modified_user>admin</modified_user>
-  <modified_date>2012&#47;01&#47;11 17:48:58.774</modified_date>
+  <modified_date>2012&#47;01&#47;11 19:08:15.433</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -306,8 +306,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>365</xloc>
-      <yloc>619</yloc>
+      <xloc>115</xloc>
+      <yloc>582</yloc>
       </entry>
     <entry>
       <name>transform client dimension</name>
@@ -342,7 +342,7 @@
       <yloc>24</yloc>
       </entry>
     <entry>
-      <name>call fact</name>
+      <name>load call fact</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -450,8 +450,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>72</xloc>
-      <yloc>392</yloc>
+      <xloc>489</xloc>
+      <yloc>595</yloc>
       </entry>
     <entry>
       <name>load denominators</name>
@@ -482,8 +482,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>155</xloc>
-      <yloc>524</yloc>
+      <xloc>265</xloc>
+      <yloc>598</yloc>
       </entry>
     <entry>
       <name>staff dimension</name>
@@ -620,7 +620,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>call fact</from>
+      <from>load call fact</from>
       <to>pregnancy fact</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -639,34 +639,7 @@
     </hop>
     <hop>
       <from>load program</from>
-      <to>call fact</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>truncate fact_target</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>truncate fact_target</from>
-      <to>load denominators</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load denominators</from>
-      <to>Success</to>
+      <to>load call fact</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -701,8 +674,26 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Encounter Facts</from>
+      <from>load denominators</from>
       <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Encounter Facts</from>
+      <to>truncate fact_target</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>truncate fact_target</from>
+      <to>load denominators</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
