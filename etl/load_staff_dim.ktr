@@ -1,6 +1,6 @@
 <transformation>
   <info>
-    <name>load_location_dim</name>
+    <name>load_staff_dim</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -61,9 +61,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2011&#47;06&#47;22 23:14:03.886</created_date>
+  <created_date>2012&#47;01&#47;10 17:40:33.775</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;11 16:06:26.954</modified_date>
+  <modified_date>2012&#47;01&#47;11 15:30:50.202</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -143,29 +143,6 @@
     </attributes>
   </connection>
   <connection>
-    <name>MotechOltp</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechOltpDb</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MotechOltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -191,7 +168,47 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechOltp </connection>
+    <sql>SELECT u.system_id as staff_id, nom.name,  pat.value as type, CAST(mid.identifier AS SIGNED) as motech_id, u.date_created as start_date 
+                                                FROM openmrs.users u 
+  JOIN (select person_id, concat(given_name,&apos; &apos;,family_name) as name 
+          from openmrs.person_name
+         where voided = 0
+         group by person_id) nom on nom.person_id = u.user_id 
+  LEFT JOIN (select pi.identifier, concat(n.given_name,&apos; &apos;,n.family_name) as name
+              from openmrs.patient_identifier pi, openmrs.person_name n
+              where pi.identifier_type = 3 
+                and pi.patient_id = n.person_id and n.voided=0
+                                and n.preferred = 0
+              ) mid on mid.name = nom.name
+  LEFT JOIN (select person_id, IF(value=&apos;&apos;,&apos;Field Agent&apos;,value) as value
+          from openmrs.person_attribute  
+         where person_attribute_type_id = 19) pat on pat.person_id = u.user_id
+ where u.voided=0;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>140</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Dimension lookup&#47;update</name>
     <type>DimensionLookup</type>
@@ -203,62 +220,42 @@
            <schema_name/>
            </partitioning>
       <schema/>
-      <table>dim_location</table>
+      <table>dim_staff</table>
       <connection>MotechDw</connection>
       <commit>100</commit>
       <update>Y</update>
       <fields>
         <key>
-          <name>location_id</name>
-          <lookup>location_id</lookup>
+          <name>staff_id</name>
+          <lookup>staff_id</lookup>
         </key>
         <date>
-          <name/>
+          <name>start_date</name>
           <from>date_from</from>
           <to>date_to</to>
         </date>
         <field>
-          <name>facility</name>
-          <lookup>facility</lookup>
-          <update>Update</update>
+          <name>name</name>
+          <lookup>name</lookup>
+          <update>Insert</update>
         </field>
         <field>
-          <name>city_village</name>
-          <lookup>city_village</lookup>
-          <update>Update</update>
+          <name>type</name>
+          <lookup>type</lookup>
+          <update>Insert</update>
         </field>
         <field>
-          <name>state_province</name>
-          <lookup>state_province</lookup>
-          <update>Update</update>
+          <name>motech_id</name>
+          <lookup>motech_id</lookup>
+          <update>Insert</update>
         </field>
         <field>
-          <name>latlong</name>
-          <lookup>latlong</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>region</name>
-          <lookup>region</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>country</name>
-          <lookup>country</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>county_district</name>
-          <lookup>district</lookup>
-          <update>Update</update>
-        </field>
-        <field>
-          <name>facility_id</name>
-          <lookup>facility_id</lookup>
+          <name>start_date</name>
+          <lookup>start_date</lookup>
           <update>Insert</update>
         </field>
         <return>
-          <name>location_key</name>
+          <name>staff_key</name>
           <rename/>
           <creation_method>tablemax</creation_method>
           <use_autoinc>N</use_autoinc>
@@ -275,121 +272,8 @@
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>876</xloc>
-      <yloc>129</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp</connection>
-    <sql>SELECT location_id, name AS facility, city_village, state_province, county_district, CONCAT( latitude, &apos;,&apos;, longitude ) AS latlong, region, country
-FROM location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
-      <yloc>129</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup facility id</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>motechmodule_facility</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>location_id</name>
-        <field>location_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>facility_id</name>
-        <rename>facility_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>348</xloc>
-      <yloc>129</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Dimension lookup&#47;update</send_true_to>
-<send_false_to>Dummy (do nothing)</send_false_to>
-    <compare>
-<condition>
- <negated>Y</negated>
- <leftvalue>facility_id</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>Integer</type><text>0</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#;-#</mask></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>563</xloc>
-      <yloc>129</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
-      <yloc>227</yloc>
+      <xloc>440</xloc>
+      <yloc>157</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

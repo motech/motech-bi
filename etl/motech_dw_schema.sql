@@ -1,9 +1,10 @@
--- phpMyAdmin SQL Dump
+
+n SQL Dump
 -- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jan 11, 2012 at 01:21 PM
+-- Generation Time: Jan 11, 2012 at 04:20 PM
 -- Server version: 5.1.58
 -- PHP Version: 5.3.6-13ubuntu3.3
 
@@ -88,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `version` int(11) DEFAULT NULL,
   `date_from` datetime DEFAULT NULL,
   `date_to` datetime DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL,
   `facility` varchar(255) DEFAULT NULL,
   `city_village` varchar(50) DEFAULT NULL,
   `state_province` varchar(50) DEFAULT NULL,
@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS `dim_location` (
   `district` varchar(50) DEFAULT NULL,
   `region` varchar(50) DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
-  KEY `idx_dim_location_lookup` (`location_id`),
+  `facility_id` int(11) DEFAULT NULL,
+  `location_id` int(11) DEFAULT NULL,
   KEY `idx_dim_location_tk` (`location_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

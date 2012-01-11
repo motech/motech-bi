@@ -31,9 +31,17 @@
       </Table>
       <Level name="gender" column="gender" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
-      <Level name="motech id" table="dim_client" column="motech_id" type="String" uniqueMembers="true">
+      <Level name="motech id" table="dim_client" column="motech_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
-      <Level name="client type" table="dim_client" column="client_type" nameColumn="client_type" type="String" uniqueMembers="false">
+      <Level name="client type" table="dim_client" column="client_type" nameColumn="client_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" name="Staff">
+    <Hierarchy hasAll="true">
+      <Table name="dim_staff" alias="">
+      </Table>
+      <Level name="staff id" table="dim_staff" column="staff_id" type="String" uniqueMembers="true" levelType="Regular">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -84,11 +92,11 @@
   <Cube name="Call " cache="true" enabled="true">
     <Table name="fact_call">
     </Table>
-    <DimensionUsage source="Time" name="Time" foreignKey="date_key">
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Client" name="Client" foreignKey="client_key">
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Location" name="Location" foreignKey="location_key">
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
     </DimensionUsage>
     <Measure name="Total Duration" column="duration" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
@@ -102,17 +110,17 @@
   <Cube name="Pregnancy" cache="true" enabled="true">
     <Table name="fact_pregnancy">
     </Table>
-    <DimensionUsage source="Time" name="Time" foreignKey="date_key">
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Client" name="Client" foreignKey="client_key">
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Location" name="Location" foreignKey="location_key">
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
     </DimensionUsage>
-    <Dimension type="StandardDimension" foreignKey="client_key" name="Trimester">
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="Trimester">
       <Hierarchy name="New Hierarchy 0" hasAll="true">
-        <Table name="fact_pregnancy" alias="">
+        <Table name="fact_pregnancy">
         </Table>
-        <Level name="Trimester" column="trimester" uniqueMembers="false">
+        <Level name="Trimester" column="trimester" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
@@ -151,6 +159,20 @@
       </Hierarchy>
     </Dimension>
     <Measure name="population" column="population_estimate" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Encounter" cache="true" enabled="true">
+    <Table name="fact_encounter" alias="">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key">
+    </DimensionUsage>
+    <DimensionUsage source="Staff" name="Staff" foreignKey="staff_key">
+    </DimensionUsage>
+    <Measure name="count" column="encounter_id" datatype="Integer" aggregator="distinct count" visible="true">
     </Measure>
   </Cube>
 </Schema>
