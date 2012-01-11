@@ -1,10 +1,9 @@
-
-n SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jan 11, 2012 at 04:20 PM
+-- Generation Time: Jan 11, 2012 at 05:13 PM
 -- Server version: 5.1.58
 -- PHP Version: 5.3.6-13ubuntu3.3
 
