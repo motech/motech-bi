@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jan 11, 2012 at 11:29 AM
+-- Generation Time: Jan 11, 2012 at 01:21 PM
 -- Server version: 5.1.58
 -- PHP Version: 5.3.6-13ubuntu3.3
 
@@ -143,6 +143,28 @@ CREATE TABLE IF NOT EXISTS `fact_call` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fact_encounter`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_encounter` (
+  `motech_id` bigint(20) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `facility_id` int(11) DEFAULT NULL,
+  `encounter_id` int(11) DEFAULT NULL,
+  `encounter_type` varchar(50) DEFAULT NULL,
+  `encounter_date` datetime DEFAULT NULL,
+  `time_to_upload` bigint(20) DEFAULT NULL,
+  `staff_key` bigint(20) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
+  `client_key` bigint(20) DEFAULT NULL,
+  KEY `idx_fact_encounter_lookup` (`motech_id`,`staff_id`,`date_created`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fact_enquiry`
 --
 
@@ -153,6 +175,9 @@ CREATE TABLE IF NOT EXISTS `fact_enquiry` (
   `staff_id` bigint(20) DEFAULT NULL,
   `facility_id` bigint(20) DEFAULT NULL,
   `response` varchar(7) DEFAULT NULL,
+  `staff_key` bigint(20) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
   KEY `idx_fact_enquiry_lookup` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
