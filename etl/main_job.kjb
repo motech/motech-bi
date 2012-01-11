@@ -8,7 +8,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;11&#47;03 10:48:03.000</created_date>
   <modified_user>admin</modified_user>
-  <modified_date>2011&#47;12&#47;27 20:38:42.018</modified_date>
+  <modified_date>2012&#47;01&#47;11 10:43:42.314</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -112,6 +112,31 @@
     </attributes>
   </connection>
   <connection>
+    <name>MotechMobile</name>
+    <server/>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechMobileDb</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>MotechOltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -187,8 +212,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>188</xloc>
-      <yloc>58</yloc>
+      <xloc>88</xloc>
+      <yloc>115</yloc>
       </entry>
     <entry>
       <name>load date dimension</name>
@@ -219,8 +244,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>518</xloc>
-      <yloc>58</yloc>
+      <xloc>495</xloc>
+      <yloc>16</yloc>
       </entry>
     <entry>
       <name>load location dimension</name>
@@ -251,8 +276,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>705</xloc>
-      <yloc>58</yloc>
+      <xloc>682</xloc>
+      <yloc>44</yloc>
       </entry>
     <entry>
       <name>START</name>
@@ -271,8 +296,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>38</xloc>
-      <yloc>129</yloc>
+      <xloc>22</xloc>
+      <yloc>251</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -281,8 +306,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>871</xloc>
-      <yloc>509</yloc>
+      <xloc>439</xloc>
+      <yloc>524</yloc>
       </entry>
     <entry>
       <name>transform client dimension</name>
@@ -313,8 +338,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>353</xloc>
-      <yloc>58</yloc>
+      <xloc>278</xloc>
+      <yloc>24</yloc>
       </entry>
     <entry>
       <name>call fact</name>
@@ -345,8 +370,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>871</xloc>
-      <yloc>214</yloc>
+      <xloc>965</xloc>
+      <yloc>217</yloc>
       </entry>
     <entry>
       <name>pregnancy fact</name>
@@ -377,8 +402,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>871</xloc>
-      <yloc>344</yloc>
+      <xloc>914</xloc>
+      <yloc>421</yloc>
       </entry>
     <entry>
       <name>load program</name>
@@ -409,8 +434,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>871</xloc>
-      <yloc>58</yloc>
+      <xloc>838</xloc>
+      <yloc>81</yloc>
       </entry>
     <entry>
       <name>truncate fact_target</name>
@@ -425,8 +450,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>218</xloc>
-      <yloc>246</yloc>
+      <xloc>72</xloc>
+      <yloc>392</yloc>
       </entry>
     <entry>
       <name>load denominators</name>
@@ -457,8 +482,72 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>410</xloc>
-      <yloc>252</yloc>
+      <xloc>252</xloc>
+      <yloc>485</yloc>
+      </entry>
+    <entry>
+      <name>staff dimension</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_staff_dim.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>750</xloc>
+      <yloc>482</yloc>
+      </entry>
+    <entry>
+      <name>load enquiry fact</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_equiry_fact.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>588</xloc>
+      <yloc>514</yloc>
       </entry>
   </entries>
   <hops>
@@ -508,15 +597,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>pregnancy fact</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>load location dimension</from>
       <to>load program</to>
       <from_nr>0</from_nr>
@@ -554,6 +634,33 @@
     </hop>
     <hop>
       <from>load denominators</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>pregnancy fact</from>
+      <to>staff dimension</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>staff dimension</from>
+      <to>load enquiry fact</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load enquiry fact</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
