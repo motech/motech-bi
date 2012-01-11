@@ -102,41 +102,21 @@
   <Cube name="Pregnancy" cache="true" enabled="true">
     <Table name="fact_pregnancy">
     </Table>
-    <Dimension type="TimeDimension" foreignKey="date_key" highCardinality="false" name="date dimension">
-      <Hierarchy name="Time" hasAll="true" primaryKey="date_key">
-        <Table name="dim_date">
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key">
+    </DimensionUsage>
+    <Dimension type="StandardDimension" foreignKey="client_key" name="Trimester">
+      <Hierarchy name="New Hierarchy 0" hasAll="true">
+        <Table name="fact_pregnancy" alias="">
         </Table>
-        <Level name="year" column="year4" nameColumn="year4" type="Integer" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
-        </Level>
-        <Level name="quarter" column="quarter_name" nameColumn="quarter_name" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
-        </Level>
-        <Level name="month" column="month_number" nameColumn="month_name" type="Integer" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        <Level name="Trimester" column="trimester" uniqueMembers="false">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" foreignKey="location_key" highCardinality="false" name="location dimension">
-      <Hierarchy name="Location" hasAll="true" allMemberName="All Locations" primaryKey="location_key">
-        <Table name="dim_location">
-        </Table>
-        <Level name="region" table="dim_location" column="region" nameColumn="region" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-        </Level>
-        <Level name="district" column="district" nameColumn="district" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-        </Level>
-        <Level name="sub-district" table="dim_location" column="state_province" nameColumn="state_province" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-        </Level>
-        <Level name="facility" table="dim_location" column="facility" nameColumn="facility" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-        </Level>
-      </Hierarchy>
-    </Dimension>
-    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="client">
-      <Hierarchy name="Client" hasAll="true" allMemberName="All Clients" primaryKey="client_key">
-        <Table name="dim_client">
-        </Table>
-        <Level name="client" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
-        </Level>
-      </Hierarchy>
-    </Dimension>
-    <Measure name="trimester" column="trimester" datatype="String" aggregator="count" visible="true">
+    <Measure name="Count" column="motech_id" datatype="Integer" aggregator="count" visible="true">
     </Measure>
   </Cube>
   <Cube name="Target" cache="true" enabled="true">

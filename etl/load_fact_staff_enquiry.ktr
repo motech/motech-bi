@@ -1,6 +1,6 @@
 <transformation>
   <info>
-    <name>fact_pregnancy</name>
+    <name>load_fact_staff_enquiry</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -60,88 +60,13 @@
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
-  <created_user>admin</created_user>
-  <created_date>2011&#47;11&#47;28 14:59:05.000</created_date>
+  <created_user>-</created_user>
+  <created_date>2012&#47;01&#47;10 18:07:28.649</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;09 17:13:57.544</modified_date>
+  <modified_date>2012&#47;01&#47;10 18:22:03.096</modified_date>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>data warehouse</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>motech data warehouse</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>motech dw</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>motech_dw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <connection>
     <name>Motech Oltp </name>
     <server>localhost</server>
@@ -243,7 +168,52 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechOltp </connection>
+    <sql>SELECT im.id, 
+       im.date_created as &apos;date_created&apos;, 
+       REPLACE(imfd.form_code,&apos;-jf&apos;,&apos;&apos;) as &apos;query&apos;, 
+       CAST(REPLACE(SUBSTRING(im.message_content, INSTR(im.message_content,&apos;sid=&apos;),
+                        (INSTR(im.message_content,&apos;facilityid=&apos;)-INSTR(im.message_content,&apos;sid=&apos;))),&apos;sid=&apos;,&apos;&apos;) AS SIGNED) as staff_id,
+      
+       CAST(IF(SUBSTRING(im.message_content, INSTR(im.message_content,&apos;facilityid=&apos;)) REGEXP &apos;motechid=&apos;,
+          REPLACE(SUBSTRING(im.message_content, INSTR(im.message_content,&apos;facilityid=&apos;),
+                        (INSTR(im.message_content,&apos;motechid=&apos;)-INSTR(im.message_content,&apos;facilityid=&apos;))),&apos;facilityid=&apos;,&apos;&apos;),
+          REPLACE(SUBSTRING(im.message_content, INSTR(im.message_content,&apos;facilityid=&apos;),
+                        (INSTR(im.message_content,&apos;sender=&apos;)-INSTR(im.message_content,&apos;facilityid=&apos;))),&apos;facilityid=&apos;,&apos;&apos;)) AS SIGNED)        
+         as facility_id, 
+
+       IF(imr.response_content LIKE &apos;%error%&apos;,&apos;Error&apos;,&apos;Success&apos;) as &apos;response&apos;
+  FROM motechmobiledb.incoming_message im
+  JOIN motechmobiledb.incoming_message_form imf on imf.id = im.incoming_message_form_id
+  JOIN motechmobiledb.incoming_message_form_definition imfd on imfd.id = imf.incoming_message_form_definition_id
+  JOIN motechmobiledb.incoming_message_response imr on imr.id = im.incoming_message_response_id
+WHERE im.message_status = &apos;PROCESSED&apos;
+   AND imfd.type = &apos;QUERY&apos;
+   AND imfd.form_code NOT IN (&apos;RegisterForRCT-jf&apos;);</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>116</xloc>
+      <yloc>121</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Insert &#47; Update</name>
     <type>InsertUpdate</type>
@@ -259,258 +229,48 @@
     <update_bypassed>N</update_bypassed>
     <lookup>
       <schema/>
-      <table>fact_pregnancy</table>
+      <table>fact_enquiry</table>
       <key>
-        <name>motech_id</name>
-        <field>motech_id</field>
+        <name>id</name>
+        <field>id</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>motech_id</name>
-        <rename>motech_id</rename>
+        <name>id</name>
+        <rename>id</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>start_date</name>
-        <rename>start_date</rename>
+        <name>date_created</name>
+        <rename>date_created</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>due_date</name>
-        <rename>due_date</rename>
+        <name>query</name>
+        <rename>query</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>trimester</name>
-        <rename>trimester</rename>
+        <name>staff_id</name>
+        <rename>staff_id</rename>
         <update>Y</update>
       </value>
-      <value>
-        <name>client_key</name>
-        <rename>client_key</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>location_key</name>
-        <rename>location_key</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_key</name>
-        <rename>date_key</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>875</xloc>
-      <yloc>344</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp </connection>
-    <sql>SELECT distinct pi.identifier AS motech_id,
-	   pi.patient_id,
-       DATE(obs.date_created) as start_date,
-       DATE(obs.value_datetime) as due_date,
-       IF( (DATEDIFF(DATE(obs.value_datetime), DATE(obs.date_created)) &#47;
-7) &gt;= 24, &apos;first&apos;,
-       IF( (DATEDIFF(DATE(obs.value_datetime), DATE(obs.date_created)) &#47;
-7) BETWEEN 13 AND 24, &apos;second&apos;,
-       IF( (DATEDIFF(DATE(obs.value_datetime), DATE(obs.date_created)) &#47;
-7) BETWEEN 0 AND 12, &apos;third&apos;,&apos;other&apos;)))
-       as trimester
-  FROM obs
-  JOIN patient_identifier pi ON pi.patient_id = obs.person_id
-  JOIN concept_name cn ON obs.concept_id = cn.concept_id
- WHERE obs.voided = 0
-   AND pi.identifier_type = 3
-   AND cn.name in (&apos;EDC&apos;,&apos;ESTIMATED DATE OF CONFINEMENT&apos;)</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>89</xloc>
-      <yloc>101</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup client key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_client</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>motech_id</name>
-        <field>motech_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>client_key</name>
-        <rename>client_key</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>293</xloc>
-      <yloc>101</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup facility id</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp </connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>motechmodule_facility_patient</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>patient_id</name>
-        <field>patient_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
       <value>
         <name>facility_id</name>
         <rename>facility_id</rename>
-        <default/>
-        <type>Integer</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>441</xloc>
-      <yloc>105</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup location key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_location</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>facility_id</name>
-        <field>location_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
       <value>
-        <name>location_key</name>
-        <rename>location_key</rename>
-        <default/>
-        <type>Integer</type>
+        <name>response</name>
+        <rename>response</rename>
+        <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>606</xloc>
-      <yloc>104</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup date key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_date</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>start_date</name>
-        <field>date_value</field>
-        <condition>LIKE</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>date_key</name>
-        <rename>date_key</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>782</xloc>
-      <yloc>103</yloc>
+      <xloc>403</xloc>
+      <yloc>121</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
