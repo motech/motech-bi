@@ -175,4 +175,16 @@
     <Measure name="count" column="encounter_id" datatype="Integer" aggregator="distinct count" visible="true">
     </Measure>
   </Cube>
+  <Cube name="Enquiry" cache="true" enabled="true">
+    <Table name="fact_enquiry" alias="">
+    </Table>
+    <DimensionUsage source="Staff" name="Staff" foreignKey="staff_key">
+    </DimensionUsage>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key">
+    </DimensionUsage>
+    <Measure name="count" column="id" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
 </Schema>

@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2012&#47;01&#47;10 18:07:28.649</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;11 16:06:34.038</modified_date>
+  <modified_date>2012&#47;01&#47;12 12:14:37.475</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -181,7 +181,7 @@
            </partitioning>
     <connection>MotechOltp </connection>
     <sql>SELECT im.id, 
-       im.date_created as &apos;date_created&apos;, 
+       DATE(im.date_created) as &apos;date_created&apos;, 
        REPLACE(imfd.form_code,&apos;-jf&apos;,&apos;&apos;) as &apos;query&apos;, 
        CAST(REPLACE(SUBSTRING(im.message_content, INSTR(im.message_content,&apos;sid=&apos;),
                         (INSTR(im.message_content,&apos;facilityid=&apos;)-INSTR(im.message_content,&apos;sid=&apos;))),&apos;sid=&apos;,&apos;&apos;) AS SIGNED) as staff_id,
@@ -208,7 +208,7 @@ WHERE im.message_status = &apos;PROCESSED&apos;
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>121</xloc>
+      <xloc>63</xloc>
       <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
@@ -353,7 +353,7 @@ WHERE im.message_status = &apos;PROCESSED&apos;
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
         <name>facility_id</name>
-        <field>location_id</field>
+        <field>facility_id</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -395,7 +395,7 @@ WHERE im.message_status = &apos;PROCESSED&apos;
       <key>
         <name>date_created</name>
         <field>date_value</field>
-        <condition>LIKE</condition>
+        <condition>=</condition>
         <name2/>
       </key>
       <value>
