@@ -1,0 +1,7 @@
+type=OLAP
+name=mobi
+driver=mondrian.olap4j.MondrianOlap4jDriver
+location=jdbc:mondrian:Jdbc=jdbc:mysql://localhost/motech_dw;Catalog=../webapps/saiku/mobi/mobi-analysis-schema.xml;JdbcDrivers=com.mysql.jdbc.Driver;
+username=root
+password=onthebrink
+
