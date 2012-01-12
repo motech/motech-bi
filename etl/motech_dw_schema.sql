@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.3.9
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Jan 11, 2012 at 05:13 PM
--- Server version: 5.1.58
--- PHP Version: 5.3.6-13ubuntu3.3
+-- Host: localhost
+-- Generation Time: Jan 12, 2012 at 10:02 PM
+-- Server version: 5.5.8
+-- PHP Version: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 --
 -- Database: `motech_dw`
@@ -179,6 +178,30 @@ CREATE TABLE IF NOT EXISTS `fact_enquiry` (
   `location_key` int(11) DEFAULT NULL,
   `date_key` varchar(255) DEFAULT NULL,
   KEY `idx_fact_enquiry_lookup` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fact_observation`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_observation` (
+  `motech_id` varchar(50) DEFAULT NULL,
+  `encounter_id` int(11) DEFAULT NULL,
+  `obs_date` datetime DEFAULT NULL,
+  `client_id` varchar(50) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `encounter_type` varchar(50) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `data` varchar(255) DEFAULT NULL,
+  `value` text,
+  `facility_id` int(11) DEFAULT NULL,
+  `staff_key` bigint(20) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
+  `client_key` bigint(20) DEFAULT NULL,
+  KEY `idx_fact_observation_lookup` (`motech_id`,`encounter_id`,`obs_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
