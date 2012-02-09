@@ -63,10 +63,35 @@
   <created_user>-</created_user>
   <created_date>2012&#47;01&#47;12 21:01:53.765</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;12 22:03:43.804</modified_date>
+  <modified_date>2012&#47;01&#47;13 00:27:15.584</modified_date>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>Motech Oltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>MotechDw</name>
     <server/>
@@ -142,92 +167,33 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>MotechOltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
   <hop> <from>lookup location key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup staff key</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>lookup staff key</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp</connection>
-    <sql>SELECT pi.identifier AS client_id,
-       u.system_id as staff_id,
-       e.encounter_id, 
-       et.name as &apos;encounter_type&apos;,
-       DATE(o.obs_datetime) as &apos;date&apos;,
-       mf.facility_id,
-       IF(q.name = &apos;IMMUNIZATIONS ORDERED&apos;,
-          IF(v.name LIKE &apos;BACI%&apos;, &apos;BCG&apos;,
-          IF(v.name LIKE &apos;BCG VACCINE&apos;,&apos;BCG&apos;,
-          IF(v.name LIKE &apos;CERE%&apos;, &apos;CSM&apos;,
-          IF(v.name LIKE &apos;YELLOW%&apos;, &apos;Yellow Fever&apos;,
-          IF(v.name LIKE &apos;MEASL%&apos;, &apos;Measles&apos;,
-          IF(v.name = &apos;INTERMITTENT PREVENTATIVE TREATMENT INFANTS&apos;, &apos;IPTi&apos;, v.name)))))),
-        IF(q.name = &apos;INTERMITTENT PREVENTATIVE TREATMENT DOSE&apos;,&apos;IPT #&apos;,
-        IF(q.name = &apos;TETANUS TOXOID DOSE&apos;,&apos;TT Dose #&apos;,
-        IF(q.name = &apos;INSECTICIDE TREATED NET USAGE&apos;,&apos;ITN Use&apos;,
-        IF(q.name = &apos;ORAL POLIO VACCINATION DOSE&apos;,&apos;OPV #&apos;,
-        IF(q.name = &apos;PENTA VACCINATION DOSE&apos;, &apos;PENTA #&apos;,
-        IF(q.name = &apos;VISIT NUMBER&apos;, CONCAT(REPLACE(et.name,&apos;VISIT&apos;,&apos;&apos;),&apos; visit number&apos;),
-           q.name))))))) as data,
-        IF(q.name = &apos;IMMUNIZATIONS ORDERED&apos;,&apos;Ordered&apos;,
-        IF(q.name IN (&apos;MATERNAL DEATH&apos;,&apos;MALE INVOLVEMENT&apos;,&apos;REFERRED&apos;,&apos;INSECTICIDE TREATED NET USAGE&apos;),IF (o.value_numeric=0,&apos;No&apos;,&apos;Yes&apos;), 
-        IF(q.name IN (&apos;BIRTH OUTCOME&apos;),
-           IF(o.value_text=&apos;A&apos;,&apos;Alive&apos;,
-           IF(o.value_text=&apos;FSB&apos;,&apos;Fresh Still Birth&apos;,
-           IF(o.value_text=&apos;MSB&apos;,&apos;Macerated Still Birth&apos;,o.value_text))),
-        IF(q.name IN (&apos;DELIVERY LOCATION&apos;),
-           IF(o.value_numeric=1,&apos;Govt Clinic&apos;,
-           IF(o.value_numeric=2,&apos;Teaching hospital&apos;,
-           IF(o.value_numeric=3,&apos;Govt Hospital&apos;,
-           IF(o.value_numeric=4,&apos;Private Hospital&apos;,
-           IF(o.value_numeric=5,&apos;CHAG&apos;,
-           IF(o.value_numeric=6,&apos;Quasi Govt Institute&apos;,
-           IF(o.value_numeric=7,&apos;Mines&apos;,
-           IF(o.value_numeric=8,&apos;Home&apos;,o.value_numeric)))))))),
-        IF(q.name IN (&apos;DELIVERED BY&apos;),
-           IF(o.value_numeric=1,&apos;Doctor&apos;,
-           IF(o.value_numeric=2,&apos;Medical Assistant&apos;,
-           IF(o.value_numeric=3,&apos;Private Midwife&apos;,
-           IF(o.value_numeric=4,&apos;Govt Midwife&apos;,
-           IF(o.value_numeric=5,&apos;CHO or CHN&apos;,
-           IF(o.value_numeric=6,&apos;Trained TBA&apos;,
-           IF(o.value_numeric=7,&apos;Untrained TBA&apos;,
-           IF(o.value_numeric=8,&apos;Friend or Relative&apos;,o.value_numeric)))))))),
-        IF(q.name IN (&apos;DELIVERY OUTCOME&apos;),
-           IF(o.value_numeric=1,&apos;Single&apos;,
-           IF(o.value_numeric=2,&apos;Twins&apos;,
-           IF(o.value_numeric=3,&apos;Triplets&apos;,o.value_text))),
-        CAST(o.value_numeric as CHAR))))))) as &apos;value&apos;
- FROM openmrs.obs o 
- JOIN openmrs.patient_identifier pi ON pi.patient_id = o.person_id AND pi.identifier_type = 3
- JOIN openmrs.encounter e ON e.encounter_id = o.encounter_id
- JOIN openmrs.encounter_type et ON et.encounter_type_id = e.encounter_type AND et.name =&apos;PREGDELVISIT&apos;
- JOIN openmrs.motechmodule_facility mf ON mf.location_id = e.location_id
- JOIN openmrs.users u ON u.user_id = e.provider_id
- JOIN openmrs.concept_name q ON q.concept_id = o.concept_id AND q.name not in (&apos;COMMENTS&apos;,&apos;DELIVERY MODE&apos;,&apos;PREGNANCY STATUS&apos;)
- LEFT JOIN openmrs.concept_name v ON v.concept_id = o.value_coded
-WHERE DATE(o.date_created)&lt;= DATE_SUB(NOW(), INTERVAL 1 DAY)
-GROUP BY pi.identifier,et.name, o.obs_datetime, mf.facility_id, q.name
-ORDER BY pi.identifier, et.name, o.obs_datetime, mf.facility_id, q.name;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>69</xloc>
-      <yloc>149</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Insert &#47; Update</name>
     <type>InsertUpdate</type>
@@ -325,15 +291,15 @@ ORDER BY pi.identifier, et.name, o.obs_datetime, mf.facility_id, q.name;</sql>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>681</xloc>
-      <yloc>148</yloc>
+      <xloc>916</xloc>
+      <yloc>115</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>lookup date key</name>
-    <type>DBLookup</type>
+    <name>Table input</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -341,115 +307,76 @@ ORDER BY pi.identifier, et.name, o.obs_datetime, mf.facility_id, q.name;</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_date</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>date</name>
-        <field>date_value</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>date_key</name>
-        <rename>date_key</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <connection>MotechOltp</connection>
+    <sql>SELECT pi.identifier AS client_id,
+       u.system_id as staff_id,
+       e.encounter_id, 
+       et.name as &apos;encounter_type&apos;,
+       DATE(o.obs_datetime) as &apos;date&apos;,
+       mf.facility_id,
+       IF(q.name = &apos;IMMUNIZATIONS ORDERED&apos;,
+          IF(v.name LIKE &apos;BACI%&apos;, &apos;BCG&apos;,
+          IF(v.name LIKE &apos;BCG VACCINE&apos;,&apos;BCG&apos;,
+          IF(v.name LIKE &apos;CERE%&apos;, &apos;CSM&apos;,
+          IF(v.name LIKE &apos;YELLOW%&apos;, &apos;Yellow Fever&apos;,
+          IF(v.name LIKE &apos;MEASL%&apos;, &apos;Measles&apos;,
+          IF(v.name = &apos;INTERMITTENT PREVENTATIVE TREATMENT INFANTS&apos;, &apos;IPTi&apos;, v.name)))))),
+        IF(q.name = &apos;INTERMITTENT PREVENTATIVE TREATMENT DOSE&apos;,&apos;IPT #&apos;,
+        IF(q.name = &apos;TETANUS TOXOID DOSE&apos;,&apos;TT Dose #&apos;,
+        IF(q.name = &apos;INSECTICIDE TREATED NET USAGE&apos;,&apos;ITN Use&apos;,
+        IF(q.name = &apos;ORAL POLIO VACCINATION DOSE&apos;,&apos;OPV #&apos;,
+        IF(q.name = &apos;PENTA VACCINATION DOSE&apos;, &apos;PENTA #&apos;,
+        IF(q.name = &apos;VISIT NUMBER&apos;, CONCAT(REPLACE(et.name,&apos;VISIT&apos;,&apos;&apos;),&apos; visit number&apos;),
+           q.name))))))) as data,
+        IF(q.name = &apos;IMMUNIZATIONS ORDERED&apos;,&apos;Ordered&apos;,
+        IF(q.name IN (&apos;MATERNAL DEATH&apos;,&apos;MALE INVOLVEMENT&apos;,&apos;REFERRED&apos;,&apos;INSECTICIDE TREATED NET USAGE&apos;),IF (o.value_numeric=0,&apos;No&apos;,&apos;Yes&apos;), 
+        IF(q.name IN (&apos;BIRTH OUTCOME&apos;),
+           IF(o.value_text=&apos;A&apos;,&apos;Alive&apos;,
+           IF(o.value_text=&apos;FSB&apos;,&apos;Fresh Still Birth&apos;,
+           IF(o.value_text=&apos;MSB&apos;,&apos;Macerated Still Birth&apos;,o.value_text))),
+        IF(q.name IN (&apos;DELIVERY LOCATION&apos;),
+           IF(o.value_numeric=1,&apos;Govt Clinic&apos;,
+           IF(o.value_numeric=2,&apos;Teaching hospital&apos;,
+           IF(o.value_numeric=3,&apos;Govt Hospital&apos;,
+           IF(o.value_numeric=4,&apos;Private Hospital&apos;,
+           IF(o.value_numeric=5,&apos;CHAG&apos;,
+           IF(o.value_numeric=6,&apos;Quasi Govt Institute&apos;,
+           IF(o.value_numeric=7,&apos;Mines&apos;,
+           IF(o.value_numeric=8,&apos;Home&apos;,o.value_numeric)))))))),
+        IF(q.name IN (&apos;DELIVERED BY&apos;),
+           IF(o.value_numeric=1,&apos;Doctor&apos;,
+           IF(o.value_numeric=2,&apos;Medical Assistant&apos;,
+           IF(o.value_numeric=3,&apos;Private Midwife&apos;,
+           IF(o.value_numeric=4,&apos;Govt Midwife&apos;,
+           IF(o.value_numeric=5,&apos;CHO or CHN&apos;,
+           IF(o.value_numeric=6,&apos;Trained TBA&apos;,
+           IF(o.value_numeric=7,&apos;Untrained TBA&apos;,
+           IF(o.value_numeric=8,&apos;Friend or Relative&apos;,o.value_numeric)))))))),
+        IF(q.name IN (&apos;DELIVERY OUTCOME&apos;),
+           IF(o.value_numeric=1,&apos;Single&apos;,
+           IF(o.value_numeric=2,&apos;Twins&apos;,
+           IF(o.value_numeric=3,&apos;Triplets&apos;,o.value_text))),
+        CAST(o.value_numeric as CHAR))))))) as &apos;value&apos;
+ FROM openmrs.obs o 
+ JOIN openmrs.patient_identifier pi ON pi.patient_id = o.person_id AND pi.identifier_type = 3
+ JOIN openmrs.encounter e ON e.encounter_id = o.encounter_id
+ JOIN openmrs.encounter_type et ON et.encounter_type_id = e.encounter_type AND et.name =&apos;PREGDELVISIT&apos;
+ JOIN openmrs.motechmodule_facility mf ON mf.location_id = e.location_id
+ JOIN openmrs.users u ON u.user_id = e.provider_id
+ JOIN openmrs.concept_name q ON q.concept_id = o.concept_id AND q.name not in (&apos;COMMENTS&apos;,&apos;DELIVERY MODE&apos;,&apos;PREGNANCY STATUS&apos;)
+ LEFT JOIN openmrs.concept_name v ON v.concept_id = o.value_coded
+WHERE DATE(o.date_created)&lt;= DATE_SUB(NOW(), INTERVAL 1 DAY)
+GROUP BY pi.identifier,et.name, o.obs_datetime, mf.facility_id, q.name
+ORDER BY pi.identifier, et.name, o.obs_datetime, mf.facility_id, q.name;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>578</xloc>
-      <yloc>146</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup location key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_location</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>facility_id</name>
-        <field>facility_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>location_key</name>
-        <rename>location_key</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>467</xloc>
-      <yloc>147</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup staff key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_staff</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>staff_id</name>
-        <field>staff_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>staff_key</name>
-        <rename>staff_key</rename>
-        <default/>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>352</xloc>
-      <yloc>145</yloc>
+      <xloc>51</xloc>
+      <yloc>114</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -489,8 +416,131 @@ ORDER BY pi.identifier, et.name, o.obs_datetime, mf.facility_id, q.name;</sql>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>214</xloc>
-      <yloc>145</yloc>
+      <xloc>224</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup date key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_date</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>date</name>
+        <field>date_value</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>date_key</name>
+        <rename>date_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>743</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup location key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>facility_id</name>
+        <field>facility_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>location_key</name>
+        <rename>location_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>570</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup staff key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_staff</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>staff_id</name>
+        <field>staff_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>staff_key</name>
+        <rename>staff_key</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>397</xloc>
+      <yloc>115</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

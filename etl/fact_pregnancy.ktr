@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:05.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;09 17:13:57.544</modified_date>
+  <modified_date>2012&#47;01&#47;13 00:27:35.688</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -345,7 +345,7 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>89</xloc>
+      <xloc>84</xloc>
       <yloc>101</yloc>
       <draw>Y</draw>
       </GUI>
@@ -388,6 +388,47 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>293</xloc>
       <yloc>101</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup date key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_date</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>start_date</name>
+        <field>date_value</field>
+        <condition>LIKE</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>date_key</name>
+        <rename>date_key</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>782</xloc>
+      <yloc>103</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -470,47 +511,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>606</xloc>
       <yloc>104</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>lookup date key</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_date</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>start_date</name>
-        <field>date_value</field>
-        <condition>LIKE</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>date_key</name>
-        <rename>date_key</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>782</xloc>
-      <yloc>103</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

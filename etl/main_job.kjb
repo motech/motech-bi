@@ -8,8 +8,13 @@
   <created_user>-</created_user>
   <created_date>2011&#47;11&#47;03 10:48:03.000</created_date>
   <modified_user>admin</modified_user>
-  <modified_date>2012&#47;01&#47;12 23:23:55.497</modified_date>
+  <modified_date>2012&#47;02&#47;09 07:48:20.743</modified_date>
     <parameters>
+        <parameter>
+            <name>Internal.Job.Filename.Directory</name>
+            <default_value>&#47;home&#47;kojo&#47;Documents&#47;motech-bi-space&#47;motech-bi&#47;etl</default_value>
+            <description/>
+        </parameter>
     </parameters>
   <connection>
     <name>data warehouse</name>
@@ -301,8 +306,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>682</xloc>
-      <yloc>44</yloc>
+      <xloc>689</xloc>
+      <yloc>33</yloc>
       </entry>
     <entry>
       <name>START</name>
@@ -331,8 +336,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>40</xloc>
-      <yloc>412</yloc>
+      <xloc>23</xloc>
+      <yloc>359</yloc>
       </entry>
     <entry>
       <name>transform client dimension</name>
@@ -395,8 +400,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>965</xloc>
-      <yloc>217</yloc>
+      <xloc>945</xloc>
+      <yloc>192</yloc>
       </entry>
     <entry>
       <name>pregnancy fact</name>
@@ -427,8 +432,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>956</xloc>
-      <yloc>337</yloc>
+      <xloc>984</xloc>
+      <yloc>315</yloc>
       </entry>
     <entry>
       <name>load program</name>
@@ -475,8 +480,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>164</xloc>
-      <yloc>589</yloc>
+      <xloc>200</xloc>
+      <yloc>552</yloc>
       </entry>
     <entry>
       <name>load denominators</name>
@@ -507,8 +512,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>403</xloc>
-      <yloc>284</yloc>
+      <xloc>93</xloc>
+      <yloc>483</yloc>
       </entry>
     <entry>
       <name>staff dimension</name>
@@ -539,8 +544,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>932</xloc>
-      <yloc>431</yloc>
+      <xloc>960</xloc>
+      <yloc>433</yloc>
       </entry>
     <entry>
       <name>load enquiry fact</name>
@@ -571,8 +576,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>869</xloc>
-      <yloc>540</yloc>
+      <xloc>861</xloc>
+      <yloc>564</yloc>
       </entry>
     <entry>
       <name>Load Encounter Facts</name>
@@ -603,8 +608,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>652</xloc>
-      <yloc>586</yloc>
+      <xloc>695</xloc>
+      <yloc>602</yloc>
       </entry>
     <entry>
       <name>Load Observation Fact</name>
@@ -635,7 +640,25 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>385</xloc>
+      <xloc>501</xloc>
+      <yloc>613</yloc>
+      </entry>
+    <entry>
+      <name>SQL</name>
+      <description/>
+      <type>SQL</type>
+      <sql>Update dim_location
+Set region=&apos;Upper East&apos;  
+where region like &apos;Ghana&apos;; </sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>MotechDw</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>355</xloc>
       <yloc>590</yloc>
       </entry>
   </entries>
@@ -759,6 +782,15 @@
     </hop>
     <hop>
       <from>Load Observation Fact</from>
+      <to>SQL</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>SQL</from>
       <to>truncate fact_target</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
