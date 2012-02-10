@@ -8,11 +8,11 @@
   <created_user>-</created_user>
   <created_date>2011&#47;11&#47;03 10:48:03.000</created_date>
   <modified_user>admin</modified_user>
-  <modified_date>2012&#47;02&#47;09 07:48:20.743</modified_date>
+  <modified_date>2012&#47;02&#47;10 01:53:40.393</modified_date>
     <parameters>
         <parameter>
             <name>Internal.Job.Filename.Directory</name>
-            <default_value>&#47;home&#47;kojo&#47;Documents&#47;motech-bi-space&#47;motech-bi&#47;etl</default_value>
+            <default_value/>
             <description/>
         </parameter>
     </parameters>
@@ -250,7 +250,7 @@
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
-      <trans_object_id>4</trans_object_id>
+      <trans_object_id/>
       <filename>${Internal.Job.Filename.Directory}&#47;load_date_dim.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
@@ -369,7 +369,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>278</xloc>
-      <yloc>24</yloc>
+      <yloc>23</yloc>
       </entry>
     <entry>
       <name>load call fact</name>
@@ -465,7 +465,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>838</xloc>
-      <yloc>81</yloc>
+      <yloc>77</yloc>
       </entry>
     <entry>
       <name>truncate fact_target</name>

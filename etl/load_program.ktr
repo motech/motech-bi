@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:03.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;11 12:33:27.530</modified_date>
+  <modified_date>2012&#47;02&#47;09 16:17:59.590</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -94,13 +94,13 @@
   </connection>
   <connection>
     <name>MotechDw</name>
-    <server>localhost</server>
+    <server/>
     <type>MYSQL</type>
     <access>JNDI</access>
     <database>MotechDw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -110,7 +110,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -324,7 +324,8 @@
        mm.program,
        IF(patt1.value REGEXP &apos;^kas&apos;,&apos;Kassim&apos;,
        IF(patt1.value REGEXP &apos;^nan&apos;,&apos;Nankam&apos;,
-       IF(patt1.value REGEXP &apos;^en&apos;,&apos;English&apos;,&apos;Other&apos;))) as &apos;language&apos;,
+	   IF(patt1.value REGEXP &apos;^fan&apos;, &apos;Fanti&apos;,
+       IF(patt1.value REGEXP &apos;^en&apos;,&apos;English&apos;,&apos;Other&apos;)))) as &apos;language&apos;,
        patt3.value as &apos;medium&apos;,
        patt.value as &apos;phone_number&apos;,
        patt2.value as phone_ownership,

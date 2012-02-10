@@ -63,16 +63,16 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;14 16:29:56.548</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2011&#47;12&#47;27 19:58:35.259</modified_date>
+  <modified_date>2012&#47;02&#47;10 01:09:07.522</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>MotechDw</name>
+    <name>Motech Oltp </name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>JNDI</access>
-    <database>MotechDw</database>
+    <database>MotechOltpDb</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
@@ -93,6 +93,56 @@
     </attributes>
   </connection>
   <connection>
+    <name>MotechDw</name>
+    <server/>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechDw</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MotechMobile</name>
+    <server/>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechMobileDb</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>MotechOltp</name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -105,6 +155,31 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MotechOltp </name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -158,11 +233,6 @@
           <update>Punch through</update>
         </field>
         <field>
-          <name>community</name>
-          <lookup>community</lookup>
-          <update>Punch through</update>
-        </field>
-        <field>
           <name>facility</name>
           <lookup>facility</lookup>
           <update>Punch through</update>
@@ -205,8 +275,8 @@
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>682</xloc>
-      <yloc>136</yloc>
+      <xloc>680</xloc>
+      <yloc>137</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -226,7 +296,6 @@
 pi.identifier AS &apos;motech_id&apos;, 
 patt.value AS phone_number, 
 pa.address1 AS address, 
-c.name AS community, 
 l.name AS facility, 
 p.gender,
 coalesce(YEAR(p.date_created) - YEAR(p.birthdate) -
@@ -241,11 +310,10 @@ LEFT JOIN ( SELECT person_id, value
 	WHERE person_attribute_type_id =8
 	)patt ON patt.person_id = pi.patient_id
 	JOIN person_name nom ON nom.person_id = pi.patient_id
-	JOIN motechmodule_community_patient cp ON cp.patient_id = pi.patient_id
-JOIN motechmodule_community c ON cp.community_id = c.id
-JOIN motechmodule_facility f ON c.facility_id = f.id
+	JOIN motechmodule_facility_patient fp ON fp.patient_id = pi.patient_id
+JOIN motechmodule_facility f ON fp.facility_id = f.id
 JOIN location l ON f.location_id = l.location_id
-   JOIN person p ON p.person_id = pi.patient_id
+JOIN person p ON p.person_id = pi.patient_id
 </sql>
     <limit>0</limit>
     <lookup/>
