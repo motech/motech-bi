@@ -63,44 +63,19 @@
   <created_user>-</created_user>
   <created_date>2012&#47;01&#47;11 12:11:45.820</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;11 18:57:43.771</modified_date>
+  <modified_date>2012&#47;02&#47;13 12:20:08.769</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>Motech Oltp </name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechOltpDb</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MotechDw</name>
-    <server>localhost</server>
+    <server/>
     <type>MYSQL</type>
     <access>JNDI</access>
     <database>MotechDw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -110,7 +85,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -162,51 +137,13 @@
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
   <hop> <from>Table input</from><to>lookup staff key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup staff key</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup client key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup client key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp </connection>
-    <sql>SELECT CAST(pi.identifier AS SIGNED) as motech_id,
-       u.system_id as staff_id,
-       mf.facility_id as facility_id,
-       e.encounter_id,
-       et.name as encounter_type,
-       DATE(e.encounter_datetime) as encounter_date,
-       DATE(e.date_created) as date_created,
-       CEILING(DATEDIFF(DATE(e.date_created), DATE(e.encounter_datetime))) AS time_to_upload
-  FROM openmrs.encounter e
-  JOIN openmrs.users u ON u.user_id = e.provider_id
-  JOIN openmrs.encounter_type et ON et.encounter_type_id = e.encounter_type
-  JOIN openmrs.patient_identifier pi ON pi.patient_id = e.patient_id
-  JOIN openmrs.motechmodule_facility mf ON mf.location_id = e.location_id
- WHERE e.voided = 0 AND pi.identifier_type = 3;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>60</xloc>
-      <yloc>99</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Insert &#47; Update</name>
     <type>InsertUpdate</type>
@@ -311,8 +248,8 @@
     </step>
 
   <step>
-    <name>lookup staff key</name>
-    <type>DBLookup</type>
+    <name>Table input</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -320,39 +257,36 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MotechDw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_staff</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>staff_id</name>
-        <field>staff_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>staff_key</name>
-        <rename>staff_key</rename>
-        <default/>
-        <type>Number</type>
-      </value>
-    </lookup>
+    <connection>MotechOltp </connection>
+    <sql>SELECT CAST(pi.identifier AS SIGNED) as motech_id,
+       u.system_id as staff_id,
+       mf.facility_id as facility_id,
+       e.encounter_id,
+       et.name as encounter_type,
+       DATE(e.encounter_datetime) as encounter_date,
+       DATE(e.date_created) as date_created,
+       CEILING(DATEDIFF(DATE(e.date_created), DATE(e.encounter_datetime))) AS time_to_upload
+  FROM openmrs.encounter e
+  JOIN openmrs.users u ON u.user_id = e.provider_id
+  JOIN openmrs.encounter_type et ON et.encounter_type_id = e.encounter_type
+  JOIN openmrs.patient_identifier pi ON pi.patient_id = e.patient_id
+  JOIN openmrs.motechmodule_facility mf ON mf.location_id = e.location_id
+ WHERE e.voided = 0 AND pi.identifier_type = 3;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>219</xloc>
+      <xloc>60</xloc>
       <yloc>99</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>lookup location key</name>
+    <name>lookup client key</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -367,26 +301,26 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>dim_location</table>
+      <table>dim_client</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>facility_id</name>
-        <field>facility_id</field>
+        <name>motech_id</name>
+        <field>motech_id</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>location_key</name>
-        <rename>location_key</rename>
+        <name>client_key</name>
+        <rename>client_key</rename>
         <default/>
         <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>393</xloc>
+      <xloc>735</xloc>
       <yloc>99</yloc>
       <draw>Y</draw>
       </GUI>
@@ -434,7 +368,7 @@
     </step>
 
   <step>
-    <name>lookup client key</name>
+    <name>lookup location key</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -449,26 +383,67 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>dim_client</table>
+      <table>dim_location</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>motech_id</name>
-        <field>motech_id</field>
+        <name>facility_id</name>
+        <field>facility_id</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>client_key</name>
-        <rename>client_key</rename>
+        <name>location_key</name>
+        <rename>location_key</rename>
         <default/>
         <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>735</xloc>
+      <xloc>393</xloc>
+      <yloc>99</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup staff key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_staff</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>staff_id</name>
+        <field>staff_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>staff_key</name>
+        <rename>staff_key</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>219</xloc>
       <yloc>99</yloc>
       <draw>Y</draw>
       </GUI>

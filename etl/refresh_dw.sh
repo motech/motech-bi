@@ -33,4 +33,5 @@ DBPASSWD="$3"
 DB_NAME="$4"
 
 #run ETL job 
-$PDI_HOME/kitchen.sh /file:`readlink -f $PRGDIR/main_job.kjb`  -norep -param:Internal.Job.Filename.Directory=$PRGDIR
+cd $(dirname $0)
+$PDI_HOME/kitchen.sh /file:`readlink -f $PRGDIR/main_job.kjb`  -norep -param:Internal.Job.Filename.Directory=$(dirname $0)

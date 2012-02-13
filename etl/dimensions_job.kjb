@@ -1,14 +1,14 @@
 <job>
-  <name>main_job</name>
+  <name>dimensions_job</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
   <created_user>-</created_user>
-  <created_date>2012&#47;02&#47;13 11:30:28.986</created_date>
-  <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;13 13:39:28.591</modified_date>
+  <created_date>2011&#47;11&#47;03 10:48:03.000</created_date>
+  <modified_user>admin</modified_user>
+  <modified_date>2012&#47;02&#47;13 12:23:15.092</modified_date>
     <parameters>
         <parameter>
             <name>Internal.Job.Filename.Directory</name>
@@ -114,6 +114,102 @@
    <shared_objects_file/>
   <entries>
     <entry>
+      <name>load_client_dim</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id>8</trans_object_id>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_client_dim.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>206</xloc>
+      <yloc>202</yloc>
+      </entry>
+    <entry>
+      <name>load date dimension</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_date_dim.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>408</xloc>
+      <yloc>191</yloc>
+      </entry>
+    <entry>
+      <name>load location dimension</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id>3</trans_object_id>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_location_dim.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>767</xloc>
+      <yloc>211</yloc>
+      </entry>
+    <entry>
       <name>START</name>
       <description/>
       <type>SPECIAL</type>
@@ -127,77 +223,129 @@
       <minutes>0</minutes>
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
-      <parallel>N</parallel>
+      <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>73</xloc>
-      <yloc>80</yloc>
+      <xloc>533</xloc>
+      <yloc>26</yloc>
       </entry>
     <entry>
-      <name>dimensions_job</name>
+      <name>transform client dimension</name>
       <description/>
-      <type>JOB</type>
+      <type>TRANS</type>
       <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;dimensions_job.kjb</filename>
-      <jobname/>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;transform_client.ktr</filename>
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
       <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>182</xloc>
+      <yloc>377</yloc>
+      </entry>
+    <entry>
+      <name>truncate fact_target</name>
+      <description/>
+      <type>SQL</type>
+      <sql>truncate fact_target;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>MotechDw</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>319</xloc>
-      <yloc>80</yloc>
+      <xloc>442</xloc>
+      <yloc>710</yloc>
       </entry>
     <entry>
-      <name>facts_job</name>
+      <name>load denominators</name>
       <description/>
-      <type>JOB</type>
+      <type>TRANS</type>
       <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;facts_job.kjb</filename>
-      <jobname/>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_denominators.ktr</filename>
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
       <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>601</xloc>
-      <yloc>80</yloc>
+      <xloc>810</xloc>
+      <yloc>351</yloc>
+      </entry>
+    <entry>
+      <name>staff dimension</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_staff_dim.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>576</xloc>
+      <yloc>209</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>dimensions_job</to>
+      <to>load_client_dim</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -205,8 +353,44 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>dimensions_job</from>
-      <to>facts_job</to>
+      <from>START</from>
+      <to>load date dimension</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>load location dimension</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>staff dimension</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>load location dimension</from>
+      <to>load denominators</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_client_dim</from>
+      <to>transform client dimension</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

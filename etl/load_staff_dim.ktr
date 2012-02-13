@@ -63,44 +63,19 @@
   <created_user>-</created_user>
   <created_date>2012&#47;01&#47;10 17:40:33.775</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;01&#47;11 15:30:50.202</modified_date>
+  <modified_date>2012&#47;02&#47;13 12:22:33.816</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>Motech Oltp </name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>JNDI</access>
-    <database>MotechOltpDb</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MotechDw</name>
-    <server>localhost</server>
+    <server/>
     <type>MYSQL</type>
     <access>JNDI</access>
     <database>MotechDw</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa79d8abf11ab72cc9ba1d1</password>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -110,7 +85,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -162,53 +137,13 @@
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
   <hop> <from>Table input</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechOltp </connection>
-    <sql>SELECT u.system_id as staff_id, nom.name,  pat.value as type, CAST(mid.identifier AS SIGNED) as motech_id, u.date_created as start_date 
-                                                FROM openmrs.users u 
-  JOIN (select person_id, concat(given_name,&apos; &apos;,family_name) as name 
-          from openmrs.person_name
-         where voided = 0
-         group by person_id) nom on nom.person_id = u.user_id 
-  LEFT JOIN (select pi.identifier, concat(n.given_name,&apos; &apos;,n.family_name) as name
-              from openmrs.patient_identifier pi, openmrs.person_name n
-              where pi.identifier_type = 3 
-                and pi.patient_id = n.person_id and n.voided=0
-                                and n.preferred = 0
-              ) mid on mid.name = nom.name
-  LEFT JOIN (select person_id, IF(value=&apos;&apos;,&apos;Field Agent&apos;,value) as value
-          from openmrs.person_attribute  
-         where person_attribute_type_id = 19) pat on pat.person_id = u.user_id
- where u.voided=0;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>140</xloc>
-      <yloc>156</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Dimension lookup&#47;update</name>
     <type>DimensionLookup</type>
@@ -274,6 +209,46 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>440</xloc>
       <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechOltp </connection>
+    <sql>SELECT u.system_id as staff_id, nom.name,  pat.value as type, CAST(mid.identifier AS SIGNED) as motech_id, u.date_created as start_date 
+                                                FROM openmrs.users u 
+  JOIN (select person_id, concat(given_name,&apos; &apos;,family_name) as name 
+          from openmrs.person_name
+         where voided = 0
+         group by person_id) nom on nom.person_id = u.user_id 
+  LEFT JOIN (select pi.identifier, concat(n.given_name,&apos; &apos;,n.family_name) as name
+              from openmrs.patient_identifier pi, openmrs.person_name n
+              where pi.identifier_type = 3 
+                and pi.patient_id = n.person_id and n.voided=0
+                                and n.preferred = 0
+              ) mid on mid.name = nom.name
+  LEFT JOIN (select person_id, IF(value=&apos;&apos;,&apos;Field Agent&apos;,value) as value
+          from openmrs.person_attribute  
+         where person_attribute_type_id = 19) pat on pat.person_id = u.user_id
+ where u.voided=0;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>140</xloc>
+      <yloc>156</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
