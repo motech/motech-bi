@@ -63,7 +63,7 @@
   <created_user/>
   <created_date>2011&#47;06&#47;22 21:45:34.247</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;13 12:19:15.804</modified_date>
+  <modified_date>2012&#47;02&#47;15 20:36:03.207</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -219,6 +219,31 @@
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MotechOltp</name>
+    <server/>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -725,7 +750,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>465</xloc>
-      <yloc>194</yloc>
+      <yloc>195</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1133,7 +1158,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>

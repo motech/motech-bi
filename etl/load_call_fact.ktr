@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:05.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;13 13:16:21.207</modified_date>
+  <modified_date>2012&#47;02&#47;15 19:53:51.978</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -471,7 +471,7 @@ cs.call_session_id
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>783</xloc>
-      <yloc>87</yloc>
+      <yloc>85</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

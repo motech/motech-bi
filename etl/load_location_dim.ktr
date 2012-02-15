@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;22 23:14:03.886</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;13 13:05:40.427</modified_date>
+  <modified_date>2012&#47;02&#47;15 19:53:58.083</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -304,33 +304,6 @@ FROM location</sql>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>339</xloc>
       <yloc>63</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>fix &apos;Ghana&apos; facility</name>
-    <type>ValueMapper</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <field_to_use>facility</field_to_use>
-    <target_field/>
-    <non_match_default/>
-    <fields>
-      <field>
-        <source_value>Ghana</source_value>
-        <target_value>Unknown</target_value>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>621</xloc>
-      <yloc>216</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

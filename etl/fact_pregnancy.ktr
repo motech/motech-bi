@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:05.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;14 18:50:23.219</modified_date>
+  <modified_date>2012&#47;02&#47;15 19:53:48.788</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -230,7 +230,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>875</xloc>
-      <yloc>344</yloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -270,8 +270,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>84</xloc>
-      <yloc>101</yloc>
+      <xloc>66</xloc>
+      <yloc>81</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -311,8 +311,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>293</xloc>
-      <yloc>101</yloc>
+      <xloc>243</xloc>
+      <yloc>81</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -352,8 +352,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>782</xloc>
-      <yloc>103</yloc>
+      <xloc>731</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -393,8 +393,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>441</xloc>
-      <yloc>105</yloc>
+      <xloc>390</xloc>
+      <yloc>82</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -434,8 +434,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>606</xloc>
-      <yloc>104</yloc>
+      <xloc>555</xloc>
+      <yloc>81</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
