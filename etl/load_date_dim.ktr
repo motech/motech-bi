@@ -63,7 +63,7 @@
   <created_user/>
   <created_date>2011&#47;06&#47;22 21:45:34.247</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;15 20:36:03.207</modified_date>
+  <modified_date>2012&#47;02&#47;15 21:18:33.366</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -750,7 +750,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>465</xloc>
-      <yloc>195</yloc>
+      <yloc>194</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -829,7 +829,7 @@
     <schema/>
     <table>dim_date</table>
     <commit>1000</commit>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -1158,7 +1158,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>0</nullif>
+        <nullif>N&#47;A</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1224,7 +1224,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>NA</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1235,7 +1235,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1246,7 +1246,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1257,7 +1257,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1268,7 +1268,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1279,7 +1279,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1290,7 +1290,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1301,7 +1301,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -1312,7 +1312,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
