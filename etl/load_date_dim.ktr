@@ -63,7 +63,7 @@
   <created_user/>
   <created_date>2011&#47;06&#47;22 21:45:34.247</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;15 21:18:33.366</modified_date>
+  <modified_date>2012&#47;02&#47;15 21:54:15.796</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -1158,7 +1158,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>N&#47;A</nullif>
+        <nullif>0</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>

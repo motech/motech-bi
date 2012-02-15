@@ -90,7 +90,7 @@
     </Measure>
     <CalculatedMember name="Registration Growth " formatString="0.00%" formula="(Measures.Registration - Measures.PrevRegistration) / Measures.PrevRegistration" dimension="Measures" visible="true">
     </CalculatedMember>
-    <CalculatedMember name="PrevRegistration" formatString="" formula="CoalesceEmpty((Measures.Registration, Time.CurrentMember.PrevMember), Measures.Registration)" dimension="Measures" visible="false">
+    <CalculatedMember name="PrevRegistration" formula="CoalesceEmpty((Measures.Registration, Time.CurrentMember.PrevMember), Measures.Registration)" dimension="Measures" visible="false">
     </CalculatedMember>
   </Cube>
   <Cube name="Call " cache="true" enabled="true">
