@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Used to specify the pod content in the dashboard sample app.
+To keep the implementation straightforward, all of the data is
+stored in this file rather than a database or separate XML files.
+-->
+<views>
+	<!--
+		<view> - Represents a tab.
+			id - Must be unique so state can be saved properly.
+			label - The label of the tab.
+			<pod>
+				id - Must be unique per view so state can be saved properly.
+				type - Type of pod content. Valid values are chart, pieChart, form and list. "chart" and "pieChart" each have drill downs to one level.
+					   "chart" is a fixed drill down to 30 days in a month.
+					   "pieChart" is a fixed drill down to four geographical regions.
+				title - The title of the pod.
+				selectedViewIndex - Sets the default content view for pod content with a view stack. 
+				valueField - For chart pods, the field from the xml data to use for displaying the value. This field should be numeric.
+				valueField - For chart pods, the field from the xml data to use for displaying the value. This field should be numeric.
+				valueField2 - For chart pods, the field from the xml data to use for displaying the value. This field should be numeric.
+				valueField3 - For chart pods, the field from the xml data to use for displaying the value. This field should be numeric.
+				valueField4 - For chart pods, the field from the xml data to use for displaying the value. This field should be numeric.
+				categoryField - For chart pods, the field from the xml data to use for displaying the category.
+				dataTipUnitLabel - Rollover label used for displaying the units.
+								   Label is delimited by "*" and places the first value before the unit and the second value after the unit. Ex: $50M.
+				dataTipLabelField - Rollover label field used for PieCharts.
+				labels - For form pods, used to label the fields.
+				dataFields - For form pods, used to assign the data fields to the form fields.
+							 The second field should always be a date expressed in milliseconds since the epoch.
+	-->
+	<view
+		id="view0"
+		label="Overall">
+		
+		<pod
+			id="pod00"
+			type="stackChart"
+			title="Pregnant Women in MOTECH"
+			indicator="pregnant women"
+			method="vis_info"
+			metric="overall"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="80% of estimated pregnant women in the area are registered into MOTECH"
+			numerator="Number of pregnant women registered into MOTECH"
+			denominator="Number of expected pregnancies in the district per month (NB: This measure is our best estimate based on available data)"/>
+		
+		<pod
+			id="pod01"
+			type="stackChart"
+			title="Under Ones in MOTECH"
+			indicator="under ones"
+			method="vis_info"
+			metric="overall"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="80% of estimated children under 1 years in the area are registered into MOTECH"
+			numerator="Children under 5 years in district registered into MOTECH"
+			denominator="Number of children under 5 in district (NB: This measure is our best estimate based on available data)"/>
+			
+		<pod
+			id="pod03"
+			type="stackChart"
+			title="Total Registrants in MOTECH"
+			indicator="registrants"
+			method="vis_info"
+			metric="overall"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="Proportion of population in MOTECH"
+			numerator="Number of registrants in MOTECH"
+			denominator="District population (NB: This measure is our best estimate based on available data)"/>
+	
+	</view>	
+	<view
+		id="view1"
+		label="Mobile Midwife">
+		
+		<pod
+			id="pod00"
+			type="stackChart"
+			title="MOTECH Registrants Enrolled in Mobile Midwife"
+			indicator="mm enrollees"
+			method="vis_info"
+			metric="mm"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="90% of people registered in MOTECH enroll in Mobile Midwife"
+			numerator="MOTECH registrants enrolling in Mobile Midwife"
+			denominator="Number of MOTECH registrants "/>
+		
+		<pod
+			id="pod01"
+			type="stackChart"
+			title="Pregnant Women in Mobile Midwife"
+			indicator="mm pregnant women"
+			method="vis_info"
+			metric="mm"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="80% of pregnant women registered in MOTECH enroll in Mobile Midwife"
+			numerator="Pregnant women in MOTECH enrolled in Mobile Midwife"
+			denominator="Number of pregnant women in MOTECH "/>
+	<pod
+			id="pod02"
+			type="stackChart"
+			title="Under Ones in Mobile Midwife"
+			indicator="mm under ones"
+			method="vis_info"
+			metric="mm"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="80% of children under one registered in MOTECH enroll in Mobile Midwife"
+			numerator="Children under 1 year in MOTECH enrolled in MM "
+			denominator="Number of children under 1 in MOTECH"/>
+		
+		<pod
+			id="pod03"
+			type="stackChart"
+			title="Non-target Group in Mobile Midwife"
+			indicator="mm other"
+			method="vis_info"
+			metric="mm"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="5% of non-target group in district enroll in Mobile Midwife"
+			numerator="Non-target group in district enrolled in Mobile Midwife"
+			denominator="Number of non-target members in district NB: This measure is our best estimate based on available data)"/>
+			
+		<pod
+			id="pod04"
+			type="stackChart"
+			title="First Trimester Registrants"
+			indicator="mm trimester"
+			method="vis_info"
+			metric="mm"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="5% of Pregnant Motech registrants are in their first trimester"
+			numerator="First trimester registrants"
+			denominator="Number of MOTECH registrants"/>
+			
+		<pod
+			id="pod05"
+			type="chart"
+			title="Age and Gender Breakdown"
+			selectedViewIndex="1"
+			indicator="age_gender"
+			method="vis_info"
+			metric="mm"
+			valueField="Female"
+			valueField2="Male"
+			categoryField="Age"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="5% of Pregnant Motech registrants are in their first trimester"
+			numerator="First trimester registrants"
+			denominator="Number of MOTECH registrants"/>
+			
+	</view>	
+	<view
+		id="view2"
+		label="Mobile Midwife: IVR Usage">
+		
+		<pod
+			id="pod00"
+			type="stackChart"
+			title="Active Enrollees"
+			selectedViewIndex="1"
+			indicator="active"
+			method="vis_info"
+			metric="ivr"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="30% of people enrolled in Mobile Midwife listen to the primary message 2 or more times per month"
+			numerator="Active Mobile Midwife Enrollees"
+			denominator="Number of Mobile Midwife Enrollees" />
+		
+		<pod
+			id="pod01"
+			type="pieChart"
+			title="Active Enrollees by Phone Ownership"
+			selectedViewIndex="1"
+			indicator="activephone"
+			method="vis_info"
+			metric="ivr"
+			valueField="count"
+			categoryField="Ownership Type"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/>
+	<pod
+			id="pod02"
+			type="stackChart"
+			title="Secondary Message Listeners"
+			selectedViewIndex="1"
+			indicator="power"
+			method="vis_info"
+			metric="ivr"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="Secondary Message Listeners"
+			numerator=""
+			denominator="" />
+		
+		<!--pod
+			id="pod03"
+			type="stackChart"
+			title="Secondary Message Listeners by Phone Ownership"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="expected"
+			valueField3="growth"
+			valueField4="target"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/-->
+			
+		<!--pod
+			id="pod04"
+			type="list"
+			title="IVR Navigation"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="expected"
+			valueField3="growth"
+			valueField4="target"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/-->
+			
+		<!--pod
+			id="pod05"
+			type="list"
+			title="IVR Navigation: Pin Code"
+			selectedViewIndex="1"
+			valueField="enrolled"
+			valueField2="expected"
+			valueField3="growth"
+			valueField4="target"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/-->
+			
+			<pod
+			id="pod06"
+			type="stackChart"
+			title="Personal Ownership"
+			selectedViewIndex="1"
+			indicator="personal"
+			method="vis_info"
+			metric="ivr"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="30% of active Mobile Midwife enrollees have personal phones"
+			numerator="Active enrollees with personal phone"
+			denominator="Number of active enrollees" />
+			
+			<pod
+			id="pod07"
+			type="stackChart"
+			title="Shared Ownership"
+			selectedViewIndex="1"
+			indicator="shared"
+			method="vis_info"
+			metric="ivr"
+			valueField="enrolled"
+			valueField2="target"
+			valueField3="growth"
+			valueField4="expected"
+			categoryField="month"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"
+			indicatorText="30% of Mobile Midwife enrollees have a household or public phone"
+			numerator="Phone ownership breakdown"
+			denominator="Not Applicable" />
+	</view>	
+	
+	<view
+		id="view3"
+		label="Nurses' Usage">
+		
+		<pod
+			id="pod00"
+			type="stackChart"
+			title="Queries Submitted"
+			indicator="queries"
+			method="vis_info"
+			metric="nurse"
+			selectedViewIndex="1"
+			valueField="expected"
+			valueField2="count"
+			categoryField="facility"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/>
+		
+		<pod
+			id="pod01"
+			type="overlaidChart"
+			title="Frequency & Types of Queries"
+			selectedViewIndex="1"
+			indicator="querytype"
+			method="vis_info"
+			metric="nurse"
+			valueField1="FindMoTeCHID"
+			valueField2="ViewPatient"
+			valueField3="ANCDefault"
+			valueField4="TTDefault"
+			valueField5="UpcomingDeliveries"
+			categoryField="facility"
+			dataTipUnitLabel="*"
+			dataTipLabelField="facility"/>
+	<pod
+	
+			id="pod02"
+			type="pieChart"
+			indicator="delnotify"
+			method="vis_info"
+			metric="nurse"
+			title="Delivery Notifications Submitted"
+			selectedViewIndex="1"
+			valueField="PREGDELNOTIFYVISIT"
+			categoryField="facility"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/>
+		
+		<pod
+			id="pod03"
+			type="overlaidChart"
+			title="Average Time to Care per Encounter Type"
+			selectedViewIndex="1"
+			indicator="timetocare"
+			method="vis_info"
+			metric="nurse"
+			valueField="ANC"
+			valueField1="IPT2"
+			valueField2="OPV1"
+			valueField3="PNC2"
+			valueField4="VitaA1"
+			valueField5="VitaA2"
+			valueField6="BCG"
+			valueField7="IPT3"
+			valueField8="IPTI1"
+			valueField9="IPTI2"
+			valueField10="Measles"
+			valueField11="OPV0"
+			valueField12="OPV2"
+			valueField13="OPV3"
+			valueField14="Penta1"
+			valueField15="Penta2"
+			valueField16="Penta3"
+			valueField17="TT4"
+			valueField18="VitaA3"
+			valueField19="YellowFever"
+			categoryField="facility"
+			dataTipUnitLabel="*"
+			dataTipLabelField="facility"  />
+	</view>	
+	<view
+		id="view4"
+		label="System Usage">
+		
+		<pod
+			id="pod00"
+			type="overlaidChart"
+			title="SMS vs Voice Preference"
+			selectedViewIndex="1"
+			indicator="channel"
+			method="vis_info"
+			metric="system"
+			valueField="sms"
+			valueField2="ivr"
+			categoryField="district"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/>
+		
+		<pod
+			id="pod01"
+			type="overlaidChart"
+			title="Message Time Distribution"
+			selectedViewIndex="1"
+			indicator="calls"
+			method="vis_info"
+			metric="system"
+			valueField1="COMPLETED"
+			valueField2="REJECTED"
+			valueField3="CONGESTION"
+			valueField4="NOANSWER"
+			valueField5="INTERNALERROR"
+			valueField6="BUSY"
+			categoryField="time"
+			dataTipUnitLabel="*"
+			dataTipLabelField="expected"/>
+		<pod
+			id="pod02"
+			type="overlaidChart"
+			title="Mode of Registration"
+			selectedViewIndex="1"
+			indicator="mode"
+			method="vis_info"
+			metric="system"
+			valueField1="MOTECH_FIELD_AGENT"
+			valueField2="Unknown"
+			valueField3="FRIEND"
+			valueField4="GHS_NURSE"
+			valueField5="MOTECH_FIELD_AGENT"
+			valueField6="POSTERS_ADS"
+			valueField7="RADIO"
+			categoryField="mode"
+			dataTipUnitLabel="*"
+			dataTipLabelField="region"/>
+			dataTipLabelField="expected"/>
+		
+	</view>	
+</views>

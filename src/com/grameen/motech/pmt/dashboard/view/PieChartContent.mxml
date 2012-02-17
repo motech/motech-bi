@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Displays a PieChart with drill-down functionality.
+ For the demo, random data is generated for the drill-down.
+-->
+<PodContentBase
+	xmlns="com.grameen.motech.pmt.dashboard.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:effects="qs.charts.effects.*" horizontalAlign="left"
+	xmlns:renderers="qs.charts.renderers.*"
+	width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.utils.NumberFormatter;
+			
+			import mx.charts.HitData;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.items.PieSeriesItem;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			
+			// The original data provider used for drillUp.
+			private var initialDataProvider:ArrayCollection;
+			[Bindable]
+			private var dataProvider:ArrayCollection;
+			
+			[Bindable]
+			public var explodingArray:Array = [0,0,0,.2,0,0];
+			
+			private var overallTotal:Number     = 0;
+			private var valueFieldTotal:Number  = 0;
+			private var valueField2Total:Number = 0;
+			private const LITERAL_TOTAL:String = "total";
+			
+			override protected function onResultHttpService(e:ResultEvent):void
+			{
+				var a:Array = jsonToObjectArray(e.result); 
+				var ac:ArrayCollection = new ArrayCollection(a);
+				// add totals to each element
+				overallTotal = 0;
+				valueFieldTotal = 0;
+				valueField2Total = 0;
+				
+				for each (var obj:Object in ac) {
+					obj[LITERAL_TOTAL] = !isNaN(obj[properties.@valueField]) && !isNaN(obj[properties.@valueField2]) ? Number(Number(obj[properties.@valueField]) + Number(obj[properties.@valueField2])) : 0;
+					overallTotal = !isNaN(obj[LITERAL_TOTAL]) ? overallTotal + obj[LITERAL_TOTAL] : overallTotal;
+					valueFieldTotal  = !isNaN(obj[properties.@valueField])  ? valueFieldTotal  + obj[properties.@valueField]  : valueFieldTotal;
+					valueField2Total = !isNaN(obj[properties.@valueField2]) ? valueField2Total + obj[properties.@valueField2] : valueField2Total;
+				}
+				
+				initialDataProvider = ac;
+				dataProvider = ac;
+				
+			}
+			
+//			private function pieChartDataTipFunction(o:HitData):String
+//			{
+//				var a:Array = properties.@dataTipUnitLabel.split("*");
+//				var s:String = o.item[properties.@dataTipLabelField] + "\n";
+//				s += a[0] + o.item[properties.@valueField] + a[1] + "\n";
+//				s += Math.round(PieSeriesItem(o.chartItem).percentValue) + "%";
+//				
+//				return s;
+//			}
+			private function pieChartDataTipFunction(item:HitData):String {
+				var pSI:PieSeriesItem = item.chartItem as PieSeriesItem;
+				return "<b>" + pSI.item[properties.@categoryField] + "</b><br />" +
+					item.chartItem.element.name +":" +pSI.item[item.chartItem.element.name] + " (<i>" +
+					pSI.percentValue.toFixed(2) + "%</i>)";
+				
+			}
+			
+			private function displayCallout(data:Object, field:String, index:Number, percentValue:Number):String {
+				return data[properties.@categoryField] + "\n" + properties.@valueField + ":" + data[properties.@valueField] + "\n";
+			}
+			
+			private function pieChart_itemClick(evt:ChartItemEvent):void {
+	                var arr:Array = [];
+	                arr[evt.hitData.chartItem.index] = 0.2;
+	                pieSeries.perWedgeExplodeRadius = arr;
+            }
+
+			private function total_Func():String {
+				return null;
+			}
+			
+			private function asPercentOfOverall(numerator:Number, denominator:Number, suffix:String="% of total population"): String {
+				if (overallTotal == 0) return "";
+				return numFmt.format((numerator/denominator) * 100) + suffix;
+			}
+
+		]]>
+	</mx:Script>
+	
+	<mx:NumberFormatter id="numFmt" precision="2" rounding="none"/>
+	<mx:HBox width="100%" height="100%">
+		<mx:PieChart
+			id="pieChart" dataTipFunction="pieChartDataTipFunction"
+			width="70%" height="100%" 
+			dataProvider="{dataProvider}"
+			showDataTips="true"
+			itemClick="pieChart_itemClick(event);">
+			<mx:series>
+				<!--mx:PieSeries  name="{properties.@valueField2}" explodeRadius=".05"
+					id="pieSeries" displayName="{properties.@valueField2}" nameField="{properties.@categoryField}"			
+					field="{properties.@valueField2}" labelField="{properties.@valueField2}">
+				</mx:PieSeries>
+				<mx:PieSeries name="{properties.@valueField}"
+					id="pieSeries2" labelFunction="displayCallout" labelPosition="callout" labelField="{properties.@valueField}"
+					field="{properties.@valueField}" nameField="{properties.@categoryField}">
+				</mx:PieSeries-->
+				<mx:PieSeries name="{properties.@valueField}" 
+							  id="pieSeries" labelFunction="displayCallout" labelPosition="callout" labelField="{properties.@valueField}"
+							  field="{properties.@valueField}" nameField="{properties.@categoryField}">
+				</mx:PieSeries>
+
+			</mx:series>
+		</mx:PieChart>
+		<mx:ControlBar width="30%" horizontalAlign="right">
+			<mx:Legend dataProvider="{pieChart}" direction="vertical" borderStyle="none"/>
+		</mx:ControlBar>
+	</mx:HBox>
+</PodContentBase>
