@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>Coverage Dashboard</title>
+	<author>KGambrah</author>
+	<description>Coverage Dashboard</description>
+	<icon></icon>
+	<template>template.html</template>
+	<style>clean</style>
+</cdf>

@@ -1,0 +1,9 @@
+1. Follow the instructions in the Saiku Documentation - http://docs.analytical-labs.com/DataSources.html
+
+2. There is a fragment for the datasource in the config_fragments folder for convenience
+
+3. Create a folder webapps/saiku/mobi
+
+4. Symlink the schema file from the motech-bi project to the directory created above
+
+5. Start saiku!

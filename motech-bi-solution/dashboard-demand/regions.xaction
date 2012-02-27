@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>regions</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author/>  
+    <description/>  
+    <help/>  
+    <result-type>none</result-type>  
+    <icon/> 
+  </documentation>
+
+  <inputs>
+    <no_selection type="result-set">
+      <sources>
+        <request>no_selection</request>
+      </sources>
+      <default-value type="result-set">
+        <row>
+          <region_id>%</region_id>
+          <region_name>All</region_name>
+        </row>
+      </default-value>
+      <columns>
+        <region_id type="string"/>
+        <region_name type="string"/>
+      </columns>
+    </no_selection>
+  </inputs>
+
+  <outputs> 
+    <no_selection type="result-set"/>
+    <query_result type="result-set"/>
+  </outputs>
+
+  <resources/>
+  
+  <actions> 
+    <action-definition> 
+      <component-name>SQLLookupRule</component-name>
+      <action-type>Relational</action-type>
+      <action-outputs> 
+        <query-result type="result-set" mapping="query_result"/> 
+      </action-outputs>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
+        <query><![CDATA[select region as region_id, region as region_name from dim_location
+where region is not null
+group by region]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
+    </action-definition>
+ 
+  </actions> 
+</action-sequence>

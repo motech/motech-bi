@@ -1,0 +1,208 @@
+<Schema name="motech">
+  <Dimension type="TimeDimension" highCardinality="false" name="Time">
+    <Hierarchy hasAll="false" primaryKey="date_key">
+      <Table name="dim_date">
+      </Table>
+      <Level name="year" column="year4" type="Numeric" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+      <Level name="quarter" column="quarter_name" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+      </Level>
+      <Level name="month" column="month_number" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" highCardinality="false" name="Location">
+    <Hierarchy hasAll="true" allMemberName="All Locations" primaryKey="location_key">
+      <Table name="dim_location">
+      </Table>
+      <Level name="region" table="dim_location" column="region" nameColumn="region" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="district" column="district" nameColumn="district" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="IfBlankName">
+      </Level>
+      <Level name="sub-district" table="dim_location" column="state_province" nameColumn="state_province" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="facility" table="dim_location" column="facility" nameColumn="facility" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="IfBlankName">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" highCardinality="false" name="Client">
+    <Hierarchy hasAll="true" allMemberName="All Clients" primaryKey="client_key">
+      <Table name="dim_client">
+      </Table>
+      <Level name="gender" column="gender" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="motech id" table="dim_client" column="motech_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="client type" table="dim_client" column="client_type" nameColumn="client_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" highCardinality="false" name="Staff">
+    <Hierarchy hasAll="true">
+      <Table name="dim_staff">
+      </Table>
+      <Level name="staff id" table="dim_staff" column="staff_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Coverage" cache="false" enabled="true">
+    <Table name="fact_program">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="Phone Ownership">
+      <Hierarchy hasAll="true">
+        <Table name="fact_program">
+        </Table>
+        <Level name="phone ownership" column="phone_ownership" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="Telco">
+      <Hierarchy hasAll="true">
+        <Table name="fact_program">
+        </Table>
+        <Level name="Telco" table="fact_program" column="telco" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="Language">
+      <Hierarchy hasAll="true">
+        <Table name="fact_program">
+        </Table>
+        <Level name="Language" column="language" nameColumn="language" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="program" highCardinality="false" name="Program">
+      <Hierarchy hasAll="true">
+        <Table name="fact_program">
+        </Table>
+        <Level name="program name" column="program" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Registration" column="client_key" datatype="Integer" aggregator="count" visible="true">
+    </Measure>
+    <CalculatedMember name="Registration Growth " formatString="0.00%" formula="(Measures.Registration - Measures.PrevRegistration) / Measures.PrevRegistration" dimension="Measures" visible="true">
+    </CalculatedMember>
+    <CalculatedMember name="PrevRegistration" formula="CoalesceEmpty((Measures.Registration, Time.CurrentMember.PrevMember), Measures.Registration)" dimension="Measures" visible="false">
+    </CalculatedMember>
+  </Cube>
+  <Cube name="Call " cache="true" enabled="true">
+    <Table name="fact_call">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Total Duration" column="duration" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Primary Message Duration" column="message_a" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Secondary Message Duration" column="message_b" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Tertiary Message Duration" column="message_c" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Pregnancy" cache="true" enabled="true">
+    <Table name="fact_pregnancy">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <Dimension type="StandardDimension" foreignKey="client_key" highCardinality="false" name="Trimester">
+      <Hierarchy name="New Hierarchy 0" hasAll="true">
+        <Table name="fact_pregnancy">
+        </Table>
+        <Level name="Trimester" column="trimester" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Count" column="motech_id" datatype="Integer" aggregator="count" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Target" cache="true" enabled="true">
+    <Table name="fact_target">
+    </Table>
+    <Dimension type="StandardDimension" foreignKey="district" highCardinality="false" name="Location">
+      <Hierarchy hasAll="true">
+        <Table name="location_district">
+        </Table>
+        <Level name="Country" column="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Region" column="region" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="District" column="district" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="denominator_type" highCardinality="false" name="Denominator Type">
+      <Hierarchy hasAll="true">
+        <Table name="fact_target">
+        </Table>
+        <Level name="denominator" column="denominator_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="year" highCardinality="false" name="Year">
+      <Hierarchy hasAll="true">
+        <Table name="fact_target">
+        </Table>
+        <Level name="year" column="year" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="population" column="population_estimate" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Encounter" cache="true" enabled="true">
+    <Table name="fact_encounter">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Staff" name="Staff" foreignKey="staff_key" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="count" column="encounter_id" datatype="Integer" aggregator="distinct count" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Enquiry" cache="true" enabled="true">
+    <Table name="fact_enquiry">
+    </Table>
+    <DimensionUsage source="Staff" name="Staff" foreignKey="staff_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="count" column="id" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Observation" description="Encounter observations" cache="true" enabled="true">
+    <Table name="fact_observation">
+    </Table>
+    <DimensionUsage source="Time" name="Time" foreignKey="date_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Staff" name="Staff" foreignKey="staff_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" foreignKey="location_key" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Client" name="Client" foreignKey="client_key" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Encounter Types" column="encounter_type" datatype="String" aggregator="distinct-count" description="Count of different Encounter types" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

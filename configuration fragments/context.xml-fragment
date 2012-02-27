@@ -1,0 +1,10 @@
+<Resource name="jdbc/MotechDw" 
+		auth="Container" 
+		type="javax.sql.DataSource"
+		username="root"
+		password="onthebrink"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/motech_dw"
+		maxActive="20"
+		maxIdle="5"
+		maxWait="10000"/>

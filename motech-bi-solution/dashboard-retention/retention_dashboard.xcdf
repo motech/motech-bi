@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>Retention Dashboard</title>
+	<author>Motech Project</author>
+	<description>Retention Dashboard</description>
+	<icon></icon>
+	<template>template.html</template>
+	<style>clean</style>
+</cdf>

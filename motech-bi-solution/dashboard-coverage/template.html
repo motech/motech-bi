@@ -1,0 +1,164 @@
+
+<style type="text/css">
+.alt {
+	color: #666666;
+	font-family: "Warnock Pro", "Goudy Old Style", "Palatino",
+		"Book Antiqua", Georgia, serif;
+	font-style: italic;
+	font-weight: normal;
+}
+</style>
+
+
+
+<div class="container alt">
+	<div class="span-24 clearfix prepend-top append-bottom">
+		<h1>Coverage Dashboard</h1>
+		<hr />
+	</div>
+
+	<div  class="span-5 ">
+			<div>
+				Select Region:
+				<form name="myForm">
+					<div id="object_select"></div>
+
+				</form>
+			</div>
+			<div>
+				Select District:
+				<form name="myForm2">
+					<div id="object_select_district"></div>
+				</form>
+			</div>
+			<div>
+				Select Sub-District:
+				<form name="myForm3">
+					<div id="object_select_subdistrict"></div>
+				</form>
+			</div>
+	</div>
+	
+	
+	<div class="span-8" id="coveragePregnantObject"></div>
+	<div class="span-8 last" id="childUnderOneObject"></div>
+		
+
+		<br />
+		<hr />
+	
+	
+
+	<div class="container span-24 append-bottom">
+		<div class="span-12">
+			<p>NB. The populations shown are 80% of the figure obtained using
+				the estimated birth rate of the actual population.</p>
+		</div>
+	</div>
+
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+	var district;
+	var subDistrict;
+	var region;
+
+	regionSelector = {
+		name : "regionSelector",
+		type : "select",
+		valueAsId : false,
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "regions.xaction",
+		htmlObject : "object_select",
+		executeAtStart : true,
+		parameter : "region",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+	}
+
+	districtSelector = {
+		name : "districtSelector",
+		type : "select",
+		valueAsId : false,
+		listeners : [ "region" ],
+		parameters : [ [ "REGION", "region" ] ],
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "districts.xaction",
+		htmlObject : "object_select_district",
+		executeAtStart : false,
+		parameter : "district",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+
+	}
+
+	subDistrictSelector = {
+		name : "subDistrictSelector",
+		type : "select",
+		valueAsId : false,
+		listeners : [ "district" ],
+		parameters : [ [ "DISTRICT", "district" ] ],
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "subdistricts.xaction",
+		htmlObject : "object_select_subdistrict",
+		executeAtStart : false,
+		parameter : "subDistrict",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+	}
+
+	coveragePregnantWomen = {
+		name : "coveragePreganantWomen",
+		type : "xaction",
+		listeners : [ "region", "district", "subDistrict" ],
+		parameters : [ [ "REGION", "region" ], [ "DISTRICT", "district" ],
+				[ "SUB_DISTRICT", "subDistrict" ] ],
+		parameter : "district",
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "coveragePregnantWomen.xaction",
+		htmlObject : "coveragePregnantObject",
+		executeAtStart : false,
+		tooltip : "Coverage - Pregnant Women"
+	}
+
+	coverageChildUnderOneYear = {
+		name : "coverageChildUnderOneYear",
+		type : "xaction",
+		listeners : [ "region", "district", "subDistrict" ],
+		parameters : [ [ "REGION", "region" ], [ "DISTRICT", "district" ],
+				[ "SUB_DISTRICT", "subDistrict" ] ],
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "coverageChildUnderOneYear.xaction",
+		htmlObject : "childUnderOneObject",
+		executeAtStart : false,
+		tooltip : "Coverage - Child Under One Year"
+	}
+
+	var components = [ coveragePregnantWomen, coverageChildUnderOneYear,
+			regionSelector, districtSelector,
+			subDistrictSelector ];
+</script>
+
+<script language="javascript" type="text/javascript">
+	function load() {
+		Dashboards.init(components);
+	}
+
+	load();
+</script>

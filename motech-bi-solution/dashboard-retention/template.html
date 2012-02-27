@@ -1,0 +1,123 @@
+
+<style type="text/css">
+.alt {
+	color: #666666;
+	font-family: "Warnock Pro", "Goudy Old Style", "Palatino",
+		"Book Antiqua", Georgia, serif;
+	font-style: italic;
+	font-weight: normal;
+}
+</style>
+
+
+
+<div class="container alt">
+	<div class="span-24 clearfix prepend-top append-bottom">
+
+		<h1>User Retention Dashboard</h1>
+		<hr />
+
+	</div>
+
+	<div class="container span-24 append-bottom">
+		
+	</div>
+	
+	<div class="container span-24 append-bottom">
+		<div class="span-8 clearfix">
+			<div id="retentionMmConversionObject"></div>
+		</div>
+		<br />
+		<hr />
+
+	</div>
+
+	
+
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+	var district;
+	var subDistrict;
+	var region;
+
+	regionSelector = {
+		name : "regionSelector",
+		type : "select",
+		valueAsId : false,
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "regions.xaction",
+		htmlObject : "object_select",
+		executeAtStart : true,
+		parameter : "region",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+	}
+
+	districtSelector = {
+		name : "districtSelector",
+		type : "select",
+		valueAsId : false,
+		listeners : [ "region" ],
+		parameters : [ [ "REGION", "region" ] ],
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "districts.xaction",
+		htmlObject : "object_select_district",
+		executeAtStart : false,
+		parameter : "district",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+
+	}
+
+	subDistrictSelector = {
+		name : "subDistrictSelector",
+		type : "select",
+		valueAsId : false,
+		listeners : [ "district" ],
+		parameters : [ [ "DISTRICT", "district" ] ],
+		solution : "motech-bi-solution/dashboard-coverage",
+		path : "",
+		action : "subdistricts.xaction",
+		htmlObject : "object_select_subdistrict",
+		executeAtStart : false,
+		parameter : "subDistrict",
+		preExecution : function() {
+		},
+		postExecution : function() {
+			Dashboards.processChange(this.name);
+		}
+	}
+
+	retentionMmConversion = {
+		name : "retentionMmConversion",
+		type : "xaction",
+		solution : "motech-bi-solution/dashboard-retention",
+		path : "",
+		action : "retentionMmConversion.xaction",
+		htmlObject : "retentionMmConversionObject",
+		executeAtStart : true,
+		tooltip : "Coverage - Pregnant Women"
+	}
+
+
+	var components = [ retentionMmConversion ];
+</script>
+
+<script language="javascript" type="text/javascript">
+	function load() {
+		Dashboards.init(components);
+	}
+
+	load();
+</script>

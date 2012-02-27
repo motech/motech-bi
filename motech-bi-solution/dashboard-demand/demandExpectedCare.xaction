@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>Expected Care Coverage</title>
+  <version>1</version>
+  <logging-level>TRACE</logging-level>
+  <documentation> 
+    <author/>  
+    <description/>  
+    <help/>  
+    <result-type>none</result-type>  
+    <icon/> 
+  </documentation>
+
+  <inputs> 
+    <REGION type="string"> 
+      <sources> 
+        <request>REGION</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </REGION>  
+    <DISTRICT type="string"> 
+      <sources> 
+        <request>DISTRICT</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </DISTRICT>  
+    <SUB_DISTRICT type="string"> 
+      <sources> 
+        <request>SUB_DISTRICT</request> 
+      </sources>  
+      <default-value><![CDATA[%]]></default-value> 
+    </SUB_DISTRICT> 
+  </inputs>
+
+  <outputs> 
+    <image-tag type="string"/> 
+  </outputs>
+
+  <resources/>
+  
+  <actions> 
+    <action-definition> 
+      <component-name>SQLLookupRule</component-name>
+      <action-type>Get Population Estimate</action-type>
+      <action-inputs> 
+        <REGION type="string"/> 
+      </action-inputs>
+      <action-outputs> 
+        <query-result type="result-set" mapping="RS_POPULATION"/> 
+      </action-outputs>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
+        <query><![CDATA[SELECT SUM(general_population_estimate) 
+FROM dim_location
+	WHERE 
+	region LIKE '{REGION}'
+        AND 
+	population_estimate_year IS NOT NULL]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
+    </action-definition>
+  
+    <action-definition> 
+      <component-name>SQLLookupRule</component-name>
+      <action-type>Get expected care count</action-type>
+      <action-inputs> 
+        <DISTRICT type="string"/>  
+        <SUB_DISTRICT type="string"/>  
+        <REGION type="string"/>  
+        <RS_POPULATION type="string"/> 
+      </action-inputs>
+      <action-outputs> 
+        <query-result type="result-set" mapping="query_result"/> 
+      </action-outputs>
+      <component-definition> 
+        <jndi><![CDATA[MotechDw]]></jndi>  
+        <query><![CDATA[SELECT {RS_POPULATION} 'estimated population' , count(*) as 'number registered'
+FROM fact_registration
+WHERE 
+program_name like "Expected Care Message Program"
+AND
+location_key  IN (SELECT location_key FROM 
+	dim_location
+	WHERE 
+	region LIKE '{REGION}'
+        AND 
+	district LIKE '{DISTRICT}'
+	AND 
+	state_province LIKE '{SUB_DISTRICT}')]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
+    </action-definition>
+  
+    <action-definition> 
+      <component-name>ChartComponent</component-name>
+      <action-type>Chart</action-type>
+      <action-inputs> 
+        <chart-data type="result-set" mapping="query_result"/> 
+      </action-inputs>
+      <action-outputs> 
+        <image-tag type="string"/> 
+      </action-outputs>
+      <component-definition>
+        <chart-attributes> 
+          <chart-type>BarChart</chart-type>  
+          <border-visible>false</border-visible> 
+        </chart-attributes>  
+        <by-row><![CDATA[false]]></by-row>  
+        <width><![CDATA[240]]></width>  
+        <height><![CDATA[250]]></height>  
+        <title><![CDATA[Coverage - Expected Care]]></title>
+      </component-definition> 
+    </action-definition>
+ 
+  </actions> 
+</action-sequence>
