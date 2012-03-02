@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:PodContentBase xmlns:mx="http://www.adobe.com/2006/mxml" autoLayout="true"
+					 xmlns:view="com.grameen.motech.pmt.dashboard.view.*" verticalGap="0" verticalAlign="top"
+					 width="100%" height="100%" xmlns:effects="qs.charts.effects.*"
+					 xmlns:renderers="qs.charts.renderers.*" xmlns:code="http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			import mx.charts.HitData;
+			import mx.charts.LinearAxis;
+			import mx.charts.chartClasses.ChartBase;
+			import mx.charts.chartClasses.Series;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.ColumnSeries;
+			import mx.charts.series.LineSeries;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			
+			// The original data provider used for drillUp.
+			private var initialDataProvider:ArrayCollection;
+			[Bindable]
+			private var dataProvider:ArrayCollection;
+			[Bindable]
+			private var _selectedViewIndex:Number = 0;
+			private var chart:ChartBase;
+			[Bindable]
+			private var series:Array;
+			private var drillToIndex:Number;
+			
+			
+			private var appliedFilter:String = "";
+			
+			override protected function onResultHttpService(e:ResultEvent):void
+			{
+				var a:Array = jsonToObjectArray(e.result);
+				
+				var ac:ArrayCollection = new ArrayCollection(a);
+				initialDataProvider = ac;
+				dataProvider = ac;
+			}
+			
+			// Creates random drill down data.
+			// Assumes initial data is months and breaks down months into 30 days.
+			public function createDrillDownData(data:Object):ArrayCollection
+			{
+				var ac:ArrayCollection = new ArrayCollection();
+				var total:Number = data[properties.@valueField];
+				var len:Number = 30;
+				var randomPercents:Array = new Array();
+				var totalPercents:Number = 0;
+				var value:Number;
+				// Generate an Array of random numbers that will be used to create percentages of the totals in the next loop.
+				for (var i:Number = 0; i < len; i ++)
+				{
+					value = Math.max(.1, Math.random());// Make sure the number is not zero.
+					randomPercents.push(value);
+					totalPercents += value;
+				}
+				
+				for (i = 0; i < len; i ++)
+				{
+					var o:Object = new Object();
+					value = (randomPercents[i] / totalPercents) * total;
+					o[properties.@valueField] = Math.round(value * 10) / 10;
+					o[properties.@categoryField] = i + 1;
+					ac.addItem(o);
+				}
+				
+				return ac;
+			}
+			
+			private function set selectedViewIndex(n:Number):void
+			{
+				_selectedViewIndex = n;
+				if (n == 0)
+				{
+					chart = columnChart;
+//					series = columnSeries;
+				}
+			}
+			
+			private function columnChartDataTipFunction(o:HitData):String
+			{
+				var a:Array = properties.@dataTipUnitLabel.split("*");
+				var s:String = o.item[properties.@dataTipLabelField] + "\n";
+				s += a[0] + o.item[properties.@valueField] + a[1] + "\n";
+				return s;
+			}
+			
+			private function axisLabel_Func(cat:Object, 
+			pcat:Object,
+			ax:LinearAxis):String 
+			{
+				return numForm.format(cat) + "%";
+			}
+			
+			private function growthChartDataTipFunction(o:HitData):String
+			{
+				var a:Array = properties.@dataTipUnitLabel.split("*");
+				var s:String = o.item[properties.@dataTipLabelField3] + "\n";
+				s += a[0] + o.item[properties.@valueField3] + a[1] + "\n";
+				return s;
+			}
+			
+			public override function set properties(xml:XML):void {
+				super.properties = xml;
+				//create Array for series - will collect mx.chart.series.ColumnSeries.ColumnSeries 
+			 	series = [];
+				// create a mx.chart.series.ColumnSeries.ColumnSeries for each configured series 
+				for (var i:int = 1; i <= 20; i++) {
+					if (properties["@valueField"+i] != null && properties["@valueField"+i] != " " && properties.hasOwnProperty("@valueField"+i)) {
+						trace("props: "+properties["@valueField"+i]);
+						var cs:ColumnSeries = new ColumnSeries();
+						cs.displayName = properties["@valueField"+i];
+						cs.yField = properties["@valueField"+i];
+						// set alpha for overlaying
+						cs.alpha = 0.3; 
+						// add to series array
+						series.push(cs);
+					}
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<effects:DrillDownEffect id="drillDownEffect" duration="1500" effectEnd="chart.showDataTips=true" />
+	<effects:DrillUpEffect id="drillUpEffect" duration="1500" effectEnd="chart.showDataTips=true"/>
+	<mx:NumberFormatter id="numForm" useThousandsSeparator="false"/>
+		
+	<code:WindowShade id="indicatorsShade"  opened="false" label="Indicators" headerClass="mx.controls.Button" verticalAlign="top" width="80%">
+		<mx:Form width="100%" autoLayout="true" fontSize="9" verticalGap="1" paddingBottom="1" paddingTop="1">
+			<mx:Text htmlText="Indicator:   {properties.@indicatorText}" width="100%"/>
+			<mx:Text htmlText="Numerator:   {properties.@numerator}" width="100%"/>
+			<mx:Text htmlText="Denominator: {properties.@denominator}" width="100%"/>
+		</mx:Form>	
+	</code:WindowShade>
+	<mx:VBox
+			width="100%" height="100%">
+			<mx:CartesianChart
+				id="columnChart" 
+				width="100%" height="100%"
+				dataProvider="{dataProvider}"
+				showDataTips="true">
+				<mx:series>
+					<!-- series will be dynamically generated based on the configured valueField1..10 limited to 10 -->
+					<mx:ColumnSet id="overlaidColumns" type="overlaid" series="{series}" columnWidthRatio="0.9" />
+				</mx:series>
+				<mx:horizontalAxis>
+					<mx:CategoryAxis
+						categoryField="{properties.@categoryField}" />
+				</mx:horizontalAxis>
+			</mx:CartesianChart>
+		<code:FlowBox width="100%" horizontalAlign="center" >
+			<mx:Legend dataProvider="{columnChart}" borderStyle="none" direction="horizontal"/>
+		</code:FlowBox>
+		</mx:VBox>
+</view:PodContentBase>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Displays a ColumnChart and LineChart using a ViewStack.
+ The ColumnChart and LineChart allow a user to drill-down
+ one level. For the demo, random data is generated.
+ The ColumnChart and LineChart use the same dataProvider.
+-->
+<PodContentBase
+	xmlns="com.grameen.motech.pmt.dashboard.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:effects="qs.charts.effects.*"
+	xmlns:renderers="qs.charts.renderers.*"
+	width="100%" height="100%" xmlns:code="http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			import mx.charts.HitData;
+			import mx.charts.chartClasses.ChartBase;
+			import mx.charts.chartClasses.Series;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.ColumnSeries;
+			import mx.charts.series.items.PieSeriesItem;
+			import mx.collections.ArrayCollection;
+			import mx.controls.ComboBox;
+			import mx.events.ListEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			// The original data provider used for drillUp.
+			private var initialDataProvider:ArrayCollection;
+			[Bindable]
+			private var dataProvider:ArrayCollection;
+			[Bindable]
+			private var _selectedViewIndex:Number = 0;
+			
+			// Chart drill down variables. Users can only drill down
+			// one level then click the chart to drill up.
+			// Note, the majority of the drill down code including all of the classes in the "qs" package
+			// are from Ely Greenfield's blog, http://www.quietlyscheming.com/blog/charts/chart-drilldown-animations/.
+			private var chart:ChartBase;
+			private var series:Series;
+			private var drillToIndex:Number;
+			
+			private var overallTotal:Number     = 0;
+			private var valueFieldTotal:Number  = 0;
+			private var valueField2Total:Number = 0;
+			private const LITERAL_TOTAL:String = "total";
+			
+			override protected function onResultHttpService(e:ResultEvent):void
+			{
+				var a:Array = jsonToObjectArray(e.result); 
+//					xmlListToObjectArray(e.result.item);
+				var ac:ArrayCollection = new ArrayCollection(a);
+				
+				// add totals to each element
+				overallTotal = 0;
+				valueFieldTotal = 0;
+				valueField2Total = 0;
+				
+				for each (var obj:Object in ac) {
+					obj[LITERAL_TOTAL] = !isNaN(obj[properties.@valueField]) && !isNaN(obj[properties.@valueField2]) ? Number(Number(obj[properties.@valueField]) + Number(obj[properties.@valueField2])) : 0;
+					overallTotal = !isNaN(obj[LITERAL_TOTAL]) ? overallTotal + obj[LITERAL_TOTAL] : overallTotal;
+					valueFieldTotal  = !isNaN(obj[properties.@valueField])  ? valueFieldTotal  + obj[properties.@valueField]  : valueFieldTotal;
+					valueField2Total = !isNaN(obj[properties.@valueField2]) ? valueField2Total + obj[properties.@valueField2] : valueField2Total;
+				}
+				
+				initialDataProvider = ac;
+				dataProvider = ac;
+				
+				// Get the values from properties XML.
+				if (properties.@selectedViewIndex.toString() != null &&
+					Number(properties.@selectedViewIndex) < viewStack.numChildren) // Make sure the index is in range.
+					selectedViewIndex = Number(properties.@selectedViewIndex);
+				else
+					selectedViewIndex = 0;
+				
+			}
+			
+			private function asPercentOf(numerator:Number, denominator:Number, suffix:String=""): String {
+				if (denominator == 0) return " ";
+				return numFmt.format((numerator/denominator) * 100) + "%" +suffix;
+			}
+			
+			private function set selectedViewIndex(n:Number):void
+			{
+				_selectedViewIndex = n;
+				if (n == 0)
+				{
+					chart = columnChart;
+					series = columnSeries;
+				}
+				else
+				{
+					chart = pieChart;
+					series = pieSeries;
+				}
+			}
+			
+			private function onChangeComboBox(e:ListEvent):void
+			{
+				var index:Number = ComboBox(e.target).selectedIndex;
+				selectedViewIndex = index;
+				dispatchViewStackChange(index);
+			}
+
+			
+			private function columnChartDataTipFunction(o:HitData):String
+			{
+				var a:Array = properties.@dataTipUnitLabel.split("*");
+				var s:String = o.item[properties.@dataTipLabelField] + "\n";
+				s += a[0] + o.item[properties.@valueField] + a[1] + "\n";
+				return s;
+			}
+			
+			// Creates random drill down data.
+			// Assumes initial data is months and breaks down months into 30 days.
+			public function createDrillDownData(data:Object):ArrayCollection
+			{
+				var ac:ArrayCollection = new ArrayCollection();
+				var total:Number = data[properties.@valueField];
+				var len:Number = 30;
+				var randomPercents:Array = new Array();
+				var totalPercents:Number = 0;
+				var value:Number;
+				// Generate an Array of random numbers that will be used to create percentages of the totals in the next loop.
+				for (var i:Number = 0; i < len; i ++)
+				{
+					value = Math.max(.1, Math.random());// Make sure the number is not zero.
+					randomPercents.push(value);
+					totalPercents += value;
+				}
+
+				for (i = 0; i < len; i ++)
+				{
+					var o:Object = new Object();
+					value = (randomPercents[i] / totalPercents) * total;
+					o[properties.@valueField] = Math.round(value * 10) / 10;
+					o[properties.@categoryField] = i + 1;
+					ac.addItem(o);
+				}
+				
+				return ac;
+			}
+			
+			private function pieChartDataTipFunction(item:HitData):String {
+				var pSI:PieSeriesItem = item.chartItem as PieSeriesItem;
+				return "<b>" + pSI.item[properties.@categoryField] + ": </b>" + pSI.item[LITERAL_TOTAL] + " - " + asPercentOf(pSI.item[LITERAL_TOTAL],overallTotal) + "<br/><i>" +
+					"<b>" + properties.@valueField + ": </b>" + pSI.item[properties.@valueField] + "<br/>" + 
+						asPercentOf(pSI.item[properties.@valueField], pSI.item[LITERAL_TOTAL], " of "+ pSI.item[properties.@categoryField]) + "<br/>" +
+						asPercentOf(pSI.item[properties.@valueField], overallTotal) + " of Motech Registrants" + "<br/>" +
+					"<b>" +properties.@valueField2 + ": </b>" + pSI.item[properties.@valueField2] + "<br/>" + 
+						asPercentOf(pSI.item[properties.@valueField2], pSI.item[LITERAL_TOTAL], " of "+ pSI.item[properties.@categoryField]) + "<br/>" +
+						asPercentOf(pSI.item[properties.@valueField2], overallTotal) + " of Motech Registrants" + "</i>";
+				
+			}
+			
+			private function displayCallout(data:Object, field:String, index:Number, percentValue:Number):String {
+				return data[properties.@categoryField] + " ("  + asPercentOf(data[LITERAL_TOTAL], overallTotal) + ")";
+			}
+			
+			private function pieChart_itemClick(evt:ChartItemEvent):void {
+				                var arr:Array = [];
+				                arr[evt.hitData.chartItem.index] = 0.2;
+				                pieSeries.perWedgeExplodeRadius = arr;
+			            }
+		]]>
+	</mx:Script>
+	
+	<mx:NumberFormatter id="numFmt" precision="2" rounding="none"/>
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox
+			width="100%"
+			horizontalAlign="left">
+			<mx:HBox
+				horizontalAlign="left">
+				<code:WindowShade id="indicatorsShade"  opened="false" label="Indicators" headerClass="mx.controls.Button" verticalAlign="top" width="100%">
+					<mx:Form width="100%" autoLayout="true" fontSize="9" verticalGap="1" paddingBottom="1" paddingTop="1">
+						<mx:Text htmlText="Indicator:   {properties.@indicatorText}" width="100%"/>
+						<mx:Text htmlText="Numerator:   {properties.@numerator}" width="100%"/>
+						<mx:Text htmlText="Denominator: {properties.@denominator}" width="100%"/>
+					</mx:Form>	
+				</code:WindowShade>
+			</mx:HBox>
+			<mx:HBox
+				horizontalAlign="right">
+				<mx:ComboBox 
+					dataProvider="['Bar Chart', 'Pie Chart']"
+					selectedIndex="{_selectedViewIndex}"
+					change="onChangeComboBox(event)" />
+			</mx:HBox>
+		</mx:HBox>
+		<mx:ViewStack
+			id="viewStack"
+			selectedIndex="{_selectedViewIndex}"
+			creationPolicy="all"
+			width="100%" height="100%">
+			<mx:Canvas
+				width="100%" height="100%">
+				<mx:ColumnChart
+					id="columnChart"
+					width="100%" height="100%"
+					dataProvider="{dataProvider}"
+					showDataTips="true">
+					<mx:series>
+						<mx:ColumnSeries
+							id="columnSeries" displayName="{properties.@valueField}"
+							yField="{properties.@valueField}">
+							<mx:fill>
+								<mx:SolidColor  color="#DC143C" 
+												alpha=".3"/>
+							</mx:fill>
+						</mx:ColumnSeries>
+						<mx:ColumnSeries
+							id="columnSeries2" displayName="{properties.@valueField2}"
+							yField="{properties.@valueField2}">
+							<mx:fill>
+								<mx:SolidColor  color="#6495ED" 
+												alpha=".3"/>
+							</mx:fill>
+						</mx:ColumnSeries>
+					</mx:series>
+					<mx:horizontalAxis>
+						<mx:CategoryAxis
+							categoryField="{properties.@categoryField}" />
+					</mx:horizontalAxis>
+				</mx:ColumnChart>
+			</mx:Canvas>
+			<mx:Canvas
+				width="100%" height="100%">
+				<mx:PieChart
+					id="pieChart" dataTipFunction="pieChartDataTipFunction"
+					width="100%" height="100%" 
+					dataProvider="{dataProvider}"
+					showDataTips="true"
+					itemClick="pieChart_itemClick(event);">
+					<mx:series>
+						<mx:PieSeries name="{properties.@valueField}" 
+									  id="pieSeries" labelFunction="displayCallout" labelPosition="callout" labelField="{properties.@valueField}"
+									  field="{LITERAL_TOTAL}" nameField="{properties.@categoryField}"/>
+					</mx:series>
+				</mx:PieChart>
+			</mx:Canvas>
+		</mx:ViewStack>
+		<mx:HBox horizontalAlign="center" width="100%">
+			<mx:Legend id="legend" dataProvider="{viewStack.selectedIndex == 0 ? columnChart : pieChart}" direction="horizontal" borderStyle="none"/>
+		</mx:HBox>
+	</mx:VBox>	
+</PodContentBase>

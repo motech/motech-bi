@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- sample test data -->
+<items>
+	<item month="Jan 10" area="Awutu Senya" enrolled="200" population="311" target="249" growth="40"/>
+	<item month="Feb 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="50"/>
+	<item month="Mar 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="0"/>
+	<item month="Apr 10" area="Awutu Senya" enrolled="400" population="311" target="249" growth="33"/>
+	<item month="May 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="-25"/>
+	<item month="Jun 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="-33"/>
+	<item month="Jul 10" area="Awutu Senya" enrolled="400" population="311" target="249" growth="100"/>
+	<item month="Aug 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="-25"/>
+	<item month="Sep 10" area="Awutu Senya" enrolled="200" population="311" target="249" growth="-33"/>
+	<item month="Oct 10" area="Awutu Senya" enrolled="300" population="311" target="249" growth="50"/>
+	<item month="Nov 10" area="Awutu Senya" enrolled="200" population="311" target="249" growth="-33"/>
+	<item month="Dec 10" area="Awutu Senya" enrolled="200" population="311" target="249" growth="-50"/>
+	
+	<!--item month="Jan 10" area="Kassena-Nankana West" enrolled="151" population="231"/>
+	<item month="Feb 10" area="Kassena-Nankana West" enrolled="81"  population="231"/>
+	<item month="Mar 10" area="Kassena-Nankana West" enrolled="119" population="231"/>
+	<item month="Apr 10" area="Kassena-Nankana West" enrolled="185" population="231"/>
+	<item month="May 10" area="Kassena-Nankana West" enrolled="183" population="231"/>
+	<item month="Jun 10" area="Kassena-Nankana West" enrolled="162" population="231"/>
+	<item month="Jul 10" area="Kassena-Nankana West" enrolled="182" population="231"/>
+	<item month="Aug 10" area="Kassena-Nankana West" enrolled="178" population="231"/>
+	<item month="Sep 10" area="Kassena-Nankana West" enrolled="222" population="231"/>
+	<item month="Oct 10" area="Kassena-Nankana West" enrolled="255" population="231"/>
+	<item month="Nov 10" area="Kassena-Nankana West" enrolled="146" population="231"/>
+	<item month="Dec 10" area="Kassena-Nankana West" enrolled="30" population="231"/-->
+</items>
