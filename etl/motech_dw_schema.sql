@@ -277,7 +277,30 @@ CREATE TABLE IF NOT EXISTS `location_district` (
 --
 -- Structure for view `location_district`
 --
-DROP TABLE IF EXISTS `location_district`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `location_district` AS select distinct `dim_location`.`district` AS `district`,`dim_location`.`region` AS `region`,`dim_location`.`country` AS `country` from `dim_location`;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fact_voice_message`
+--
+
+CREATE TABLE IF NOT EXISTS `fact_voice_message` (
+  `id` bigint(20) DEFAULT NULL,
+  `language_id` bigint(20) DEFAULT NULL,
+  `message_type` varchar(255) DEFAULT NULL,
+  `recipient_number` varchar(255) DEFAULT NULL,
+  `phone_number_type` varchar(255) DEFAULT NULL,
+  `motech_id` varchar(255) DEFAULT NULL,
+  `schedule_date` datetime DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `tries` int(11) DEFAULT NULL,
+  `tries_days` int(11) DEFAULT NULL,
+  `client_key` bigint(20) DEFAULT NULL,
+  `date_key` varchar(255) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `facility_id` bigint(20) DEFAULT NULL,
+  `location_key` int(11) DEFAULT NULL,
+  KEY `idx_fact_voice_message_lookup` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
