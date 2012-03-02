@@ -262,7 +262,7 @@
     </CalculatedMember>
     <CalculatedMember name="% of Total Calls" formatString="0.00%" formula="[Measures].[Count].CurrentMember/ [Measures].[Total]" dimension="Measures" visible="true">
     </CalculatedMember>
-    <CalculatedMember name="Delivered" formula="Hierarchize({[Outcome].[DELIVERED]})" dimension="Measures" visible="true">
+    <CalculatedMember name="Delivered" formula="[Outcome].[DELIVERED]" dimension="Measures" visible="true">
     </CalculatedMember>
   </Cube>
 </Schema>
