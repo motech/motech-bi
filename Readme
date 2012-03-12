@@ -1,0 +1,55 @@
+
+Development & Deployment Guide
+
+h2. 0. Setup
+
+Software
+* Pentaho Data Integration (Spoon) - 4.2.0
+* Schema Workbench - 3.3
+* Saiku Analytics - 2.2
+
+Git
+* Clone / update your git repository 
+* Configure line endings - http://help.github.com/line-endings/
+
+
+h2. 2. Developing ETL Workflow 
+- Create file repository with the base directory as the 'ETL' directory under the motech-bi project
+- Connect to the repository
+- Set MOTECH_ETL_HOME environment variable
+- Configure jndi connections under spoon_home/simple-jndi/jdbc.properties
+- Sync database model (mysql workbench) with local database
+
+
+Main job runs the sub jobs, dimension_job and facts_job
+
+Developing Mondrian Schema Workflow
+- Open Schema workbench
+- Configure schema workbench 
+- Add mysql driver 
+- Make your changes to schema
+- Open MDX Query window
+ Test Connection in Query window 
+
+
+h2. 3. Deployment to Production
+
+h3. Configure and run ETL
+* Configure JNDI settings in $PDI_HOME/simple-jndi/jdbc.properties and $./etl/simple-jndi/jdbc.properties
+
+* Run ETL scripts - ./etl/load_dw.sh (Usage: load_dw.sh <PDI_HOME> <DB_USER> <DB_PASSWORD>)
+
+
+
+h3. ETL TIPS
+The granularity of the date dimension is days and not minutes or seconds. Thus use the date function in sql to convert datetimes to Date values otherwise, the corresponding date keys will not be found. 
+
+h3. MDX TIPS
+Excellent MDX tutorial - http://www.iccube.com/support/documentation/mdx/index.html
+
+Understand the following concepts - dimensions, measures, members, cells, hierarchies, aggregations, levels and member properties as well as Members, Tuples and Sets
+
+Understand hierarchy navigation for calculated measure formulas
+
+If the name of a hierarchy is not specified (which is most cases) then it defaults to the name of the hierarchy. 
+
