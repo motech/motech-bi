@@ -1,6 +1,6 @@
 <transformation>
   <info>
-    <name>load_program</name>
+    <name>load_program_fact</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:03.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;10 14:36:00.591</modified_date>
+  <modified_date>2012&#47;03&#47;12 12:21:01.556</modified_date>
   </info>
   <notepads>
   </notepads>

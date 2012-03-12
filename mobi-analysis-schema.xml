@@ -86,7 +86,7 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Registration" column="client_key" datatype="Integer" aggregator="count" visible="true">
+    <Measure name="Registration" column="motech_id" datatype="Integer" aggregator="count" visible="true">
     </Measure>
     <CalculatedMember name="Registration Growth " formatString="0.00%" formula="(Measures.Registration - Measures.PrevRegistration) / Measures.PrevRegistration" dimension="Measures" visible="true">
     </CalculatedMember>
@@ -274,7 +274,12 @@
     </DimensionUsage>
     <DimensionUsage source="Client" name="Client" visible="true" foreignKey="client_key">
     </DimensionUsage>
-    <Measure name="count" column="motech_id" aggregator="count" visible="true">
+    <Measure name="Registration" column="motech_id" aggregator="count" visible="true">
     </Measure>
+    <CalculatedMember name="Registration Growth " formatString="0.00%" formula="(Measures.Registration - Measures.PrevRegistration) / Measures.PrevRegistration" dimension="Measures" visible="true">
+    </CalculatedMember>
+    <CalculatedMember name="PrevRegistration" formula="CoalesceEmpty((Measures.Registration, Time.CurrentMember.PrevMember), Measures.Registration)" dimension="Measures" visible="false">
+    </CalculatedMember>	
+
   </Cube>
 </Schema>
