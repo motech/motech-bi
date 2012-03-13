@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2012&#47;03&#47;09 14:06:51.076</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;09 16:51:59.574</modified_date>
+  <modified_date>2012&#47;03&#47;13 12:24:48.314</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -170,6 +170,77 @@
   <order>
   <hop> <from>lookup facility id</from><to>lookup location key</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>lookup date key</to><enabled>Y</enabled> </hop>  <hop> <from>lookup location key</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>lookup date key</from><to>lookup patient id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup patient id</from><to>lookup facility id</to><enabled>Y</enabled> </hop>  </order>
   <step>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>fact_registration</table>
+      <key>
+        <name>motech_id</name>
+        <field>motech_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>client_key</name>
+        <rename>client_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>registration_age</name>
+        <rename>registration_age</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_key</name>
+        <rename>date_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>facility_id</name>
+        <rename>facility_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>location_key</name>
+        <rename>location_key</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>motech_id</name>
+        <rename>motech_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>registration_date</name>
+        <rename>start_date</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>client_type</name>
+        <rename>client_type</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>827</xloc>
+      <yloc>153</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Table input</name>
     <type>TableInput</type>
     <description/>
@@ -182,8 +253,9 @@
     <connection>MotechDw</connection>
     <sql>SELECT  distinct(motech_id),
 client_key,
-registration_date,
-registration_age
+start_date,
+registration_age,
+client_type
 FROM dim_client where client_key &lt;&gt; 0 </sql>
     <limit>0</limit>
     <lookup/>
@@ -219,7 +291,7 @@ FROM dim_client where client_key &lt;&gt; 0 </sql>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>registration_date</name>
+        <name>start_date</name>
         <field>date_value</field>
         <condition>LIKE</condition>
         <name2/>
@@ -316,72 +388,6 @@ FROM dim_client where client_key &lt;&gt; 0 </sql>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>653</xloc>
-      <yloc>154</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Insert &#47; Update</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MotechDw</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>fact_registration</table>
-      <key>
-        <name>motech_id</name>
-        <field>motech_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>client_key</name>
-        <rename>client_key</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>registration_date</name>
-        <rename>registration_date</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>registration_age</name>
-        <rename>registration_age</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_key</name>
-        <rename>date_key</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>facility_id</name>
-        <rename>facility_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>location_key</name>
-        <rename>location_key</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>motech_id</name>
-        <rename>motech_id</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>820</xloc>
       <yloc>154</yloc>
       <draw>Y</draw>
       </GUI>

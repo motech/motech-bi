@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;14 16:29:56.548</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;09 14:26:12.224</modified_date>
+  <modified_date>2012&#47;03&#47;13 13:14:32.549</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -197,47 +197,47 @@
         <field>
           <name>name</name>
           <lookup>name</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>phone_number</name>
           <lookup>phone_number</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>address</name>
           <lookup>address</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>facility</name>
           <lookup>facility</lookup>
-          <update>Punch through</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>birthdate</name>
           <lookup>birthdate</lookup>
-          <update>Insert</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>death_date</name>
           <lookup>death_date</lookup>
-          <update>Insert</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>gender</name>
           <lookup>gender</lookup>
-          <update>Insert</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>registration_date</name>
-          <lookup>registration_date</lookup>
-          <update>Insert</update>
+          <lookup>start_date</lookup>
+          <update>Punch through</update>
         </field>
         <field>
           <name>registration_age</name>
           <lookup>registration_age</lookup>
-          <update>Insert</update>
+          <update>Punch through</update>
         </field>
         <return>
           <name>client_key</name>

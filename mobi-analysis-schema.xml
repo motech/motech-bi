@@ -11,13 +11,13 @@
       </Level>
     </Hierarchy>
     <Hierarchy name="Weekly" visible="true" hasAll="true" primaryKey="date_key">
-      <Table name="dim_date" alias="">
+      <Table name="dim_date">
       </Table>
-      <Level name="year" visible="true" column="year4" uniqueMembers="false" levelType="TimeYears">
+      <Level name="year" visible="true" column="year4" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
       </Level>
-      <Level name="week" visible="true" table="dim_date" column="week_in_year" uniqueMembers="false" levelType="TimeWeeks">
+      <Level name="week" visible="true" table="dim_date" column="week_in_year" type="String" uniqueMembers="false" levelType="TimeWeeks" hideMemberIf="Never">
       </Level>
-      <Level name="day" visible="true" column="day_abbreviation" uniqueMembers="false" levelType="TimeDays">
+      <Level name="day" visible="true" column="day_abbreviation" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -47,13 +47,13 @@
       </Level>
     </Hierarchy>
     <Hierarchy name="By Client Type" visible="true" hasAll="true" primaryKey="client_key">
-      <Table name="dim_client" alias="">
+      <Table name="dim_client">
       </Table>
       <Level name="client type" visible="true" column="client_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="IfBlankName">
       </Level>
-      <Level name="gender" visible="true" column="gender" uniqueMembers="false">
+      <Level name="gender" visible="true" column="gender" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
-      <Level name="motech_id" visible="true" column="motech_id" uniqueMembers="true">
+      <Level name="motech_id" visible="true" column="motech_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -65,11 +65,43 @@
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="Type">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Type">
     <Hierarchy visible="true" hasAll="true">
-      <Table name="dim_client" alias="">
-      </Table>
-      <Level name="type" visible="true" column="client_type" uniqueMembers="false">
+      <InlineTable alias="types">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric">
+          </ColumnDef>
+          <ColumnDef name="name" type="String">
+          </ColumnDef>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">
+              <![CDATA[1]]>
+            </Value>
+            <Value column="name">
+              <![CDATA[Pregnant Women]]>
+            </Value>
+          </Row>
+          <Row>
+            <Value column="id">
+              <![CDATA[2]]>
+            </Value>
+            <Value column="name">
+              <![CDATA[Under 1]]>
+            </Value>
+          </Row>
+          <Row>
+            <Value column="id">
+              <![CDATA[3]]>
+            </Value>
+            <Value column="name">
+              <![CDATA[Others]]>
+            </Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level name="type" visible="true" column="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -182,9 +214,11 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <DimensionUsage source="Time" level="year" name="Time" visible="true" foreignKey="year">
+    <DimensionUsage source="Time" level="year" name="Time" visible="true" foreignKey="year" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Location" level="district" name="Location" visible="true" foreignKey="district">
+    <DimensionUsage source="Location" level="district" name="Location" visible="true" foreignKey="district" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Type" level="type" name="Type" visible="true" foreignKey="denominator_type" highCardinality="false">
     </DimensionUsage>
     <Measure name="Population" column="population_estimate" formatString="#,###" aggregator="avg" visible="true">
     </Measure>
@@ -298,6 +332,8 @@
     </DimensionUsage>
     <DimensionUsage source="Client" name="Client" visible="true" foreignKey="client_key" highCardinality="false">
     </DimensionUsage>
+    <DimensionUsage source="Type" level="type" name="Type" visible="true" foreignKey="client_type" highCardinality="false">
+    </DimensionUsage>
     <Measure name="Registration" column="motech_id" aggregator="count" visible="true">
     </Measure>
     <CalculatedMember name="Registration Growth " formatString="0.00%" formula="(Measures.Registration - Measures.PrevRegistration) / Measures.PrevRegistration" dimension="Measures" visible="true">
@@ -305,12 +341,12 @@
     <CalculatedMember name="PrevRegistration" formula="CoalesceEmpty((Measures.Registration, Time.CurrentMember.PrevMember), Measures.Registration)" dimension="Measures" visible="false">
     </CalculatedMember>
   </Cube>
-  <VirtualCube enabled="true" name="Coverage &#38; Target" visible="true">
+  <VirtualCube enabled="true" name="Coverage (Motech) &#38; Target" visible="true">
     <VirtualCubeDimension visible="true" highCardinality="false" name="Location">
     </VirtualCubeDimension>
     <VirtualCubeDimension visible="true" highCardinality="false" name="Time">
     </VirtualCubeDimension>
-    <VirtualCubeDimension cubeName="Target" name="Denominator Type">
+    <VirtualCubeDimension visible="true" highCardinality="false" name="Type">
     </VirtualCubeDimension>
     <VirtualCubeMeasure cubeName="Coverage - Motech" name="[Measures].[Registration]" visible="true">
     </VirtualCubeMeasure>
