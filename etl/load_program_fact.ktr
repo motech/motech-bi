@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:03.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;12 12:21:01.556</modified_date>
+  <modified_date>2012&#47;03&#47;13 17:43:00.612</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -533,7 +533,7 @@ person_attribute_type_id = 15 group by person_id) patt5 on patt5.person_id
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>778</xloc>
-      <yloc>128</yloc>
+      <yloc>129</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
