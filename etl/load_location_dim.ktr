@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2011&#47;06&#47;22 23:14:03.886</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;02&#47;15 19:53:58.083</modified_date>
+  <modified_date>2012&#47;03&#47;13 10:36:19.911</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -113,6 +113,31 @@
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MotechOltp</name>
+    <server/>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>MotechOltpDb</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -172,37 +197,42 @@
         <field>
           <name>facility</name>
           <lookup>facility</lookup>
-          <update>Update</update>
+          <update>Insert</update>
         </field>
         <field>
           <name>city_village</name>
           <lookup>city_village</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>state_province</name>
           <lookup>state_province</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>latlong</name>
           <lookup>latlong</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>region</name>
           <lookup>region</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>country</name>
           <lookup>country</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
         </field>
         <field>
           <name>county_district</name>
           <lookup>district</lookup>
-          <update>Update</update>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>facility_id</name>
+          <lookup>facility_id</lookup>
+          <update>Punch through</update>
         </field>
         <return>
           <name>location_key</name>
@@ -239,8 +269,9 @@
            <schema_name/>
            </partitioning>
     <connection>MotechOltp </connection>
-    <sql>SELECT location_id, name AS facility, city_village, state_province, county_district, CONCAT( latitude, &apos;,&apos;, longitude ) AS latlong, region, country
-FROM location</sql>
+    <sql>SELECT l.location_id, facility_id, name AS facility, city_village, state_province, county_district, CONCAT( latitude, &apos;,&apos;, longitude ) AS latlong, region, country
+FROM location l
+JOIN motechmodule_facility mf ON mf.location_id = l.location_id</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

@@ -64,7 +64,7 @@ The client_type is used in the retention dashboard to segregate different types 
   <created_user>-</created_user>
   <created_date>2011&#47;10&#47;17 09:14:08.845</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;09 16:18:55.400</modified_date>
+  <modified_date>2012&#47;03&#47;12 14:50:54.310</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -191,7 +191,7 @@ The client_type is used in the retention dashboard to segregate different types 
     </attributes>
   </connection>
   <order>
-  <hop> <from>retrieve pregnancy registration encounters</from><to>lookup motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup motech id</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>retrieve pregnancy registration encounters</from><to>lookup motech id</to><enabled>Y</enabled> </hop>  <hop> <from>lookup motech id</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>Add constants 2</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants 2</from><to>Update 2</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants</name>
     <type>Constant</type>
@@ -346,8 +346,104 @@ The client_type is used in the retention dashboard to segregate different types 
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>145</xloc>
-      <yloc>164</yloc>
+      <xloc>130</xloc>
+      <yloc>126</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <sql>SELECT client_key 
+FROM dim_client
+where registration_age &lt; 1</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>130</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants 2</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>client_type</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Children Under 1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>563</xloc>
+      <yloc>340</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update 2</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MotechDw</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>dim_client</table>
+      <key>
+        <name>client_key</name>
+        <field>client_key</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>client_type</name>
+        <rename>client_type</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>871</xloc>
+      <yloc>359</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
