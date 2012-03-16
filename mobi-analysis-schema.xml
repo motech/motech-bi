@@ -324,6 +324,14 @@
         </Level>
       </Hierarchy>
     </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="menu_id" name="Message Type">
+      <Hierarchy visible="true" hasAll="true">
+        <Table name="fact_voice_message" alias="">
+        </Table>
+        <Level name="message type" visible="true" column="message_type" uniqueMembers="false" levelType="Regular">
+        </Level>
+      </Hierarchy>
+    </Dimension>
     <Measure name="Count" column="menu_id" datatype="Integer" aggregator="count" description="Menu Count" visible="true">
     </Measure>
     <Measure name="Message Count" column="message_request_id" datatype="Numeric" aggregator="distinct-count" visible="true">

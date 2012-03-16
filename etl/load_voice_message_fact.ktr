@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
     <name>load_voice_message_fact</name>
@@ -63,7 +64,7 @@
   <created_user>-</created_user>
   <created_date>2012&#47;02&#47;22 23:16:40.779</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;16 11:18:49.618</modified_date>
+  <modified_date>2012&#47;03&#47;16 18:09:14.585</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -206,7 +207,7 @@
       <key>
         <name>menu_id</name>
         <field>menu_id</field>
-        <condition/>
+        <condition>=</condition>
         <name2/>
       </key>
       <value>
@@ -297,7 +298,12 @@
       <value>
         <name>call_status</name>
         <rename>call_status</rename>
-        <update>N</update>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>message_type</name>
+        <rename>message_type</rename>
+        <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
@@ -319,37 +325,42 @@
            <schema_name/>
            </partitioning>
     <connection>MotechMobile</connection>
-    <sql>SELECT 
-mr.id as message_request_id,
-cs.call_session_id,
-c.ivr_call_id as call_id,
-menu.ivr_menu_id as menu_id,
-recipient_number, 
-phone_number_type, 
-recipient_id as motech_id, 
-DATE(date_from) as schedule_date,
-mr.status,
-cs.days as tries_days,
-cs.attempts as tries,
-cs.language,
-c.status as call_status,
-IF(menu.name REGEXP &apos;start&apos;,&apos;primary&apos;,
-       IF(menu.name REGEXP &apos;Tertiary&apos;,&apos;secondary&apos;, &apos;Other&apos;)) as &apos;message_level&apos;,
- IF(mr.recipient_number REGEXP &apos;^0(2|5)4&apos;,&apos;MTN&apos;,
-       IF(mr.recipient_number REGEXP &apos;^0(2|3)0&apos;,&apos;Vodafone&apos;,
-       IF(mr.recipient_number REGEXP &apos;^0(2|5)7&apos;,&apos;Tigo&apos;,
-       IF(mr.recipient_number REGEXP &apos;^026&apos;,&apos;Airtel&apos;,
-	   IF(mr.recipient_number REGEXP &apos;^28&apos;, &apos;Expresso&apos;, &apos;Other&apos;))))) as telco
-FROM message_request mr
-Join ivr_call_session_requests csr on csr.message_request_id  = mr.id
-Join ivr_call_session cs on cs.call_session_id = csr.ivr_call_session_id
-Join ivr_call c on c.ivr_call_session = cs.call_session_id
-Join ivr_menu menu on menu.ivr_call_id = c.ivr_call_id
-where mr.message_type=&apos;VOICE&apos;
-and menu.name not like (&apos;break&apos;)
-and menu.name not like (&apos;welcome%&apos;)
-and menu.name not like (&apos;%gameshow%&apos;)
-and menu.name not like (&apos;prompt%&apos;)</sql>
+    <sql>    SELECT 
+    mr.id as message_request_id,
+    cs.call_session_id,
+    c.ivr_call_id as call_id,
+    menu.ivr_menu_id as menu_id,
+    recipient_number, 
+    phone_number_type, 
+    recipient_id as motech_id, 
+    DATE(date_from) as schedule_date,
+    mr.status,
+    cs.days as tries_days,
+    cs.attempts as tries,
+    cs.language,
+    c.status as call_status,
+    IF(menu.name REGEXP &apos;start&apos;,&apos;Primary&apos;,
+           IF(menu.name REGEXP &apos;Tertiary&apos;,&apos;Secondary&apos;, &apos;Other&apos;)) as &apos;message_level&apos;,
+     IF(mr.recipient_number REGEXP &apos;^0(2|5)4&apos;,&apos;MTN&apos;,
+           IF(mr.recipient_number REGEXP &apos;^0(2|3)0&apos;,&apos;Vodafone&apos;,
+           IF(mr.recipient_number REGEXP &apos;^0(2|5)7&apos;,&apos;Tigo&apos;,
+           IF(mr.recipient_number REGEXP &apos;^026&apos;,&apos;Airtel&apos;,
+           IF(mr.recipient_number REGEXP &apos;^28&apos;, &apos;Expresso&apos;, &apos;Other&apos;))))) as telco,
+    IF(menu.name REGEXP &apos;(baby)|(b_wk)&apos;,&apos;Baby&apos;,
+    IF(menu.name REGEXP &apos;prompt&apos;,&apos;Prompt&apos;,
+    IF(menu.name REGEXP &apos;CallCenter&apos;,&apos;Call Center&apos;,
+           IF(menu.name REGEXP &apos;(pregnancy)|(p_wk)&apos;,&apos;Pregnancy&apos;, &apos;Other&apos;)))) as &apos;message_type&apos;
+   
+    FROM message_request mr
+    Join ivr_call_session_requests csr on csr.message_request_id  = mr.id
+    Join ivr_call_session cs on cs.call_session_id = csr.ivr_call_session_id
+    Join ivr_call c on c.ivr_call_session = cs.call_session_id
+    Join ivr_menu menu on menu.ivr_call_id = c.ivr_call_id
+    where mr.message_type=&apos;VOICE&apos;
+    and menu.name not like (&apos;break&apos;)
+    and menu.name not like (&apos;welcome%&apos;)
+    and menu.name not like (&apos;%affordintellivr%&apos;)
+    and menu.name not like (&apos;%quit%&apos;)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -563,7 +574,7 @@ and menu.name not like (&apos;prompt%&apos;)</sql>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>443</xloc>
-      <yloc>60</yloc>
+      <yloc>65</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
