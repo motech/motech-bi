@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2012&#47;02&#47;22 23:16:40.779</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;01 15:48:04.499</modified_date>
+  <modified_date>2012&#47;03&#47;16 11:18:49.618</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -186,24 +186,47 @@
       <schema/>
       <table>fact_voice_message</table>
       <key>
-        <name>id</name>
-        <field>id</field>
+        <name>message_request_id</name>
+        <field>message_request_id</field>
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>call_session_id</name>
+        <field>call_session_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>call_id</name>
+        <field>call_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>menu_id</name>
+        <field>menu_id</field>
+        <condition/>
+        <name2/>
+      </key>
       <value>
-        <name>id</name>
-        <rename>id</rename>
+        <name>message_request_id</name>
+        <rename>message_request_id</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>language_id</name>
-        <rename>language_id</rename>
+        <name>call_session_id</name>
+        <rename>call_session_id</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>message_type</name>
-        <rename>message_type</rename>
+        <name>call_id</name>
+        <rename>call_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>menu_id</name>
+        <rename>menu_id</rename>
         <update>Y</update>
       </value>
       <value>
@@ -232,13 +255,18 @@
         <update>Y</update>
       </value>
       <value>
+        <name>tries_days</name>
+        <rename>tries_days</rename>
+        <update>Y</update>
+      </value>
+      <value>
         <name>tries</name>
         <rename>tries</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>tries_days</name>
-        <rename>tries_days</rename>
+        <name>message_level</name>
+        <rename>message_level</rename>
         <update>Y</update>
       </value>
       <value>
@@ -252,19 +280,24 @@
         <update>Y</update>
       </value>
       <value>
-        <name>patient_id</name>
-        <rename>patient_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>facility_id</name>
-        <rename>facility_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
         <name>location_key</name>
         <rename>location_key</rename>
         <update>Y</update>
+      </value>
+      <value>
+        <name>language</name>
+        <rename>language</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>telco</name>
+        <rename>telco</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>call_status</name>
+        <rename>call_status</rename>
+        <update>N</update>
       </value>
     </lookup>
      <cluster_schema/>
@@ -287,18 +320,36 @@
            </partitioning>
     <connection>MotechMobile</connection>
     <sql>SELECT 
-id, 
-language_id, 
-message_type, 
+mr.id as message_request_id,
+cs.call_session_id,
+c.ivr_call_id as call_id,
+menu.ivr_menu_id as menu_id,
 recipient_number, 
 phone_number_type, 
 recipient_id as motech_id, 
 DATE(date_from) as schedule_date,
-status,
-max_try_number as tries,
-days_attempted as tries_days
-FROM motechmobiledb.message_request
-where message_type=&apos;VOICE&apos;;</sql>
+mr.status,
+cs.days as tries_days,
+cs.attempts as tries,
+cs.language,
+c.status as call_status,
+IF(menu.name REGEXP &apos;start&apos;,&apos;primary&apos;,
+       IF(menu.name REGEXP &apos;Tertiary&apos;,&apos;secondary&apos;, &apos;Other&apos;)) as &apos;message_level&apos;,
+ IF(mr.recipient_number REGEXP &apos;^0(2|5)4&apos;,&apos;MTN&apos;,
+       IF(mr.recipient_number REGEXP &apos;^0(2|3)0&apos;,&apos;Vodafone&apos;,
+       IF(mr.recipient_number REGEXP &apos;^0(2|5)7&apos;,&apos;Tigo&apos;,
+       IF(mr.recipient_number REGEXP &apos;^026&apos;,&apos;Airtel&apos;,
+	   IF(mr.recipient_number REGEXP &apos;^28&apos;, &apos;Expresso&apos;, &apos;Other&apos;))))) as telco
+FROM message_request mr
+Join ivr_call_session_requests csr on csr.message_request_id  = mr.id
+Join ivr_call_session cs on cs.call_session_id = csr.ivr_call_session_id
+Join ivr_call c on c.ivr_call_session = cs.call_session_id
+Join ivr_menu menu on menu.ivr_call_id = c.ivr_call_id
+where mr.message_type=&apos;VOICE&apos;
+and menu.name not like (&apos;break&apos;)
+and menu.name not like (&apos;welcome%&apos;)
+and menu.name not like (&apos;%gameshow%&apos;)
+and menu.name not like (&apos;prompt%&apos;)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -306,8 +357,8 @@ where message_type=&apos;VOICE&apos;;</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>40</xloc>
-      <yloc>59</yloc>
+      <xloc>38</xloc>
+      <yloc>56</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

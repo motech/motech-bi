@@ -63,7 +63,7 @@
   <created_user>admin</created_user>
   <created_date>2011&#47;11&#47;28 14:59:03.000</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2012&#47;03&#47;13 17:43:00.612</modified_date>
+  <modified_date>2012&#47;03&#47;16 11:19:03.445</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -271,11 +271,6 @@
         <rename>location_key</rename>
         <update>Y</update>
       </value>
-      <value>
-        <name>district</name>
-        <rename>district</rename>
-        <update>Y</update>
-      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -308,8 +303,9 @@
        patt2.value as phone_ownership,
        IF(patt.value REGEXP &apos;^0(2|5)4&apos;,&apos;MTN&apos;,
        IF(patt.value REGEXP &apos;^0(2|3)0&apos;,&apos;Vodafone&apos;,
-       IF(patt.value REGEXP &apos;^027&apos;,&apos;Tigo&apos;,
-       IF(patt.value REGEXP &apos;^026&apos;,&apos;Airtel&apos;,&apos;Other&apos;)))) as telco,
+       IF(patt.value REGEXP &apos;^0(2|5)7&apos;,&apos;Tigo&apos;,
+       IF(patt.value REGEXP &apos;^026&apos;,&apos;Airtel&apos;,
+	   IF(patt.value REGEXP &apos;^28&apos;, &apos;Expresso&apos;, &apos;Other&apos;))))) as telco,
        patt4.value as delivery_day,
        patt5.value as delivery_time,
        DATE(mm.start) AS start_date,
