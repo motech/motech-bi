@@ -286,17 +286,11 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="menu_id" highCardinality="false" name="Call">
-      <Hierarchy name="Call" visible="true" hasAll="true">
+    <Dimension type="StandardDimension" visible="true" foreignKey="menu_id" highCardinality="false" name="Single Call Outcome">
+      <Hierarchy name="Single Call Outcome" visible="true" hasAll="true">
         <Table name="fact_voice_message">
         </Table>
-        <Level approxRowCount="250000" name="Message" visible="true" table="fact_voice_message" column="message_request_id" type="Numeric" internalType="long" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
-        </Level>
-        <Level name="Ivr Call" visible="true" table="fact_voice_message" column="call_id" parentColumn="message_request_id" type="Integer" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-        </Level>
-        <Level approxRowCount="250000" name="Menu" visible="true" table="fact_voice_message" column="menu_id" type="Integer" internalType="int" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
-          <Property name="message level" column="message_level" type="String">
-          </Property>
+        <Level name="single call outcome" visible="true" table="fact_voice_message" column="call_status" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
@@ -324,25 +318,23 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="menu_id" name="Message Type">
+    <Dimension type="StandardDimension" visible="true" foreignKey="menu_id" highCardinality="false" name="Message Type">
       <Hierarchy visible="true" hasAll="true">
-        <Table name="fact_voice_message" alias="">
+        <Table name="fact_voice_message">
         </Table>
-        <Level name="message type" visible="true" column="message_type" uniqueMembers="false" levelType="Regular">
+        <Level name="message type" visible="true" column="message_type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Count" column="menu_id" datatype="Integer" aggregator="count" description="Menu Count" visible="true">
+    <Measure name="Message Count" column="message_request_id" datatype="Integer" aggregator="distinct-count" description="A message is the info targeted at a client for a week. " visible="true">
     </Measure>
-    <Measure name="Message Count" column="message_request_id" datatype="Numeric" aggregator="distinct-count" visible="true">
+    <Measure name="Call Session Count" column="call_session_id" datatype="Integer" aggregator="distinct-count" description="A call session is an attempt to deliver a Message to the Client" visible="true">
     </Measure>
-    <Measure name="Call Session Count" column="call_session_id" datatype="Numeric" aggregator="distinct-count" visible="true">
+    <Measure name="Menu Item Count" column="menu_id" datatype="Integer" aggregator="count" description="Menu Items are the pieces of audio that make up an ivr call" visible="true">
     </Measure>
-    <CalculatedMember name="Total" formula="([Time].[All Times], [Location].[All Locations], [Client].[All Clients], [Outcome].[All Outcomes], [Phone Ownership].[All Phone Ownerships], [Call].[All Calls], [Message Level].[All Message Levels], [Language].[All Languages], [Telco].[All Telcos])" dimension="Measures" visible="true">
+    <CalculatedMember name="Total" formula="([Time].[All Times], [Location].[All Locations], [Client].[All Clients], [Outcome].[All Outcomes], [Phone Ownership].[All Phone Ownerships], [Single Call Outcome].[All Single Call Outcomes], [Message Level].[All Message Levels], [Language].[All Languages], [Telco].[All Telcos])" dimension="Measures" visible="true">
     </CalculatedMember>
     <CalculatedMember name="% of Total Messages" formatString="0.00%" formula="[Measures].[Message Count].CurrentMember/ [Measures].[Total]" dimension="Measures" visible="true">
-    </CalculatedMember>
-    <CalculatedMember name="Delivered" formula="[Outcome].[DELIVERED]" dimension="Measures" visible="true">
     </CalculatedMember>
   </Cube>
   <Cube name="Motech Registration" visible="true" cache="true" enabled="true">
